@@ -71,20 +71,4 @@ public class ExceptionMessageManager {
         return combined;
     }
 
-    public static void main(String[] args) {
-
-        ExceptionMessageManager tester = new ExceptionMessageManager(new Hashtable<String, String>());
-
-        try {
-            tester.registerErrorMessage("das", "gsa");
-            tester.registerErrorMessage("ex1", "dasda");
-        } catch (KeyOfHashTableExistException e) {
-            System.err.println("Key already exist. Choose another key.");
-
-        } catch (ValueOfHashTableExistException e) {
-            System.err.println("Value already exist. Choose another value/");
-        }
-
-        System.out.println(tester.getErrorMessages());
-    }
 }
