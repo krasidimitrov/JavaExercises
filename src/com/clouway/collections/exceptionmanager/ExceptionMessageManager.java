@@ -1,4 +1,4 @@
-package exceptionmanager;
+package com.clouway.collections.exceptionmanager;
 
 import java.util.Enumeration;
 import java.util.Hashtable;

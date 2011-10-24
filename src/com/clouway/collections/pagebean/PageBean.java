@@ -1,9 +1,6 @@
-package pagebean;
+package com.clouway.collections.pagebean;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,4 +1,4 @@
-package exceptionmanager;
+package com.clouway.collections.exceptionmanager;
 
 /**
  * Created by IntelliJ IDEA.

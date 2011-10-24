@@ -1,4 +1,4 @@
-package exceptionmanager;
+package com.clouway.collections.exceptionmanager;
 
 /**
  * Created by IntelliJ IDEA.
@@ -7,5 +7,5 @@ package exceptionmanager;
  * Time: 6:33 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ValueOfHashTableExistException extends Throwable {
+public class KeyOfHashTableExistException extends Throwable {
 }
