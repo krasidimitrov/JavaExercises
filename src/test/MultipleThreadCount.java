@@ -36,8 +36,6 @@ public class MultipleThreadCount implements Runnable {
             System.out.println(Thread.currentThread().getName()+ " " +i);
             try {
              Thread.sleep(222);
-                referenceThread.notify();
-                wait();
             } catch (InterruptedException e) {
                 return;
             }
