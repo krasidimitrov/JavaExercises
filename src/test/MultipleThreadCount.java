@@ -27,19 +27,22 @@ public class MultipleThreadCount implements Runnable {
     }
 
 
-    public synchronized void run() {
+    public void run() {
+        synchronized (this)  {
 
         int i = 0;
         while (i < count) {
             i++;
             System.out.println(Thread.currentThread().getName()+ " " +i);
             try {
-             Thread.sleep(222);;
+             Thread.sleep(222);
+                referenceThread.notify();
+                wait();
             } catch (InterruptedException e) {
                 return;
             }
         }
-
+      }
 
         Thread.currentThread().interrupt();
         referenceThread.interrupt();
