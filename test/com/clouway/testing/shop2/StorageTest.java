@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -17,17 +19,17 @@ import static org.junit.Assert.*;
  */
 public class StorageTest {
     private Storage storage;
-    private Hashtable<String, Product> productList = new Hashtable<String, Product>();
+  //  private Hashtable<String, Product> productList = new Hashtable<String, Product>();
 
     @Before
     public void createTestableData() {
-        storage = new Storage(productList);
+        storage = new Storage();//productList);
         storage.addNewProduct("Kitkat", 0.84, 100, 300);
     }
 
     @Test
     public void addNewProductShouldAddNewProductToTheStorage() {
-        assertTrue(productList.containsKey("Kitkat"));
+        assertTrue(storage.getProductList().containsKey("Kitkat"));
     }
 
     @Test(expected = ProductAlreadyExistException.class)
@@ -38,7 +40,7 @@ public class StorageTest {
     @Test
     public void addQuantityShouldIncreaseTheQuantityOfExistingProduct() {
         storage.addQuantity("Kitkat", 100);
-        assertEquals(200, productList.get("Kitkat").getQuantity());
+        assertEquals(200, storage.getProductList().get("Kitkat").getQuantity());
     }
 
     @Test(expected = ProductMaxQuantityExceededException.class)
@@ -53,8 +55,10 @@ public class StorageTest {
 
     @Test
     public void sellProductShouldDecreaseTheQuantityOfExistingProduct() {
-        storage.sellProduct("Kitkat", 60);
-        assertEquals(40, productList.get("Kitkat").getQuantity());
+        double profit = storage.sellProduct("Kitkat", 60);
+        System.out.println(profit);
+        assertEquals(40, storage.getProductList().get("Kitkat").getQuantity());
+        assertEquals(50.4, profit, 0.0);
     }
 
     @Test(expected = ProductQuantityInsufficientException.class)
@@ -82,5 +86,9 @@ public class StorageTest {
             assertEquals(expected[i], result[i], 0.0);
         }
 
+
+
     }
+
+
 }

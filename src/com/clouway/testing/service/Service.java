@@ -20,30 +20,41 @@ public class Service {
 
     /**
      * check if the year is in the appropriate range
+     *
      * @param personYears the years that we check
      */
-    public void validate(String personYears) {
+    public void validateYears(String personYears) {
+
+        // lthe same Exception is thrown for parsing just for convenience in normal conditions there should be two different exceptions
+        try {
+            Integer.parseInt(personYears);
+        } catch (NumberFormatException ex) {
+            throw new YearOutOfRangeException();
+        }
         int years = Integer.parseInt(personYears);
-        if(years < 10 || years > 100)
+
+        if (years < 10 || years > 100)
             throw new YearOutOfRangeException();
 
-       yearValidator.validate(personYears);
+        yearValidator.validate(personYears);
     }
 
     /**
      * save a person into the db
+     *
      * @param person the person that we save
      */
     public void savePerson(Person person) {
-        dataBase.savePerson(person);
+       // dataBase.savePerson(person);
     }
 
     /**
      * take the years of a person from the db using his egn
-     * @param egn  the egn of the the person for which we take the years
+     *
+     * @param egn the egn of the the person for which we take the years
      * @return true if the person is over 18 years and false otherwise
      */
-    public boolean getPersonYears(String egn) {
+    public boolean getPersonYearsByEgn(String egn) {
         String years = dataBase.getYearsFromDb(egn);
         if (Integer.parseInt(years) >= 18) {
             return true;

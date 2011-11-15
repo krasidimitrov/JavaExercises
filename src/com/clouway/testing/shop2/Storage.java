@@ -15,12 +15,12 @@ import static java.util.Collections.sort;
  * To change this template use File | Settings | File Templates.
  */
 public class Storage {
-    private Hashtable<String, Product> productList;// = new Hashtable<String, Product>();
+    private Hashtable<String, Product> productList = new Hashtable<String, Product>();
 
 
-    public Storage(Hashtable<String, Product> productList){
-        this.productList = productList;
-    }
+//    public Storage(Hashtable<String, Product> productList){
+//        this.productList = productList;
+//    }
 
     /**
      * add a new product to the storage
@@ -55,22 +55,31 @@ public class Storage {
     }
 
     /**
-     * decrease the quantity of an existing product
+     * sell an existing product by decreasing his quantity  and return the profit made
      * @param productName the name of the product that we want to sell
      * @param productQuantity  the quantity  that we want to sell from this product
+     * @return the profit from the sell of the product
      */
-    public void sellProduct(String productName, int productQuantity) {
+    public double sellProduct(String productName, int productQuantity) {
         if (productList.containsKey(productName) && getProductQuantity(productName) - productQuantity >= 0) {
             productList.get(productName).setQuantity(getProductQuantity(productName) - productQuantity);
+
+            return productQuantity*productList.get(productName).getPrice();
         } else if (!productList.containsKey(productName)) {
             throw new ProductDoesNotExistException();
         } else {
             throw new ProductQuantityInsufficientException();
         }
     }
-
+    /**
+      *get the quantity of a product from the store by productName
+     */
     private int getProductQuantity(String productName) {
         return productList.get(productName).getQuantity();
+    }
+
+    public Hashtable<String, Product> getProductList() {
+        return productList;
     }
 
     /**
