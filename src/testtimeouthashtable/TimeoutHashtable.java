@@ -1,5 +1,8 @@
 package testtimeouthashtable;
 
+import com.sun.deploy.net.proxy.StaticProxyManager;
+import test.ThreadCount;
+
 import javax.swing.plaf.metal.MetalBorders;
 import java.sql.Time;
 import java.util.Hashtable;
@@ -21,6 +24,7 @@ public class TimeoutHashtable implements Runnable {
     private int getCount = 0;
     private String key="";
     Scanner in = new Scanner(System.in);
+    private static String checker;
 
     public TimeoutHashtable(String key, String value) {
         this.key = key;
@@ -48,7 +52,7 @@ public class TimeoutHashtable implements Runnable {
 //         getCount=0;
 //        }
 //
-        String checker = in.next();
+        checker = in.next();
         if(autoCleaningTable.containsKey(checker)){
             System.out.println(autoCleaningTable.get(checker));
             getCount =0;
@@ -63,7 +67,6 @@ public class TimeoutHashtable implements Runnable {
         ExecutorService app = Executors.newCachedThreadPool();
         app.execute(thread1);
         app.execute(thread2);
-
 
         app.shutdown();
 
