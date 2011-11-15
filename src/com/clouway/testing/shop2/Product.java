@@ -17,6 +17,18 @@ public class Product implements Comparable<Product> {
     private int quantity;
     private int maxQuantity;
 
+
+    public Product(String productName, double productPrice, int productQuantity, int productMaxQuantity) {
+        if (productQuantity > productMaxQuantity) {
+            throw new QuantityBiggerThanMaxQuantityException();
+        } else {
+            name = productName;
+            price = productPrice;
+            quantity = productQuantity;
+            maxQuantity = productMaxQuantity;
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -41,16 +53,6 @@ public class Product implements Comparable<Product> {
         this.maxQuantity = maxQuantity;
     }
 
-    public Product(String productName, double productPrice, int productQuantity, int productMaxQuantity) {
-        if (productQuantity > productMaxQuantity) {
-            throw new QuantityBiggerThanMaxQuantityException();
-        } else {
-            name = productName;
-            price = productPrice;
-            quantity = productQuantity;
-            maxQuantity = productMaxQuantity;
-        }
-    }
 
     public int compareTo(Product product) {
         if (this.price > product.price)

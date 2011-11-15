@@ -16,11 +16,11 @@ public class Main {
     public static void main(String[] args) {
 
 //        Storage shop = new Storage();
-//        shop.addProduct("Kitkat", 3.84, 100, 300);
-//        shop.addProduct("Milka", 1.30, 100, 300);
-//        shop.addProduct("Milka2", 1.30, 100, 300);
-//        shop.addProduct("Mura", 0.84, 100, 300);
-//        shop.addProduct("Chio Chips", 2.50, 100, 1000);
+//        shop.addNewProduct("Kitkat", 3.84, 100, 300);
+//        shop.addNewProduct("Milka", 1.30, 100, 300);
+//        shop.addNewProduct("Milka2", 1.30, 100, 300);
+//        shop.addNewProduct("Mura", 0.84, 100, 300);
+//        shop.addNewProduct("Chio Chips", 2.50, 100, 1000);
 //
 //        Enumeration b = shop.productList.keys();
 //        while (b.hasMoreElements()) {
@@ -28,10 +28,10 @@ public class Main {
 //        }
 //
 //
-//        System.out.println(shop.sortByPrice().get(0).price);
-//        System.out.println(shop.sortByPrice().get(1).price);
-//        System.out.println(shop.sortByPrice().get(2).price);
-//        System.out.println(shop.sortByPrice().get(3).price);
+//        System.out.println(shop.sortProductsByPrice().get(0).price);
+//        System.out.println(shop.sortProductsByPrice().get(1).price);
+//        System.out.println(shop.sortProductsByPrice().get(2).price);
+//        System.out.println(shop.sortProductsByPrice().get(3).price);
 
     }
 }

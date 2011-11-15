@@ -15,7 +15,7 @@ import static java.util.Collections.sort;
  * To change this template use File | Settings | File Templates.
  */
 public class Storage {
-    Hashtable<String, Product> productList;// = new Hashtable<String, Product>();
+    private Hashtable<String, Product> productList;// = new Hashtable<String, Product>();
 
 
     public Storage(Hashtable<String, Product> productList){
@@ -29,7 +29,7 @@ public class Storage {
      * @param productQuantity  the quantity of the product that we add
      * @param productMaxQuantity  the max quantity of the product that we add
      */
-    public void addProduct(String productName, double productPrice, int productQuantity, int productMaxQuantity) {
+    public void addNewProduct(String productName, double productPrice, int productQuantity, int productMaxQuantity) {
         if (productList.containsKey(productName)) {
             throw new ProductAlreadyExistException();
         } else {
@@ -77,7 +77,7 @@ public class Storage {
      * put all products in a list and sort them  by price
      * @return  the sorted list
      */
-    public List<Product> sortByPrice() {
+    public List<Product> sortProductsByPrice() {
         List<Product> list = new LinkedList<Product>();
         Enumeration e = productList.elements();
         while (e.hasMoreElements()) {
