@@ -9,4 +9,5 @@ import java.util.Hashtable;
  */
 public class Hashout {
     private static Hashtable<String, String> autoCleaningTable = new Hashtable<String, String>();
+    public int getCounter = 0;
 }
