@@ -14,11 +14,11 @@ import static java.util.Collections.sort;
  * Time: 1:54 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Storage {
+public class Store {
     private Hashtable<String, Product> productList = new Hashtable<String, Product>();
 
 
-//    public Storage(Hashtable<String, Product> productList){
+//    public Store(Hashtable<String, Product> productList){
 //        this.productList = productList;
 //    }
 
@@ -29,11 +29,11 @@ public class Storage {
      * @param productQuantity  the quantity of the product that we add
      * @param productMaxQuantity  the max quantity of the product that we add
      */
-    public void addNewProduct(String productName, double productPrice, int productQuantity, int productMaxQuantity) {
-        if (productList.containsKey(productName)) {
+    public void addNewProduct(Product product){//String productName, double productPrice, int productQuantity, int productMaxQuantity) {
+        if (productList.containsKey(product.getName())) {
             throw new ProductAlreadyExistException();
         } else {
-            Product product = new Product(productName, productPrice, productQuantity, productMaxQuantity);
+         //   Product product = new Product(productName, productPrice, productQuantity, productMaxQuantity);
             productList.put(product.getName(), product);
         }
     }

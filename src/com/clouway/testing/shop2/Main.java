@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        Storage shop = new Storage();
+//        Store shop = new Store();
 //        shop.addNewProduct("Kitkat", 3.84, 100, 300);
 //        shop.addNewProduct("Milka", 1.30, 100, 300);
 //        shop.addNewProduct("Milka2", 1.30, 100, 300);

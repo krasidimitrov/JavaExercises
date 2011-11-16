@@ -27,10 +27,10 @@ public class ServiceTest {
     Mockery context = new JUnit4Mockery();
 
     @Before
-    public void createTestableData(){
+    public void createTestableData() {
         yearValidator = context.mock(YearValidator.class);
         dataBase = context.mock(DataBase.class);
-        service = new Service(yearValidator,dataBase);
+        service = new Service(yearValidator, dataBase);
 
     }
 
@@ -40,41 +40,42 @@ public class ServiceTest {
     @Test
     public void happyPath() {
 
-       final Person person = new Person("Krasimir", "8912141403", "20");
+        final Person person = new Person("Krasimir", "8912141403", "20");
 
         context.checking(new Expectations() {{
             oneOf(yearValidator).validate(person.getYears());
-           oneOf(dataBase).savePerson(person);
+            oneOf(dataBase).savePerson(person);
         }});
 
-      service.validateYears("20");
-      service.savePerson(person);
+        //  service.validateYears("20");
+        service.savePerson(person);
     }
 
-    @Test (expected = YearOutOfRangeException.class)
-    public void yearsLessThan10OrBiggerThan100AreNotSave() {
-;
-        final Person person = new Person("Krasimir", "8912141403", "1");
+
+    @Test(expected = YearOutOfRangeException.class)
+    public void usersWithInvalidYearsAreNotSaved() {
+
+        final Person person = new Person("Krasimir", "8912141403", "9");
 
         context.checking(new Expectations() {{
             oneOf(yearValidator).validate(person.getYears());
+            will(throwException(new YearOutOfRangeException()));
         }});
 
-        service.validateYears(person.getYears());
+        service.savePerson(person);
     }
-
 
     @Test
-    public void getYearsFromDataBaseAndReturnTrueIfMoreThan18(){
+    public void getYearsFromDataBaseAndReturnTrueIfMoreThan18() {
 
-      //  final Person person = new Person("Krasimir", "8912141403", "1");
+        //  final Person person = new Person("Krasimir", "8912141403", "1");
 
-        context.checking(new Expectations(){{
+        context.checking(new Expectations() {{
             oneOf(dataBase).getYearsFromDb("8912141403");
             will(returnValue("19"));
         }});
 
-       assertTrue(service.getPersonYearsByEgn("8912141403"));
+        assertTrue(service.getPersonYearsByEgn("8912141403"));
     }
 
 }

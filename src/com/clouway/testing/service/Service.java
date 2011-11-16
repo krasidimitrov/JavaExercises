@@ -23,7 +23,7 @@ public class Service {
      *
      * @param personYears the years that we check
      */
-    public void validateYears(String personYears) {
+    private void validateYears(String personYears) {
 
         // lthe same Exception is thrown for parsing just for convenience in normal conditions there should be two different exceptions
         try {
@@ -45,7 +45,8 @@ public class Service {
      * @param person the person that we save
      */
     public void savePerson(Person person) {
-       // dataBase.savePerson(person);
+       validateYears(person.getYears());
+       dataBase.savePerson(person);
     }
 
     /**
