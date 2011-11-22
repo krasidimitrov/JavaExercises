@@ -12,8 +12,8 @@ public class Main {
 
     SharedCounter sharedCounter = new SharedCounter();
 
-    Thread thread1 = new Thread(new SharedCounterUsingThread(20,sharedCounter));
-    Thread thread2 = new Thread(new SharedCounterUsingThread(20,sharedCounter));
+    Thread thread1 = new Thread(new CountingThread(20,sharedCounter));
+    Thread thread2 = new Thread(new CountingThread(20,sharedCounter));
 
         thread1.start();
         thread2.start();

@@ -5,7 +5,7 @@ package com.clouway.threads.dependentsynchronizedcounter;
  * Created by Krasimir Dimitrov
  */
 
-public class SharedCounterUsingThread implements Runnable {
+public class CountingThread implements Runnable {
     SharedCounter sharedCounter;
     int maxCount;
 
@@ -14,7 +14,7 @@ public class SharedCounterUsingThread implements Runnable {
      * @param maxCount  the limit of the counter
      * @param sharedCounter  the counter object that we are using
      */
-    public SharedCounterUsingThread(int maxCount, SharedCounter sharedCounter) {
+    public CountingThread(int maxCount, SharedCounter sharedCounter) {
         this.maxCount = maxCount;
         this.sharedCounter = sharedCounter;
     }
