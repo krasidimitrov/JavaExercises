@@ -59,6 +59,7 @@ public class ServerGUI extends JFrame {
                 server.startServer();
                 stopServerButton.setText("TERMINATE SERVER");
             } else {
+                server.stopServer();
                 System.exit(1);
                 stopServerButton.setText("START SERVER");
             }

@@ -44,6 +44,14 @@ public class ChatServer implements Runnable {
         }
     }
 
+    public void stopServer(){
+        try {
+            server.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 //    public synchronized void deleteClient() {
 //      for(int i =0; i<listOfClients.size(); i++){
 //          if(listOfClients.get(i).isClosed()){

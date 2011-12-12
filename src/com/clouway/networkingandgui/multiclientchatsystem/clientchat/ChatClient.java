@@ -79,7 +79,6 @@ public class ChatClient implements Runnable {
         String message;
         try {
             while ((message = in.readLine()) != null) {
-                System.out.println(message);
                 listener.onMessageArrival(new ClientEvent(message));
             }
         } catch (IOException e) {
