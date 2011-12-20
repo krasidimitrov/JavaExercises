@@ -1,6 +1,7 @@
 package com.clouway.designpatterns.storeobservation;
 
 /**
+ * Observer interface
  * Created by Krasimir Dimitrov
  * Date: 12/19/11
  * Time: 4:41 PM

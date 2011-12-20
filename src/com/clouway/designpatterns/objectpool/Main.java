@@ -7,11 +7,12 @@ package com.clouway.designpatterns.objectpool;
  */
 public class Main {
     public static void main(String[] args) {
-        Pool pool = new Pool(2);
+        Pool pool = new Pool(5);
         pool.acquire();
         pool.acquire();
         pool.release();
         pool.acquire();
         pool.acquire();
+
     }
 }
