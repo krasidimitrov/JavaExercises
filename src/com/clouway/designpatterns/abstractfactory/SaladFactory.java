@@ -6,7 +6,7 @@ package com.clouway.designpatterns.abstractfactory;
  * Time: 3:16 PM
  */
 public class SaladFactory implements FoodFactory{
-    public Food cookFood(String name){
+    public Food takeOrder(String name){
         if(name.equals("green"))
             return new GreenSalad();
         if(name.equals("sea"))

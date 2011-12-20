@@ -7,7 +7,7 @@ package com.clouway.designpatterns.abstractfactory;
  */
 public class MainMealFactory implements FoodFactory{
 
-    public Food cookFood(String name){
+    public Food takeOrder(String name){
         if(name.equals("fish"))
             return new Fish();
         if(name.equals("steak"))

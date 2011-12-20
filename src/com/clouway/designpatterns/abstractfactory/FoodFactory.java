@@ -6,5 +6,5 @@ package com.clouway.designpatterns.abstractfactory;
  * Time: 3:07 PM
  */
 public interface FoodFactory {
-    public Food cookFood(String name);
+    public Food takeOrder(String name);
 }

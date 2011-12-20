@@ -11,8 +11,8 @@ public class Main {
 
     AbstractFoodFactory abstractFoodFactory = new AbstractFoodFactory();
     FoodFactory foodOrdered = abstractFoodFactory.createSpecificFactory("salad");
-    Food food = foodOrdered.cookFood("green");
-        food.cook();
+    Food food = foodOrdered.takeOrder("green");
+    food.cook();
 
     }
 }
