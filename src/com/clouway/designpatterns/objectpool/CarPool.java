@@ -1,35 +1,35 @@
 package com.clouway.designpatterns.objectpool;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
- * Object pool manager
+ * Class used as object pool for cars
  * Created by Krasimir Dimitrov
- * Date: 12/16/11
- * Time: 4:44 PM
+ * Date: 12/26/11
+ * Time: 9:48 AM
  */
-public class Pool {
-
-    private LinkedList<Object> freeCars;
-    private LinkedList<Object> takenCars;
-    private int poolLimit;
+public class CarPool {
+    private LinkedList<Car> freeCars = new LinkedList<Car>();
+    private LinkedList<Car> takenCars = new LinkedList<Car>();
+    private int carPoolLimit;
 
     /**
      * Constructor with one parameter
-     * @param poolLimit the limit of how many instances you can have
+     *
+     * @param carPoolLimit the limit of how many instances you can have
      */
-    public Pool(int poolLimit) {
-        this.poolLimit = poolLimit;
-        this.freeCars = new LinkedList<Object>();
-        this.takenCars = new LinkedList<Object>();
+    public CarPool(int carPoolLimit) {
+
+        this.carPoolLimit = carPoolLimit;
     }
 
     /**
      * acquire object from the pool to use iit(create new if there are no free objects and the limit is not reached)
+     *
+     * @return the acquired car
      */
-    public void acquire() {
-        if (freeCars.isEmpty() && takenCars.size() < poolLimit) {
+    public Car acquire() {
+        if (freeCars.isEmpty() && takenCars.size() < carPoolLimit) {
             takenCars.add(new Car());
         } else if (!freeCars.isEmpty()) {
             takenCars.add(freeCars.getLast());
@@ -37,6 +37,7 @@ public class Pool {
         } else {
             throw new PoolDoesNotHaveFreeElementsException();
         }
+        return takenCars.getLast();
     }
 
     /**
@@ -47,7 +48,7 @@ public class Pool {
             freeCars.add(takenCars.getLast());
             takenCars.removeLast();
         } else {
-            throw new NoTakenElemenetsException();
+            throw new NoTakenElementsToReleaseException();
         }
     }
 }
