@@ -50,7 +50,7 @@ public class CarPoolTest {
     }
 
     @Test(expected = NoTakenElementsToReleaseException.class)
-    public void testIfExceptionIsThrownAfterReleasingWhenThereAreNoTakenElements() {
+    public void shouldThrowExceptionAfterReleasingWhenThereAreNoTakenElements() {
         carPool.release();
     }
 }

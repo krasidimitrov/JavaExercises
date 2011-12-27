@@ -14,26 +14,18 @@ public class ServerHistory {
     /**
      * Private constructor
      */
-    private ServerHistory(){
+    private ServerHistory() {
     }
 
     /**
      * Create an instance of this class if there isn't one
+     *
      * @return the instance created(or existing instance)
      */
-    public  static ServerHistory createInstance(){
-        if(instance == null){
+    public static ServerHistory createInstance() {
+        if (instance == null) {
             instance = new ServerHistory();
         }
         return instance;
-    }
-
-
-    public void setPeopleOnline(int peopleOnline) {
-        this.peopleOnline = peopleOnline;
-    }
-
-    public int getPeopleOnline() {
-        return peopleOnline;
     }
 }

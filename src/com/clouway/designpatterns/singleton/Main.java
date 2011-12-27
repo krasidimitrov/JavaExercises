@@ -8,9 +8,9 @@ package com.clouway.designpatterns.singleton;
 public class Main {
 
     public static void main(String[] args) {
-           ServerHistory history1 = ServerHistory.createInstance();
-           ServerHistory history2 = ServerHistory.createInstance();
-        if(history1.equals(history2))
+        ServerHistory history1 = ServerHistory.createInstance();
+        ServerHistory history2 = ServerHistory.createInstance();
+        if (history1.equals(history2))
             System.out.println("Success!");
     }
 }
