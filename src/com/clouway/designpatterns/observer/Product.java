@@ -1,4 +1,4 @@
-package com.clouway.designpatterns.tddobserver;
+package com.clouway.designpatterns.observer;
 
 /**
  * Product class for the products in the store

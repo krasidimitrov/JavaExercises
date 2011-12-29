@@ -8,7 +8,7 @@ package com.clouway.designpatterns.proxy;
 public class Main {
     public static void main(String[] args) {
 
-        Bank allianz = new Bank();
+        Alianz allianz = new Alianz();
         ATM alliazATM = new ATM(allianz);
         alliazATM.drawMoney(300);
         alliazATM.drawMoney(1999);

@@ -1,4 +1,4 @@
-package com.clouway.designpatterns.tddobserver;
+package com.clouway.designpatterns.observer;
 
 import java.util.Hashtable;
 
@@ -24,21 +24,34 @@ public class Store {
 
     /**
      * register a product to the store
+     *
      * @param product the product that we want to register
      */
     public void registerProduct(Product product) {
-        productList.put(product.getName(),product);
-        availableProductsListener.onNewProductAdd(product);
+        if (product == null) {
+            throw new NullProductException();
+        }
+        if (productList.containsKey(product.getName())) {
+            throw new ProductAlreadyExistException();
+        }
+        productList.put(product.getName(), product);
+        availableProductsListener.onNewProductAdd(product.getName());
     }
 
     /**
      * sell product from the store
-     * @param name the name of the product that we want to sell
-     * @param soldQuantity  the quantity that we are selling
+     *
+     * @param name         the name of the product that we want to sell
+     * @param soldQuantity the quantity that we are selling
      */
     public void sellProduct(String name, int soldQuantity) {
-        soldProductsListener.onProductSell(name, soldQuantity);
-
+        if (!productList.containsKey(name)) {
+            throw new ProductDoesntExistException();
+        } else if (productList.containsKey(name) && productList.get(name).getQuantity() - soldQuantity < 0) {
+            throw new NotEnoughQuantityForSellException();
+        } else {
+            soldProductsListener.onProductSell(name, soldQuantity);
+        }
     }
 
 }

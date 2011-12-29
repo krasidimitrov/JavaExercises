@@ -1,6 +1,6 @@
-package com.clouway.designpatterns.tddobserver;
+package com.clouway.designpatterns.observer;
 
-import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Managing the sold products in the store
@@ -9,22 +9,28 @@ import java.util.Hashtable;
  * Time: 5:59 PM
  */
 public class SoldProducts implements SoldProductsListener {
-    private Hashtable<String,Integer> soldProductsList;
+    private Map<String, Integer> soldProductsList;
 
     /**
      * Constructor with one parameter
+     *
      * @param list the list in which we are going to save all products sold from the store
      */
-    public SoldProducts(Hashtable<String,Integer> list) {
+    public SoldProducts(Map<String, Integer> list) {
         soldProductsList = list;
     }
 
     /**
      * update the list of sold products when a product is sold
-     * @param name the name of the product
+     *
+     * @param name         the name of the product
      * @param quantitySold the quantity sold
      */
     public void onProductSell(String name, int quantitySold) {
-        soldProductsList.put(name,quantitySold);
+        if (!soldProductsList.containsKey("Milka")) {
+            soldProductsList.put(name, quantitySold);
+        } else {
+            soldProductsList.put(name, soldProductsList.get(name) + quantitySold);
+        }
     }
 }

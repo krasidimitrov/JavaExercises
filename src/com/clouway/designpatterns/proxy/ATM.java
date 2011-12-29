@@ -6,11 +6,11 @@ package com.clouway.designpatterns.proxy;
  * Date: 12/19/11
  * Time: 12:06 PM
  */
-public class ATM implements IBank {
+public class ATM implements Bank {
 
-    private IBank bank;
+    private Bank bank;
 
-    public ATM(IBank bank) {
+    public ATM(Bank bank) {
         this.bank = bank;
     }
 

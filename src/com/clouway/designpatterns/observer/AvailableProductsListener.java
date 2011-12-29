@@ -1,4 +1,4 @@
-package com.clouway.designpatterns.tddobserver;
+package com.clouway.designpatterns.observer;
 
 /**
  * Created by Krasimir Dimitrov
@@ -6,5 +6,5 @@ package com.clouway.designpatterns.tddobserver;
  * Time: 4:07 PM
  */
 public interface AvailableProductsListener {
-    void onNewProductAdd(Product product);
+    void onNewProductAdd(String productName);
 }

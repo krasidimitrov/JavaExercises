@@ -1,4 +1,4 @@
-package com.clouway.designpatterns.tddobserver;
+package com.clouway.designpatterns.observer;
 
 /**
  * Created by Krasimir Dimitrov
