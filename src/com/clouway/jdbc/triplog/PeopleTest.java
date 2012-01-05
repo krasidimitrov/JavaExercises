@@ -21,77 +21,67 @@ public class PeopleTest {
     private Person person,person2,person3;
     private DatabaseHelper databaseHelper = new DatabaseHelper();
     private RowMapper<Person> rowMapper = new PersonRowMapper();
-    private List<Person> personList;
+    private List<Person> expectedPersonList;
     PeopleBase people;
 
 
     @Before
     public void createTestableData() throws SQLException{
+        createPeopleForInsertion();
+        people = new People(databaseHelper);
+        databaseHelper.executeQuery("LOAD DATA LOCAL INFILE '/home/clouway/workspaces/idea/projects/src/com/clouway/jdbc/triplog/PeopleData' INTO TABLE People FIELDS TERMINATED BY ','");
+    }
+
+    public void fillExpectedPersonList(Person... person){
+        expectedPersonList = new ArrayList<Person>();
+        Collections.addAll(expectedPersonList, person);
+    }
+
+    public void createPeopleForInsertion(){
         person = new Person("Krasi", "8912141403", 22, "555@mail.bg");
         person2 = new Person("John", "8912141404", 24, "333@mail.bg");
         person3 = new Person("Joseph", "8912141402", 25, "111@mail.bg");
-        people = new People(databaseHelper);
-        people.save(person);
-    }
-
-    public void setHelpData(Person... person){
-        personList= new ArrayList<Person>();
-        Collections.addAll(personList, person);
     }
 
 
     @Test
     public void shouldInsertNewPersonInDatabase() throws SQLException {
-
         List<Person> personList = databaseHelper.executeQuery("SELECT * FROM People", rowMapper);
 
-        assertEquals(personList.size(), 1);
+        assertEquals(personList.size(), 3);
         assertEquals(person.getName(), personList.get(0).getName());
         assertEquals(person.getEmail(), personList.get(0).getEmail());
     }
 
-
     @Test
     public void shouldUpdateExistingUserEmail() throws SQLException {
         people.update("8912141403", "444@mail.bg");
-
         List<Person> personList = databaseHelper.executeQuery("SELECT * FROM People", rowMapper);
-        assertEquals("444@mail.bg", personList.get(0).getEmail());
 
+        assertEquals("444@mail.bg", personList.get(0).getEmail());
     }
 
     @Test
     public void shouldReturnAllPersonsInList() throws SQLException {
+        fillExpectedPersonList(person, person2, person3);
 
-        people.save(person2);
-        people.save(person3);
-
-        setHelpData(person3,person,person2);
-        assertEquals(personList, people.getAllPersons());
+        assertEquals(expectedPersonList, people.getAllPersons());
 
     }
 
     @Test
     public void shouldReturnListOfPeopleWithNameStartingWithSpecificLetters() throws SQLException{
-        people.save(person2);
-        people.save(person3);
+        fillExpectedPersonList(person2, person3);
 
-        setHelpData(person3,person2);
-        assertEquals(personList,people.getPersonsByStartingLetters("Jo"));
+        assertEquals(expectedPersonList,people.getPersonsByStartingLetters("Jo"));
     }
 
     @Test
     public void shouldReturnListOfPeopleInCityAtSameTime() throws SQLException{
-        people.save(person2);
-        people.save(person3);
-        setHelpData(person,person2);
-        databaseHelper.executeQuery("INSERT INTO Trip(egn, departureDate, arrivalDate, city) VALUES('8912141403', '2011-03-05', '2011-03-25', 'Varna');");
-        databaseHelper.executeQuery("INSERT INTO Trip(egn, departureDate, arrivalDate, city) VALUES('8912141404', '2011-03-02', '2011-05-15', 'Varna');");
-        databaseHelper.executeQuery("INSERT INTO Trip(egn, departureDate, arrivalDate, city) VALUES('8912141402', '2011-03-05', '2011-03-10', 'Varna');");
-        databaseHelper.executeQuery("INSERT INTO Trip(egn, departureDate, arrivalDate, city) VALUES('8912141403', '2011-04-04', '2011-04-07', 'Burgas');");
+        fillExpectedPersonList(person, person2);
+        databaseHelper.executeQuery("LOAD DATA LOCAL INFILE '/home/clouway/workspaces/idea/projects/src/com/clouway/jdbc/triplog/TripData' INTO TABLE Trip FIELDS TERMINATED BY ','");
 
-        assertEquals(personList, people.getPersonsInCityAtSameTime("2011-03-15"));
-
+        assertEquals(expectedPersonList, people.getPersonsInCityAtSameTime("2011-03-15", "varna"));
     }
 
   @After

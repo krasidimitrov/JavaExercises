@@ -18,5 +18,5 @@ public interface PeopleBase {
 
     List<Person> getPersonsByStartingLetters(String letters) throws SQLException;
 
-    List<Person> getPersonsInCityAtSameTime(String date) throws SQLException;
+    List<Person> getPersonsInCityAtSameTime(String date, String city) throws SQLException;
 }

@@ -35,9 +35,10 @@ public class People implements PeopleBase {
         return databaseHelper.executeQuery("SELECT * FROM People WHERE name LIKE ?", new PersonRowMapper(),text);
     }
 
-    public List<Person> getPersonsInCityAtSameTime(String date) throws SQLException{
+    public List<Person> getPersonsInCityAtSameTime(String date,String city) throws SQLException{
 
-        return databaseHelper.executeQuery("SELECT People.* FROM People INNER JOIN Trip ON People.egn = Trip.egn WHERE departureDate<=? AND arrivalDate>=?;", new PersonRowMapper(), date, date);
+        return databaseHelper.executeQuery("SELECT People.* FROM People INNER JOIN Trip ON People.egn = Trip.egn WHERE city=? AND departureDate<=? AND returnDate>=?;", new PersonRowMapper(),city, date, date);
     }
+
 
 }
