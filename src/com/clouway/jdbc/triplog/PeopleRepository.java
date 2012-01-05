@@ -9,11 +9,11 @@ import java.util.List;
  * Date: 1/3/12
  * Time: 2:47 PM
  */
-public class People implements PeopleBase {
+public class PeopleRepository implements IPeopleRepository {
 
     private final DatabaseHelper databaseHelper;
 
-    public People(DatabaseHelper databaseHelper){
+    public PeopleRepository(DatabaseHelper databaseHelper){
         this.databaseHelper = databaseHelper;
     }
 
@@ -36,8 +36,11 @@ public class People implements PeopleBase {
     }
 
     public List<Person> getPersonsInCityAtSameTime(String date,String city) throws SQLException{
-
         return databaseHelper.executeQuery("SELECT People.* FROM People INNER JOIN Trip ON People.egn = Trip.egn WHERE city=? AND departureDate<=? AND returnDate>=?;", new PersonRowMapper(),city, date, date);
+    }
+
+    public List<City> getAllCitiesByVisitorsCountDescending() throws SQLException{
+        return databaseHelper.executeQuery("SELECT city, COUNT(*) as timesVisited FROM Trip GROUP BY city ORDER BY timesVisited DESC",new CityRowMapper());
     }
 
 

@@ -22,13 +22,13 @@ public class PeopleTest {
     private DatabaseHelper databaseHelper = new DatabaseHelper();
     private RowMapper<Person> rowMapper = new PersonRowMapper();
     private List<Person> expectedPersonList;
-    PeopleBase people;
+    IPeopleRepository people;
 
 
     @Before
     public void createTestableData() throws SQLException{
         createPeopleForInsertion();
-        people = new People(databaseHelper);
+        people = new PeopleRepository(databaseHelper);
         databaseHelper.executeQuery("LOAD DATA LOCAL INFILE '/home/clouway/workspaces/idea/projects/src/com/clouway/jdbc/triplog/PeopleData' INTO TABLE People FIELDS TERMINATED BY ','");
     }
 
@@ -41,6 +41,10 @@ public class PeopleTest {
         person = new Person("Krasi", "8912141403", 22, "555@mail.bg");
         person2 = new Person("John", "8912141404", 24, "333@mail.bg");
         person3 = new Person("Joseph", "8912141402", 25, "111@mail.bg");
+    }
+
+    public void fillTripTableWithTestData() throws SQLException{
+        databaseHelper.executeQuery("LOAD DATA LOCAL INFILE '/home/clouway/workspaces/idea/projects/src/com/clouway/jdbc/triplog/TripData' INTO TABLE Trip FIELDS TERMINATED BY ','");
     }
 
 
@@ -79,9 +83,22 @@ public class PeopleTest {
     @Test
     public void shouldReturnListOfPeopleInCityAtSameTime() throws SQLException{
         fillExpectedPersonList(person, person2);
-        databaseHelper.executeQuery("LOAD DATA LOCAL INFILE '/home/clouway/workspaces/idea/projects/src/com/clouway/jdbc/triplog/TripData' INTO TABLE Trip FIELDS TERMINATED BY ','");
+        fillTripTableWithTestData();
 
         assertEquals(expectedPersonList, people.getPersonsInCityAtSameTime("2011-03-15", "varna"));
+    }
+
+    @Test
+    public void shouldReturnAllCitiesByCountOfVisitorsDescending() throws SQLException{
+        City city = new City("Varna",3);
+        City city2 =new City("Burgas",2);
+        List<City> listOfCities = new ArrayList<City>();
+        listOfCities.add(city);
+        listOfCities.add(city2);
+
+        fillTripTableWithTestData();
+
+        assertEquals(listOfCities,people.getAllCitiesByVisitorsCountDescending());
     }
 
   @After

@@ -8,7 +8,7 @@ import java.util.List;
  * Date: 1/3/12
  * Time: 4:50 PM
  */
-public interface PeopleBase {
+public interface IPeopleRepository {
 
     public void save(Person person) throws SQLException;
 
@@ -19,4 +19,6 @@ public interface PeopleBase {
     List<Person> getPersonsByStartingLetters(String letters) throws SQLException;
 
     List<Person> getPersonsInCityAtSameTime(String date, String city) throws SQLException;
+
+    List<City> getAllCitiesByVisitorsCountDescending() throws SQLException;
 }
