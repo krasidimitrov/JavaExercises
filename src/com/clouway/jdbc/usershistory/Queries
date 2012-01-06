@@ -1,0 +1,9 @@
+CREATE TABLE Users (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(10), salary INT,  email VARCHAR(15), city VARCHAR(10) ) ENGINE = InnoDB;
+LOAD DATA LOCAL INFILE '/home/clouway/Desktop/test' INTO TABLE Users FIELDS TERMINATED BY ',';
+CREATE TABLE Users_history(id INT PRIMARY KEY, name VARCHAR(10), salary INT,  email VARCHAR(15), city VARCHAR(10) ) ENGINE = InnoDB;
+CREATE TRIGGER save_history BEFORE UPDATE ON Users FOR EACH ROW INSERT INTO Users_history(id, name, salary, email, city) VALUES(OLD.id, OLD.name, OLD.salary, OLD.email, OLD.city) ON DUPLICATE KEY UPDATE email=OLD.email;
+
+
+
+
+

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class who establish connection to the database and execute queries given by a repository classes
+ * Establish connection to the database and execute queries given by a repository classes
  * Created by Krasimir Dimitrov
  * Date: 1/4/12
  * Time: 3:20 PM

@@ -16,7 +16,7 @@ import java.util.List;
  * Date: 1/4/12
  * Time: 3:47 PM
  */
-public class PeopleTest {
+public class PeopleRepositoryTest {
 
     private Person person,person2,person3;
     private DatabaseHelper databaseHelper = new DatabaseHelper();
@@ -32,12 +32,12 @@ public class PeopleTest {
         databaseHelper.executeQuery("LOAD DATA LOCAL INFILE '/home/clouway/workspaces/idea/projects/src/com/clouway/jdbc/triplog/PeopleData' INTO TABLE People FIELDS TERMINATED BY ','");
     }
 
-    public void fillExpectedPersonList(Person... person){
+    private void fillExpectedPersonList(Person... person){
         expectedPersonList = new ArrayList<Person>();
         Collections.addAll(expectedPersonList, person);
     }
 
-    public void createPeopleForInsertion(){
+    private void createPeopleForInsertion(){
         person = new Person("Krasi", "8912141403", 22, "555@mail.bg");
         person2 = new Person("John", "8912141404", 24, "333@mail.bg");
         person3 = new Person("Joseph", "8912141402", 25, "111@mail.bg");

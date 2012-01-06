@@ -1,17 +1,15 @@
-package writeinfile;
+package com.clouway.jdbc.usershistory.userstabledatagenerator;
 
 import java.io.*;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
- * Created by IntelliJ IDEA.
- * User: clouway
- * Date: 10/5/11
- * Time: 10:33 AM
- * To change this template use File | Settings | File Templates.
+ * Write raw data into text file for the table Users
+ * Created by Krasimir Dimitrov
+ * Date: 1/3/12
+ * Time: 2:47 PM
  */
-public class TextWritter {
+public class RawDataGenerator {
 
     public String fileName;
     Random rand = new Random();
@@ -46,7 +44,7 @@ public class TextWritter {
     }
 
     public static void main(String[] args) {
-        TextWritter textWritter = new TextWritter();
+        RawDataGenerator textWritter = new RawDataGenerator();
         textWritter.writeInFile();
     }
 }
