@@ -1,6 +1,7 @@
 package com.clouway.jdbc.triplog;
 
 /**
+ * Create objects from type Person
  * Created by Krasimir Dimitrov
  * Date: 1/3/12
  * Time: 5:12 PM
@@ -10,10 +11,6 @@ public class Person {
     private String egn;
     private int age;
     private String email;
-
-    public Person(){
-
-    }
 
     public Person(String name,String egn,int age,String email){
         this.name = name;
@@ -26,32 +23,16 @@ public class Person {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEgn() {
         return egn;
-    }
-
-    public void setEgn(String egn) {
-        this.egn = egn;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override

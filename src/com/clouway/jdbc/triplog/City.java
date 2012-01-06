@@ -1,6 +1,7 @@
 package com.clouway.jdbc.triplog;
 
 /**
+ * C.ass which create city objects
  * Created by Krasimir Dimitrov
  * Date: 1/5/12
  * Time: 1:39 PM

@@ -52,7 +52,7 @@ public class PeopleTest {
     public void shouldInsertNewPersonInDatabase() throws SQLException {
         List<Person> personList = databaseHelper.executeQuery("SELECT * FROM People", rowMapper);
 
-        assertEquals(personList.size(), 3);
+        assertEquals(3, personList.size());
         assertEquals(person.getName(), personList.get(0).getName());
         assertEquals(person.getEmail(), personList.get(0).getEmail());
     }
