@@ -5,15 +5,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ *Manage the use of the People and Trip tables in the sampdb database
  * Created by Krasimir Dimitrov
  * Date: 1/3/12
  * Time: 2:47 PM
  */
-public class PeopleRepository implements IPeopleRepository {
+public class DatabasePeopleRepository implements IPeopleRepository {
 
     private final DatabaseHelper databaseHelper;
 
-    public PeopleRepository(DatabaseHelper databaseHelper){
+    public DatabasePeopleRepository(DatabaseHelper databaseHelper){
         this.databaseHelper = databaseHelper;
     }
 
@@ -23,7 +24,7 @@ public class PeopleRepository implements IPeopleRepository {
      * @throws SQLException
      */
     public void save(Person person) throws SQLException {
-        databaseHelper.executeQuery("INSERT INTO People VALUES (?,?,?,?)", person.getName(),person.getEgn(),(person.getAge()),person.getEmail());
+        databaseHelper.executeQuery("INSERT INTO People VALUES (\\N,?,?,?,?)", person.getName(),person.getEgn(),person.getAge(),person.getEmail());
     }
 
     /**
