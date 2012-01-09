@@ -1,7 +1,7 @@
 package com.clouway.designpatterns.abstractfactory;
 
 /**
- * Factory creating factories for the diferent food types
+ * Factory creating factories for the different food types
  * Created by Krasimir Dimitrov
  * Date: 12/15/11
  * Time: 4:47 PM

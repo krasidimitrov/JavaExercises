@@ -23,7 +23,7 @@ public class Store {
     }
 
     /**
-     * register a product to the store
+     * Register a product to the store
      *
      * @param product the product that we want to register
      */
@@ -35,11 +35,13 @@ public class Store {
             throw new ProductAlreadyExistException();
         }
         productList.put(product.getName(), product);
-        availableProductsListener.onNewProductAdd(product.getName());
+        if (availableProductsListener != null) {
+            availableProductsListener.onNewProductAdd(product.getName());
+        }
     }
 
     /**
-     * sell product from the store
+     * Sell product from the store
      *
      * @param name         the name of the product that we want to sell
      * @param soldQuantity the quantity that we are selling

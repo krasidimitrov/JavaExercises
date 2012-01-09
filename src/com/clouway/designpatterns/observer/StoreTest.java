@@ -35,12 +35,13 @@ public class StoreTest {
         availableProductsListener = context.mock(AvailableProductsListener.class);
         soldProductsListener = context.mock(SoldProductsListener.class);
         store.addListenerForSoldProducts(soldProductsListener);
-        store.addListenerForAvailableProducts(availableProductsListener);
+
         product = new Product("Milka", 200);
     }
 
     @Test
     public void shouldNotifyTheAvailableProductListOnNewProductRegister() {
+        store.addListenerForAvailableProducts(availableProductsListener);
 
         context.checking(new Expectations() {{
             oneOf(availableProductsListener).onNewProductAdd(product.getName());
@@ -51,8 +52,8 @@ public class StoreTest {
 
     @Test
     public void shouldNotifyTheSoldProductListOnSellingProduct() {
+
         context.checking(new Expectations() {{
-            oneOf(availableProductsListener).onNewProductAdd(product.getName());
             oneOf(soldProductsListener).onProductSell("Milka", 100);
 
         }});
@@ -69,10 +70,6 @@ public class StoreTest {
 
     @Test(expected = ProductAlreadyExistException.class)
     public void shouldThrowExceptionOnRegisteringExistingProductInTheStore() {
-
-        context.checking(new Expectations() {{
-            oneOf(availableProductsListener).onNewProductAdd(product.getName());
-        }});
         store.registerProduct(product);
         store.registerProduct(product);
     }
@@ -84,10 +81,6 @@ public class StoreTest {
 
     @Test(expected = NotEnoughQuantityForSellException.class)
     public void shouldThrowExceptionIfThereIsNoEnoughQuantityForSell() {
-
-        context.checking(new Expectations() {{
-            oneOf(availableProductsListener).onNewProductAdd(product.getName());
-        }});
 
         store.registerProduct(product);
         store.sellProduct("Milka", 300);

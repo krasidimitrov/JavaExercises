@@ -13,7 +13,7 @@ public class SaladFactory implements FoodFactory {
      * @param name the name of the food that we want to cook
      * @return the food that is cooked or null if there is no such food
      */
-    public Food takeOrder(String name) {
+    public Food createMeal(String name) {
         if (name.equals("green"))
             return new GreenSalad();
         if (name.equals("sea"))

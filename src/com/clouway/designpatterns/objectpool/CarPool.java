@@ -24,7 +24,7 @@ public class CarPool {
     }
 
     /**
-     * acquire object from the pool to use iit(create new if there are no free objects and the limit is not reached)
+     * Acquire object from the pool to use iit(create new if there are no free objects and the limit is not reached)
      *
      * @return the acquired car
      */
@@ -41,7 +41,7 @@ public class CarPool {
     }
 
     /**
-     * return objects to the pool so they can be used again
+     * Return objects to the pool so they can be used again
      */
     public void release() {
         if (!takenCars.isEmpty()) {

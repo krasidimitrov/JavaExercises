@@ -6,7 +6,7 @@ package com.clouway.designpatterns.proxy;
  * Date: 12/19/11
  * Time: 12:06 PM
  */
-public class ATM implements Bank {
+public class ATM implements WithdrawsMoney {
 
     private Bank bank;
 
@@ -19,9 +19,9 @@ public class ATM implements Bank {
      * @param money the money that we want to draw
      * @return  the money drawn
      */
-    public int drawMoney(int money) {
+    public int withdraw(int money) {
         if (money <= 500) {
-            return bank.drawMoney(money);
+            return bank.withdraw(money);
         } else {
             System.out.println("You need to go to the bank for sum bigger than 500");
             throw new SumIsTooBigForTheATMException();

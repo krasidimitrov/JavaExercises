@@ -10,7 +10,7 @@ public class Main {
 
         Alianz allianz = new Alianz();
         ATM alliazATM = new ATM(allianz);
-        alliazATM.drawMoney(300);
-        alliazATM.drawMoney(1999);
+        alliazATM.withdraw(300);
+        alliazATM.withdraw(1999);
     }
 }

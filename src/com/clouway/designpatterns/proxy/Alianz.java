@@ -18,7 +18,7 @@ public class Alianz implements Bank {
      * @param money  that we want to draw
      * @return money drawn
      */
-    public int drawMoney(int money) {
+    public int withdraw(int money) {
         bankMoney -= money;
         return money;
     }
