@@ -23,6 +23,7 @@ public class DatabasePeopleRepositoryTest {
     private DatabaseHelper databaseHelper = new DatabaseHelper();
     private RowMapper<Person> rowMapper = new PersonRowMapper();
     private List<Person> expectedPersonList;
+    private List<Person> actualPersonList;
     IPeopleRepository repository;
 
 
@@ -51,7 +52,7 @@ public class DatabasePeopleRepositoryTest {
     }
 
     @Test
-    public void shouldInsertNewPersonInDatabase() throws SQLException {
+    public void shouldSaveGivenPersonInTheDatabase() throws SQLException {
         repository.save(person);
 
         List<Person> personList = databaseHelper.executeQuery("SELECT * FROM People", rowMapper);
@@ -78,31 +79,131 @@ public class DatabasePeopleRepositoryTest {
 
         savePersonsToDatabaseForTest();
 
-        List<Person> actualPeople = repository.getAllPersons();
+        actualPersonList = repository.getAllPersons();
 
         expectedPersonList = Lists.newArrayList(person, person2, person3);
 
 
-        assertEquals(expectedPersonList, actualPeople);
-
+        assertEquals(expectedPersonList, actualPersonList);
     }
 
     @Test
-    public void shouldReturnListOfPeopleWithNameStartingWithSpecificLetters() throws SQLException {
+    public void shouldReturnEmptyListFromEmptyTableWhenGetAllPersonsIsCalled() throws SQLException {
+
+        actualPersonList = repository.getAllPersons();
+        expectedPersonList = Lists.newArrayList();
+
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfAllPeopleWithNameStartingWithSpecificLetters() throws SQLException {
         savePersonsToDatabaseForTest();
 
         expectedPersonList = Lists.newArrayList(person2, person3);
-        assertEquals(expectedPersonList, repository.getPersonsByStartingLetters("Jo"));
+        actualPersonList = repository.getPersonsByStartingLetters("Jo");
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfAllPeopleWithNameStartingWithSpecificLetters2() throws SQLException {
+        savePersonsToDatabaseForTest();
+
+        expectedPersonList = Lists.newArrayList(person3);
+        actualPersonList = repository.getPersonsByStartingLetters("Jos");
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfAllPeopleWithNameStartingWithSpecificLetters3() throws SQLException {
+        savePersonsToDatabaseForTest();
+
+        expectedPersonList = Lists.newArrayList();
+        actualPersonList = repository.getPersonsByStartingLetters("A");
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfAllPeopleWithNameStartingWithSpecificLetters4() throws SQLException {
+        savePersonsToDatabaseForTest();
+
+        expectedPersonList = Lists.newArrayList(person,person2,person3);
+        actualPersonList = repository.getPersonsByStartingLetters("");
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfAllPeopleWithNameStartingWithSpecificLetters5() throws SQLException {
+        savePersonsToDatabaseForTest();
+
+        expectedPersonList = Lists.newArrayList();
+        actualPersonList = repository.getPersonsByStartingLetters(null);
+        assertEquals(expectedPersonList, actualPersonList);
     }
 
     @Test
     public void shouldReturnListOfPeopleInCityAtSameTime() throws SQLException {
         savePersonsToDatabaseForTest();
-
-        expectedPersonList = Lists.newArrayList(person, person2);
         fillTripTableWithTestData();
 
-        assertEquals(expectedPersonList, repository.getPersonsInCityAtSameTime("2011-03-15", "varna"));
+        expectedPersonList = Lists.newArrayList(person, person2);
+        actualPersonList = repository.getPersonsInCityAtSameTime("2011-03-15", "varna");
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfPeopleInCityAtSameTime2() throws SQLException {
+        savePersonsToDatabaseForTest();
+        fillTripTableWithTestData();
+
+        expectedPersonList = Lists.newArrayList();
+        actualPersonList = repository.getPersonsInCityAtSameTime("2013-03-15", "varna");
+
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfPeopleInCityAtSameTime3() throws SQLException {
+        savePersonsToDatabaseForTest();
+        fillTripTableWithTestData();
+
+        expectedPersonList = Lists.newArrayList();
+        actualPersonList = repository.getPersonsInCityAtSameTime(null, "varna");
+
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+    @Test
+    public void shouldReturnListOfPeopleInCityAtSameTime4() throws SQLException {
+        savePersonsToDatabaseForTest();
+        fillTripTableWithTestData();
+
+        expectedPersonList = Lists.newArrayList();
+        actualPersonList = repository.getPersonsInCityAtSameTime("2013-03-15", null);
+
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+     @Test
+    public void shouldReturnListOfPeopleInCityAtSameTime5() throws SQLException {
+        savePersonsToDatabaseForTest();
+        fillTripTableWithTestData();
+
+        expectedPersonList = Lists.newArrayList();
+        actualPersonList = repository.getPersonsInCityAtSameTime("", "varna");
+
+        assertEquals(expectedPersonList, actualPersonList);
+    }
+
+     @Test
+    public void shouldReturnListOfPeopleInCityAtSameTime6() throws SQLException {
+        savePersonsToDatabaseForTest();
+        fillTripTableWithTestData();
+
+        expectedPersonList = Lists.newArrayList();
+        actualPersonList = repository.getPersonsInCityAtSameTime("2013-03-15", "");
+
+        assertEquals(expectedPersonList, actualPersonList);
     }
 
     @Test
