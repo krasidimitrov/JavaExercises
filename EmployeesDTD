@@ -1,0 +1,15 @@
+<!ELEMENT company_staff (Employer+,Employee+,Adress+)>
+<!ELEMENT Employee (firstName,lastName,age,position)>
+<!ELEMENT firstName (#PCDATA)>
+<!ELEMENT lastName (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
+<!ELEMENT position (#PCDATA)>
+<!ELEMENT Employer (name,startDate,endDate)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT startDate (#PCDATA)>
+<!ELEMENT endDate (#PCDATA)>
+<!ELEMENT Adress (street,streetNo,section,city)>
+<!ELEMENT street (#PCDATA)>
+<!ELEMENT streetNo (#PCDATA)>
+<!ELEMENT section (#PCDATA)>
+<!ELEMENT city (#PCDATA)>

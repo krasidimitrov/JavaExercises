@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE Employee_List [
+        <!ELEMENT Employee_List (Employee+)>
+        <!ELEMENT Employee (firstName,lastName,age,position,Employer+,Address+)>
+        <!ELEMENT firstName (#PCDATA)>
+        <!ELEMENT lastName (#PCDATA)>
+        <!ELEMENT age (#PCDATA)>
+        <!ELEMENT position (#PCDATA)>
+        <!ELEMENT Employer (name,startDate,endDate)>
+        <!ELEMENT name (#PCDATA)>
+        <!ELEMENT startDate (#PCDATA)>
+        <!ELEMENT endDate (#PCDATA)>
+        <!ELEMENT Address (street,streetNo,section,city)>
+        <!ELEMENT street (#PCDATA)>
+        <!ELEMENT streetNo (#PCDATA)>
+        <!ELEMENT section (#PCDATA)>
+        <!ELEMENT city (#PCDATA)>
+        ]>
+<Employee_List>
+    <Employee>
+        <firstName>Konan</firstName>
+        <lastName>Varvarina</lastName>
+        <age>28</age>
+        <position>Mass Killer</position>
+        <Employer>
+            <name>Kimeria</name>
+            <startDate>14-12-1989</startDate>
+            <endDate>14-12-2011</endDate>
+        </Employer>
+        <Address>
+            <street>P.K.Qvorov</street>
+            <streetNo>17</streetNo>
+            <section>Kartala</section>
+            <city>Veliko Tyrnovo</city>
+        </Address>
+    </Employee>
+    <Employee>
+        <firstName>Super</firstName>
+        <lastName>Man</lastName>
+        <age>26</age>
+        <position>Villain</position>
+        <Employer>
+            <name>Luthor</name>
+            <startDate>14-12-1989</startDate>
+            <endDate>14-13-1989</endDate>
+        </Employer>
+        <Employer>
+            <name>Just League</name>
+            <startDate>14-13-1989</startDate>
+            <endDate>14-12-2100</endDate>
+        </Employer>
+        <Address>
+            <street>none</street>
+            <streetNo>0</streetNo>
+            <section>Top of Daily Planet</section>
+            <city>Metropolis</city>
+        </Address>
+    </Employee>
+</Employee_List>
