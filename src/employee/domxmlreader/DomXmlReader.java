@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * Used to extract employees from xml file and create java Employee objects
  * Created by Krasimir Dimitrov
  * Date: 1/11/12
  * Time: 9:53 AM
@@ -36,6 +37,10 @@ public class DomXmlReader {
         doc.getDocumentElement().normalize();
     }
 
+    /**
+     * Extract all employees from the xml file
+     * @return an array with all employees from the xml file
+     */
     public Employee[] extractEmployee() {
         EmployeeBuilder employeeBuilder = new EmployeeBuilder();
         NodeList employeeList = doc.getElementsByTagName("Employee");
@@ -63,6 +68,11 @@ public class DomXmlReader {
         return employees;
     }
 
+    /**
+     * Extract all employers for a given employee
+     * @param nodeList the Employee taken from the xml file as a nodeList
+     * @return array with all employers for the given employee
+     */
     private Employer[] extractEmployers(NodeList nodeList) {
         Employer[] employersList = new Employer[nodeList.getLength()];
         EmployerBuilder employer = new EmployerBuilder();
@@ -77,6 +87,11 @@ public class DomXmlReader {
         return employersList;
     }
 
+    /**
+     * Extract all addresses for a given employee
+     * @param nodeList the Employee taken from the xml file as a nodeList
+     * @return  array with all addresses for the given employee
+     */
     private Address[] extractAddress(NodeList nodeList) {
         Address[] addressesList = new Address[nodeList.getLength()];
         AddressBuilder address = new AddressBuilder();
@@ -92,6 +107,12 @@ public class DomXmlReader {
         return addressesList;
     }
 
+    /**
+     * Return the value of text node for a given element node
+     * @param sTag the name of the tag surrounding the text we want to take
+     * @param eElement the element from which we are getting the value
+     * @return  the value for the given element for the given tag
+     */
     private static String getTagValue(String sTag, Element eElement) {
         NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
 

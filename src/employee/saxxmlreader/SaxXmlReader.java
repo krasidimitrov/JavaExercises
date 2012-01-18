@@ -52,7 +52,6 @@ public class SaxXmlReader extends DefaultHandler {
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         tag = qName;
-
     }
 
     public void characters(char ch[], int start, int length) throws SAXException {
