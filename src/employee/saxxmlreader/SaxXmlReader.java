@@ -22,9 +22,9 @@ public class SaxXmlReader extends DefaultHandler {
     private List<Employee> employeeList = new LinkedList<Employee>();
     private List<Employer> employerList = new LinkedList<Employer>();
     private List<Address> addressList = new LinkedList<Address>();
-    Employee employee;
-    Employer employer;
-    Address address;
+    Employee employee = new Employee();
+    Employer employer = new Employer();
+    Address address = new Address();
 
 
     public SaxXmlReader() {
@@ -43,18 +43,6 @@ public class SaxXmlReader extends DefaultHandler {
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         tag = qName;
-        if (qName.equalsIgnoreCase("employee")) {
-            employee = new Employee();
-            employerList.clear();
-            addressList.clear();
-        }
-        if (qName.equalsIgnoreCase("employer")) {
-            employer = new Employer();
-
-        }
-        if (qName.equalsIgnoreCase("address")) {
-            address = new Address();
-        }
     }
 
     public void characters(char ch[], int start, int length) throws SAXException {
@@ -89,10 +77,15 @@ public class SaxXmlReader extends DefaultHandler {
 
         if (tag.equalsIgnoreCase("employer"))
             employerList.add(employer);
+            employer = new Employer();
         if (tag.equalsIgnoreCase("address"))
             addressList.add(address);
+            address = new Address();
         if (tag.equalsIgnoreCase("employee"))
             employeeList.add(employee);
+            employee = new Employee();
+            employerList.clear();
+            addressList.clear();
 
     }
 
