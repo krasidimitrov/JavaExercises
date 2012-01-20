@@ -4,33 +4,27 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import employee.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SaxXmlReader extends DefaultHandler {
-    SAXParser saxParser;
-    Resources res;
+    private SAXParser saxParser;
+    private final Resources res;
 
-    String tag;
-    Employee[] employees = new Employee[10];
-    int employeeIndex = 0;
-    Employer[] employers = new Employer[10];
-    int employerIndex = 0;
-    Address[] addresses = new Address[10];
-    int addressIndex = 0;
-    EmployeeBuilder employeeBuilder = new EmployeeBuilder();
-    EmployerBuilder employerBuilder = new EmployerBuilder();
-    AddressBuilder addressBuilder = new AddressBuilder();
-    Map<Class, Builder> buildersMap = new HashMap<Class, Builder>();
+    private String tag;
+    private List<Employee> employeeList = new LinkedList<Employee>();
+    private List<Employer> employerList = new LinkedList<Employer>();
+    private List<Address> addressList = new LinkedList<Address>();
+    Employee employee;
+    Employer employer;
+    Address address;
 
 
     public SaxXmlReader() {
@@ -43,54 +37,63 @@ public class SaxXmlReader extends DefaultHandler {
             e.printStackTrace();
         }
         res = new Resources();
-        buildersMap.put(EmployeeBuilder.class, employeeBuilder);
-        buildersMap.put(EmployerBuilder.class, employerBuilder);
-        buildersMap.put(AddressBuilder.class, addressBuilder);
 
     }
 
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         tag = qName;
+        if (qName.equalsIgnoreCase("employee")) {
+            employee = new Employee();
+            employerList.clear();
+            addressList.clear();
+        }
+        if (qName.equalsIgnoreCase("employer")) {
+            employer = new Employer();
+
+        }
+        if (qName.equalsIgnoreCase("address")) {
+            address = new Address();
+        }
     }
 
     public void characters(char ch[], int start, int length) throws SAXException {
-        // Class class = res.getClasses().get(tag);
-        Method method = null;
+        Field field = null;
         try {
-            method = res.getClasses().get(tag).getDeclaredMethod(res.getMethods().get(tag), String.class);
-        } catch (NoSuchMethodException e) {
+
+
+            field = res.getClasses().get(tag).getDeclaredField(tag);
+            field.setAccessible(true);
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
         try {
-            if (method != null) {
-                method.invoke(buildersMap.get(res.getClasses().get(tag)), new String(ch, start, length));
+            assert field != null;
+            if (res.getClasses().get(tag).equals(Employee.class)) {
+                field.set(employee, new String(ch, start, length));
+            }
+            if (res.getClasses().get(tag).equals(Employer.class)) {
+                field.set(employer, new String(ch, start, length));
+            }
+            if (res.getClasses().get(tag).equals(Address.class)) {
+                field.set(address, new String(ch, start, length));
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
         }
-      //  System.out.println(tag + ": " + new String(ch, start, length));
+        //  System.out.println(tag + ": " + new String(ch, start, length));
 
     }
 
     public void endElement(String s, String s1, String qName) throws SAXException {
-        if (qName.equalsIgnoreCase("Employer")) {
-            employers[employerIndex] = employerBuilder.buildEmployer();
-            employerIndex++;
-        }
-        if (qName.equalsIgnoreCase("Address")) {
-            addresses[addressIndex] = addressBuilder.buildAddress();
-            addressIndex++;
-        }
-        if (qName.equalsIgnoreCase("Employee")) {
-            employeeBuilder.withEmployers(employers).withAddresses(addresses);
-            employees[employeeIndex] = employeeBuilder.buildEmployee();
-            employeeIndex++;
-            employers = new Employer[10];
-            addresses = new Address[10];
-        }
+
+        if (tag.equalsIgnoreCase("employer"))
+            employerList.add(employer);
+        if (tag.equalsIgnoreCase("address"))
+            addressList.add(address);
+        if (tag.equalsIgnoreCase("employee"))
+            employeeList.add(employee);
+
     }
 
     public void parseFile() {
@@ -104,7 +107,7 @@ public class SaxXmlReader extends DefaultHandler {
         }
     }
 
-    public Employee[] getEmployees() {
-        return employees;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 }

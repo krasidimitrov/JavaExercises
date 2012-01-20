@@ -1,4 +1,4 @@
-package employee;
+package employee.saxxmlreader;
 
 /**
  * Created by Krasimir Dimitrov
@@ -11,9 +11,7 @@ public class Employer {
     private String startDate;
     private String endDate;
 
-    public Employer(EmployerBuilder employer){
-       name = employer.getName();
-       startDate = employer.getStartDate();
-       endDate = employer.getEndDate();
+    public Employer(){
+
     }
 }

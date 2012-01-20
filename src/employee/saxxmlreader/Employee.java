@@ -1,4 +1,6 @@
-package employee;
+package employee.saxxmlreader;
+
+import java.util.List;
 
 /**
  * Created by Krasimir Dimitrov
@@ -10,16 +12,11 @@ public class Employee {
     private String lastName;
     private String age;
     private String position;
-    private Employer[] employers;
-    private Address[] adresses;
+    private List<Employer> employers;
+    private List<Address> adresses;
 
-    public Employee(EmployeeBuilder employeeBuilder){
-        firstName = employeeBuilder.getFirstName();
-        lastName = employeeBuilder.getLastName();
-        age = employeeBuilder.getAge();
-        position = employeeBuilder.getPosition();
-        employers = employeeBuilder.getEmployers();
-        adresses = employeeBuilder.getAddresses();
+    public Employee(){
+
     }
 
     public String getFirstName() {
