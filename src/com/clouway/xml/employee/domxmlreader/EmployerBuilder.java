@@ -1,6 +1,4 @@
-package employee.domxmlreader;
-
-import org.w3c.dom.NodeList;
+package com.clouway.xml.employee.domxmlreader;
 
 /**
  * Created by Krasimir Dimitrov

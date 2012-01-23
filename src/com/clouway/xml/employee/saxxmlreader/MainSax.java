@@ -1,6 +1,4 @@
-package employee.saxxmlreader;
-
-import java.util.List;
+package com.clouway.xml.employee.saxxmlreader;
 
 /**
  * Created by Krasimir Dimitrov

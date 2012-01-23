@@ -1,4 +1,4 @@
-package employee.domxmlreader;
+package com.clouway.xml.employee.domxmlreader;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -11,7 +11,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Used to extract employees from xml file and create java Employee objects with dom
@@ -69,9 +68,9 @@ public class DomXmlReader {
     }
 
     /**
-     * Extract all employers for a given employee
+     * Extract all employers for a given com.clouway.xml.employee
      * @param nodeList the Employee taken from the xml file as a nodeList
-     * @return array with all employers for the given employee
+     * @return array with all employers for the given com.clouway.xml.employee
      */
     private Employer[] extractEmployers(NodeList nodeList) {
         Employer[] employersList = new Employer[nodeList.getLength()];
@@ -88,9 +87,9 @@ public class DomXmlReader {
     }
 
     /**
-     * Extract all addresses for a given employee
+     * Extract all addresses for a given com.clouway.xml.employee
      * @param nodeList the Employee taken from the xml file as a nodeList
-     * @return  array with all addresses for the given employee
+     * @return  array with all addresses for the given com.clouway.xml.employee
      */
     private Address[] extractAddress(NodeList nodeList) {
         Address[] addressesList = new Address[nodeList.getLength()];

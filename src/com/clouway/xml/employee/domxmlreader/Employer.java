@@ -1,4 +1,4 @@
-package employee.domxmlreader;
+package com.clouway.xml.employee.domxmlreader;
 
 /**
  * Created by Krasimir Dimitrov

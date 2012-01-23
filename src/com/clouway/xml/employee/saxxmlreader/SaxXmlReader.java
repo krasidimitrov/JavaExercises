@@ -1,4 +1,4 @@
-package employee.saxxmlreader;
+package com.clouway.xml.employee.saxxmlreader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -27,7 +27,7 @@ public class SaxXmlReader extends DefaultHandler {
 
     private String tag;
     private List<Employee> employeeList = new LinkedList<Employee>();
-    private  List<Employer> employerList = new LinkedList<Employer>();
+    private List<Employer> employerList = new LinkedList<Employer>();
     private List<Address> addressList = new LinkedList<Address>();
     Employee employee = new Employee();
     Employer employer = new Employer();
@@ -48,14 +48,14 @@ public class SaxXmlReader extends DefaultHandler {
     }
 
     /**
-     *  Used to take the tag name of every element
+     * Used to take the tag name of every element
      */
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         tag = qName;
     }
 
     /**
-     *  Set the value of each field needed to create employee except address and employer
+     * Set the value of each field needed to create com.clouway.xml.employee except address and employer
      */
     public void characters(char ch[], int start, int length) throws SAXException {
         Field field = null;
@@ -86,20 +86,25 @@ public class SaxXmlReader extends DefaultHandler {
     }
 
     /**
-     *  Set the value of employer and address fields and take care of writing employees into list.
+     * Set the value of employer and address fields and take care of writing employees into list.
      */
     public void endElement(String s, String s1, String qName) throws SAXException {
-        if (tag.equalsIgnoreCase("employer"))
+        if (tag.equalsIgnoreCase("employer")) {
             employerList.add(employer);
             employer = new Employer();
-        if (tag.equalsIgnoreCase("address"))
+        }
+        if (tag.equalsIgnoreCase("address")) {
             addressList.add(address);
             address = new Address();
-        if (tag.equalsIgnoreCase("employee"))
+        }
+        if (tag.equalsIgnoreCase("employee")) {
+            employee.setEmployers(employerList);
+            employee.setAdresses(addressList);
             employeeList.add(employee);
             employee = new Employee();
             employerList.clear();
             addressList.clear();
+        }
 
     }
 
