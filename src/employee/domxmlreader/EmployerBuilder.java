@@ -1,4 +1,6 @@
-package employee;
+package employee.domxmlreader;
+
+import org.w3c.dom.NodeList;
 
 /**
  * Created by Krasimir Dimitrov

@@ -1,4 +1,4 @@
-package employee;
+package employee.domxmlreader;
 
 /**
  * Empty interface connecting all builders

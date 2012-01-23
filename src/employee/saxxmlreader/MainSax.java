@@ -1,7 +1,5 @@
 package employee.saxxmlreader;
 
-
-
 import java.util.List;
 
 /**
@@ -11,10 +9,8 @@ import java.util.List;
  */
 public class MainSax {
     public static void main(String[] args) {
-        SaxXmlReader test= new SaxXmlReader();
-        test.parseFile();
-        List<Employee> testEmployees = test.getEmployeeList();
-
-
+        SaxXmlReader saxParser= new SaxXmlReader(new Resources());
+        saxParser.parseFile();
+//        List<Employee> testEmployees = saxParser.getEmployeeList();
     }
 }

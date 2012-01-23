@@ -1,6 +1,5 @@
 package employee.domxmlreader;
 
-import employee.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -12,15 +11,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
- * Used to extract employees from xml file and create java Employee objects
+ * Used to extract employees from xml file and create java Employee objects with dom
  * Created by Krasimir Dimitrov
  * Date: 1/11/12
  * Time: 9:53 AM
  */
 public class DomXmlReader {
-    Document doc;
+    private Document doc;
 
     public DomXmlReader(File file) {
         try {
@@ -106,6 +106,7 @@ public class DomXmlReader {
         }
         return addressesList;
     }
+    
 
     /**
      * Return the value of text node for a given element node

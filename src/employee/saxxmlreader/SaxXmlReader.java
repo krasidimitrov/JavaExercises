@@ -14,20 +14,27 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Used to extract employees from xml file and create java Employee objects with sax
+ * Created by Krasimir Dimitrov
+ * Date: 1/16/12
+ * Time: 3:34 PM
+ */
+
 public class SaxXmlReader extends DefaultHandler {
     private SAXParser saxParser;
     private final Resources res;
 
     private String tag;
     private List<Employee> employeeList = new LinkedList<Employee>();
-    private List<Employer> employerList = new LinkedList<Employer>();
+    private  List<Employer> employerList = new LinkedList<Employer>();
     private List<Address> addressList = new LinkedList<Address>();
     Employee employee = new Employee();
     Employer employer = new Employer();
     Address address = new Address();
 
 
-    public SaxXmlReader() {
+    public SaxXmlReader(Resources resources) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
             saxParser = factory.newSAXParser();
@@ -36,15 +43,20 @@ public class SaxXmlReader extends DefaultHandler {
         } catch (SAXException e) {
             e.printStackTrace();
         }
-        res = new Resources();
+        res = resources;
 
     }
 
-
+    /**
+     *  Used to take the tag name of every element
+     */
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         tag = qName;
     }
 
+    /**
+     *  Set the value of each field needed to create employee except address and employer
+     */
     public void characters(char ch[], int start, int length) throws SAXException {
         Field field = null;
         try {
@@ -73,8 +85,10 @@ public class SaxXmlReader extends DefaultHandler {
 
     }
 
+    /**
+     *  Set the value of employer and address fields and take care of writing employees into list.
+     */
     public void endElement(String s, String s1, String qName) throws SAXException {
-
         if (tag.equalsIgnoreCase("employer"))
             employerList.add(employer);
             employer = new Employer();
@@ -103,4 +117,5 @@ public class SaxXmlReader extends DefaultHandler {
     public List<Employee> getEmployeeList() {
         return employeeList;
     }
+
 }

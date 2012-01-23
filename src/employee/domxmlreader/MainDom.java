@@ -1,7 +1,5 @@
 package employee.domxmlreader;
 
-import employee.Employee;
-
 import java.io.File;
 
 /**

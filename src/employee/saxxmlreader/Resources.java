@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Connect all methods and builders with appropriate tags
+ * Contains all classes and their appropriate fields
  * Created by Krasimir Dimitrov
  * Date: 1/16/12
  * Time: 3:34 PM

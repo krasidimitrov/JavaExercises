@@ -19,19 +19,11 @@ public class Employee {
 
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setEmployers(List<Employer> employers) {
+        this.employers = employers;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public String getPosition() {
-        return position;
+    public void setAdresses(List<Address> adresses) {
+        this.adresses = adresses;
     }
 }
