@@ -1,4 +1,4 @@
-package com.clouway.xml.employee.saxxmlreaderv2;
+package com.clouway.xml.employeesfromxml.saxxmlreaderv2;
 
 /**
  * Created by Krasimir Dimitrov

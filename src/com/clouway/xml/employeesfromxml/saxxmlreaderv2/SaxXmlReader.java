@@ -1,4 +1,4 @@
-package com.clouway.xml.employee.saxxmlreaderv2;
+package com.clouway.xml.employeesfromxml.saxxmlreaderv2;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;

@@ -1,4 +1,4 @@
-package com.clouway.xml.employee.domxmlreader;
+package com.clouway.xml.employeesfromxml.domxmlreader;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
