@@ -1,4 +1,4 @@
-package com.clouway.xml.employee.saxxmlreader;
+package com.clouway.xml.employee.saxxmlreaderv2;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -25,13 +25,13 @@ public class SaxXmlReader extends DefaultHandler {
     private SAXParser saxParser;
     private final Resources res;
 
-    private String tag;
+    private String tag=null;
     private List<Employee> employeeList = new LinkedList<Employee>();
     private List<Employer> employerList = new LinkedList<Employer>();
     private List<Address> addressList = new LinkedList<Address>();
-    Employee employee = new Employee();
-    Employer employer = new Employer();
-    Address address = new Address();
+    Employee employee;
+    Employer employer;
+    Address address;
 
 
     public SaxXmlReader(Resources resources) {
@@ -44,7 +44,6 @@ public class SaxXmlReader extends DefaultHandler {
             e.printStackTrace();
         }
         res = resources;
-
     }
 
     /**
@@ -52,6 +51,15 @@ public class SaxXmlReader extends DefaultHandler {
      */
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         tag = qName;
+        if (qName.equalsIgnoreCase("employee")) {
+            employee = new Employee();
+        }
+        if (qName.equalsIgnoreCase("employer")) {
+            employer = new Employer();
+        }
+        if (qName.equalsIgnoreCase("address")) {
+            address = new Address();
+        }
     }
 
     /**
@@ -89,19 +97,20 @@ public class SaxXmlReader extends DefaultHandler {
      * Set the value of employer and address fields and take care of writing employees into list.
      */
     public void endElement(String s, String s1, String qName) throws SAXException {
-        if (tag.equalsIgnoreCase("employer")) {
+        if (qName.equals("Employer")) {
+            System.out.println("IN EMPLOYER");
             employerList.add(employer);
-            employer = new Employer();
         }
-        if (tag.equalsIgnoreCase("address")) {
+        if (qName.equals("Address")) {
+            System.out.println("IN ADDRESS");
             addressList.add(address);
-            address = new Address();
+
         }
-        if (tag.equalsIgnoreCase("employee")) {
+        if (qName.equals("Employee")) {
+            System.out.println("IN EMPLOYEE");
             employee.setEmployers(employerList);
-            employee.setAdresses(addressList);
+            employee.setAddresses(addressList);
             employeeList.add(employee);
-            employee = new Employee();
             employerList.clear();
             addressList.clear();
         }
@@ -120,6 +129,7 @@ public class SaxXmlReader extends DefaultHandler {
     }
 
     public List<Employee> getEmployeeList() {
+        System.out.println("SDAS");
         return employeeList;
     }
 
