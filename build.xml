@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project name="NameTalker" default="compile">
+
+    <path id="class.path">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean" description="remove classes">
+        <delete dir="classes"/>
+    </target>
+
+    <target name="clobber" depends="clean" description="remove the whole project">
+        <delete file="hi.jar"/>
+    </target>
+
+    <target name="compile" description="compile the Java source code to class files">
+        <mkdir dir="classes"/>
+        <javac includeJavaRuntime="true" includeantruntime="false" srcdir="." destdir="classes">
+            <classpath refid="class.path"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile" description="create a Jar file for the application">
+        <jar destfile="hi.jar">
+            <fileset dir="classes" includes="**/*.class"/>
+            <manifest>
+                <attribute name="Main-Class" value="task1.Main"/>
+                 <attribute name="Class-Path" value="lib/log4j.jar" />
+            </manifest>
+        </jar>
+    </target>
+
+
+</project>
