@@ -1,4 +1,4 @@
-package task1;
+package ant.task1;
 
 /**
  * Created by Krasimir Dimitrov

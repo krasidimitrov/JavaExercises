@@ -17,16 +17,16 @@
 
     <target name="compile" description="compile the Java source code to class files">
         <mkdir dir="classes"/>
-        <javac includeJavaRuntime="true" includeantruntime="false" srcdir="." destdir="classes">
+        <javac includeJavaRuntime="true" includeantruntime="false" srcdir="src/ant" destdir="classes">
             <classpath refid="class.path"/>
         </javac>
     </target>
 
-    <target name="jar" depends="compile" description="create a Jar file for the application">
+    <target name="package" depends="compile" description="create a jar for the application">
         <jar destfile="hi.jar">
             <fileset dir="classes" includes="**/*.class"/>
             <manifest>
-                <attribute name="Main-Class" value="task1.Main"/>
+                <attribute name="Main-Class" value="ant.task1.Main"/>
                  <attribute name="Class-Path" value="lib/log4j.jar" />
             </manifest>
         </jar>
