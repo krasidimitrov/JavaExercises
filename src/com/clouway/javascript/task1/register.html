@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Registration</title>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js" charset="utf-8"></script>
+<script type="text/javascript" src="validate.js" charset="utf-8"></script>
+</head>
+<body>
+
+
+<form id="regForm" method="post">
+<div name="mainDiv" id="mainDiv" style="margin: auto; position: relative; align: center; width: 550px; height: 250px; background-color: azure;">
+<p align="center">REGISTER:</p>
+<div name="textDiv" id="textDiv" style="position: absolute; line-height: 25px;">
+First name:<br /> 
+Last name:<br /> 
+EGN:<br />
+Age<br />
+Adress<br /> 
+Password:<br /> 
+Confirm pass:  
+</div> 
+<div name="fieldsDiv" id="fieldsDiv" style="position: absolute; left: 140px;">
+<input type="text" name="firstName" id="firstName" maxlength=15 size=13 /><br />
+<input type="text" name="lastName" id="lastName" maxlength=15 size=13/><br />
+<input type="text" name="egn" id="egn" maxlength=10 size=8/><br />
+<input type="text" name="age" id="age" maxlength=3 size=2/><br />
+<input type="text" name="address" id="address" maxlenght=100 /><br />
+<input type="password" name="password" id="password" maxlength=18 size=10/><br />
+<input type="password" name="confirmPassword" id="confirmPassword" size=10/><br />
+<button type="submit" id="send">register</button>
+<br />
+
+</div>
+</div>
+</form>
+
+</body>
+</html>
