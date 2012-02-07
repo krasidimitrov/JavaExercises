@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="calculatorStyle.css" />
+    <script type="text/javascript" src="calculatorLogic.js" charset="utf-8"></script>
+</head>
+<body>
+
+<div id="mainDiv"
+     style="margin: auto; position: relative; width: 215px; height: 250px; background-color: azure;">
+    <form id="calForm">
+        <input type="text" id="calcField" class="calcField" onchange="validateNumber()"/>
+        <button type="button" id="clear" onclick="calcField.value = ''">CE</button>
+        <br/>
+        <button type="button" id="7" onclick="calcField.value += '7'">7</button>
+        <button type="button" id="8" onclick="calcField.value += '8'">8</button>
+        <button type="button" id="9" onclick="calcField.value += '9'">9</button>
+        <button type=button id="back" onclick="backOneCharacter()"><-</button>
+        
+        <br/>
+        <button type="button" id="4" onclick="calcField.value += '4'">4</button>
+        <button type="button" id="5" onclick="calcField.value += '5'">5</button>
+        <button type="button" id="6" onclick="calcField.value += '6'">6</button>
+        <button type="button" id="/" onclick="writeOperation('/')">/</button>
+        <br/>
+        <button type="button" id="1" onclick="calcField.value += '1'">1</button>
+        <button type="button" id="2" onclick="calcField.value += '2'">2</button>
+        <button type="button" id="3" onclick="calcField.value += '3'">3</button>
+        <button type="button" id="*" onclick="writeOperation('*')">*</button>
+        <br/>
+        <button type="button" id="0" onclick="calcField.value += '0'">0</button>
+        <button type="button" id="=" onclick="validateNumber()">=</button>
+        <button type="button" id="-" onclick="writeOperation('-')">-</button>
+        <button type="button" id="+" onclick="writeOperation('+')">+</button>
+
+
+    </form>
+
+</div>
+
+</body>
+</html>
