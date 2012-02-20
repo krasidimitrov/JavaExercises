@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+
+  <welcome-file-list>
+    <welcome-file>/training/test.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!--TRAINING  -->
+  <servlet>
+    <servlet-name>simpleServlet</servlet-name>
+    <servlet-class>firstservlet.SimpleServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>xmlServlet</servlet-name>
+    <servlet-class>firstservlet.XmlServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>initJSP</servlet-name>
+    <jsp-file>/training/initpage.jsp</jsp-file>
+    <init-param>
+      <param-name>defaultUser</param-name>
+      <param-value>Default User Name</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>initJSP</servlet-name>
+    <url-pattern>/initpage.jsp</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>simpleServlet</servlet-name>
+    <url-pattern>/simpleservletpath</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>xmlServlet</servlet-name>
+    <url-pattern>/xmlservletpath</url-pattern>
+  </servlet-mapping>
+
+
+  <!--LOGINFORM  -->
+  <!--<servlet>-->
+    <!--<servlet-name>LoginServlet</servlet-name>-->
+    <!--<servlet-class>loginform.LoginServlet</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>LoginServlet</servlet-name>-->
+    <!--<url-pattern>/login</url-pattern>-->
+  <!--</servlet-mapping>-->
+
+
+  <!--TASK1-->
+  <servlet>
+    <servlet-name>LinkCounterServlet</servlet-name>
+    <servlet-class>task1.LinkCounterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LinkCounterServlet</servlet-name>
+    <url-pattern>/linkCounterServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <!--TASK2-->
+  <servlet>
+    <servlet-name>RedirectServlet</servlet-name>
+    <servlet-class>task2.RedirectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RedirectServlet</servlet-name>
+    <url-pattern>/redirectServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <!--TASK3-->
+  <servlet>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <servlet-class>task3.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>/dispatcherServlet</url-pattern>
+  </servlet-mapping>
+
+  <!--TASK4-->
+  <servlet>
+    <servlet-name>FirstServlet</servlet-name>
+    <servlet-class>task4.FirstServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FirstServlet</servlet-name>
+    <url-pattern>/firstServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SecondServlet</servlet-name>
+    <servlet-class>task4.SecondServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SecondServlet</servlet-name>
+    <url-pattern>/secondServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ThirdServlet</servlet-name>
+    <servlet-class>task4.ThirdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThirdServlet</servlet-name>
+    <url-pattern>/thirdServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>RedirectServlet2</servlet-name>
+    <servlet-class>task4.RedirectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RedirectServlet2</servlet-name>
+    <url-pattern>/redirectServlet2</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ReceiverServlet</servlet-name>
+    <servlet-class>task4.ReceiverServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReceiverServlet</servlet-name>
+    <url-pattern>/receiverServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <!--TASK6-->
+  <servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>task6.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/registerServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>task6.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/loginServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DepositServlet</servlet-name>
+    <servlet-class>task6.DepositServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DepositServlet</servlet-name>
+    <url-pattern>/depositServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>WithdrawServlet</servlet-name>
+    <servlet-class>task6.WithdrawServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WithdrawServlet</servlet-name>
+    <url-pattern>/withdrawServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
+        
+        
