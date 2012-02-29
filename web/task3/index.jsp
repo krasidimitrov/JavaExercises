@@ -12,9 +12,9 @@
 </head>
 <body>
 <form action="../dispatcherServlet">
-    <input type="radio" name="page" value="/war/task3/page1.jsp"> Go to page 1<br>
-    <input type="radio" name="page" value="/war/task3/page2.jsp"> Go to page 2<br>
-    <input type="radio" name="page" value="/war/task3/page3.jsp"> Go to page 3<br>
+    <input type="radio" name="page" value="/war/com.clouway.jspandservlet.task3/page1.jsp"> Go to page 1<br>
+    <input type="radio" name="page" value="/war/com.clouway.jspandservlet.task3/page2.jsp"> Go to page 2<br>
+    <input type="radio" name="page" value="/war/com.clouway.jspandservlet.task3/page3.jsp"> Go to page 3<br>
     <br />
     <input type="submit" />
 </form>

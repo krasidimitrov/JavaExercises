@@ -6,52 +6,11 @@
     <!--<welcome-file>/training/test.jsp</welcome-file>-->
   <!--</welcome-file-list>-->
 
-  <!--TRAINING  -->
-  <servlet>
-    <servlet-name>simpleServlet</servlet-name>
-    <servlet-class>firstservlet.SimpleServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>xmlServlet</servlet-name>
-    <servlet-class>firstservlet.XmlServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>initJSP</servlet-name>
-    <jsp-file>/training/initpage.jsp</jsp-file>
-    <init-param>
-      <param-name>defaultUser</param-name>
-      <param-value>Default User Name</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>initJSP</servlet-name>
-    <url-pattern>/initpage.jsp</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>simpleServlet</servlet-name>
-    <url-pattern>/simpleservletpath</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>xmlServlet</servlet-name>
-    <url-pattern>/xmlservletpath</url-pattern>
-  </servlet-mapping>
-
-
-  <!--LOGINFORM  -->
-  <!--<servlet>-->
-    <!--<servlet-name>LoginServlet</servlet-name>-->
-    <!--<servlet-class>loginform.LoginServlet</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>LoginServlet</servlet-name>-->
-    <!--<url-pattern>/login</url-pattern>-->
-  <!--</servlet-mapping>-->
-
 
   <!--TASK1-->
   <servlet>
     <servlet-name>LinkCounterServlet</servlet-name>
-    <servlet-class>task1.LinkCounterServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task1.LinkCounterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LinkCounterServlet</servlet-name>
@@ -62,7 +21,7 @@
   <!--TASK2-->
   <servlet>
     <servlet-name>RedirectServlet</servlet-name>
-    <servlet-class>task2.RedirectServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task2.RedirectServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RedirectServlet</servlet-name>
@@ -73,7 +32,7 @@
   <!--TASK3-->
   <servlet>
     <servlet-name>DispatcherServlet</servlet-name>
-    <servlet-class>task3.DispatcherServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task3.DispatcherServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DispatcherServlet</servlet-name>
@@ -83,7 +42,7 @@
   <!--TASK4-->
   <servlet>
     <servlet-name>FirstServlet</servlet-name>
-    <servlet-class>task4.FirstServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task4.FirstServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FirstServlet</servlet-name>
@@ -92,7 +51,7 @@
 
   <servlet>
     <servlet-name>SecondServlet</servlet-name>
-    <servlet-class>task4.SecondServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task4.SecondServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SecondServlet</servlet-name>
@@ -101,7 +60,7 @@
 
   <servlet>
     <servlet-name>ThirdServlet</servlet-name>
-    <servlet-class>task4.ThirdServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task4.ThirdServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ThirdServlet</servlet-name>
@@ -110,7 +69,7 @@
 
   <servlet>
     <servlet-name>RedirectServlet2</servlet-name>
-    <servlet-class>task4.RedirectServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task4.RedirectServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RedirectServlet2</servlet-name>
@@ -119,7 +78,7 @@
 
   <servlet>
     <servlet-name>ReceiverServlet</servlet-name>
-    <servlet-class>task4.ReceiverServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.task4.ReceiverServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReceiverServlet</servlet-name>
@@ -130,7 +89,7 @@
   <!--TASK6-->
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
-    <servlet-class>task6.RegisterServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.RegisterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
@@ -139,7 +98,7 @@
 
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>task6.LoginServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -148,7 +107,7 @@
 
   <servlet>
     <servlet-name>DepositServlet</servlet-name>
-    <servlet-class>task6.DepositServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.DepositServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DepositServlet</servlet-name>
@@ -157,7 +116,7 @@
 
   <servlet>
     <servlet-name>WithdrawServlet</servlet-name>
-    <servlet-class>task6.WithdrawServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.WithdrawServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>WithdrawServlet</servlet-name>
@@ -166,7 +125,7 @@
 
   <servlet>
     <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>task6.LogoutServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.LogoutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
@@ -179,7 +138,7 @@
   <!--TASK7-->
   <servlet>
     <servlet-name>RegisterServlet2</servlet-name>
-    <servlet-class>task7.RegisterServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.registrationform.RegisterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RegisterServlet2</servlet-name>
@@ -190,7 +149,7 @@
   <!--TASK8-->
   <servlet>
     <servlet-name>CalculatorServlet</servlet-name>
-    <servlet-class>task8.CalculatorServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinecalculator.CalculatorServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CalculatorServlet</servlet-name>
@@ -201,7 +160,7 @@
   <!--TASK9-->
   <servlet>
     <servlet-name>PageServlet</servlet-name>
-    <servlet-class>task9.PageServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebookcatalog.PageServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PageServlet</servlet-name>
