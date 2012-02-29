@@ -2,9 +2,9 @@
 <web-app>
 
 
-  <welcome-file-list>
-    <welcome-file>/training/test.jsp</welcome-file>
-  </welcome-file-list>
+  <!--<welcome-file-list>-->
+    <!--<welcome-file>/training/test.jsp</welcome-file>-->
+  <!--</welcome-file-list>-->
 
   <!--TRAINING  -->
   <servlet>
@@ -162,6 +162,50 @@
   <servlet-mapping>
     <servlet-name>WithdrawServlet</servlet-name>
     <url-pattern>/withdrawServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>task6.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logoutServlet</url-pattern>
+  </servlet-mapping>
+
+
+
+
+  <!--TASK7-->
+  <servlet>
+    <servlet-name>RegisterServlet2</servlet-name>
+    <servlet-class>task7.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet2</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+
+  <!--TASK8-->
+  <servlet>
+    <servlet-name>CalculatorServlet</servlet-name>
+    <servlet-class>task8.CalculatorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalculatorServlet</servlet-name>
+    <url-pattern>/calculator</url-pattern>
+  </servlet-mapping>
+
+
+  <!--TASK9-->
+  <servlet>
+    <servlet-name>PageServlet</servlet-name>
+    <servlet-class>task9.PageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PageServlet</servlet-name>
+    <url-pattern>/pageServlet</url-pattern>
   </servlet-mapping>
 </web-app>
         

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
 
 /**
  * Handle the login action
@@ -17,18 +18,20 @@ import java.sql.SQLException;
  * To change this template use File | Settings | File Templates.
  */
 public class LoginServlet extends HttpServlet{
-  DatabaseHelper helper = new DatabaseHelper();
-  IBankRepository bank = new DatabaseBankRepository(helper);
+  private DatabaseHelper helper = new DatabaseHelper();
+  private IBankRepository bank = new DatabaseBankRepository(helper);
+  private IUsersOnlineRepository onlineUsers = new DatabaseUsersOnlineRepository(helper);
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String userName = req.getParameter("userName");
     String password = req.getParameter("password");
     HttpSession session= req.getSession();
-    session.setAttribute("userName",userName);
-
     try {
-      if(password.equals(bank.getPassword(userName))){
+      if(password.equals(bank.getPassword(userName)) && !userName.equals("")){
+      session.setAttribute("userName",userName);
+      session.setAttribute("creationTime", new Time(System.currentTimeMillis()));
       session.setAttribute("balance",bank.getBalance(userName));
+      onlineUsers.save(userName, session.getMaxInactiveInterval());
       resp.sendRedirect("/war/task6/userpage.jsp");
       } else {
         resp.sendRedirect("/war/task6/index.jsp");
@@ -37,4 +40,5 @@ public class LoginServlet extends HttpServlet{
       e.printStackTrace();
     }
   }
+
 }

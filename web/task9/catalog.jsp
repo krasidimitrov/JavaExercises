@@ -1,0 +1,51 @@
+<%@ page import="java.util.List" %>
+<%@ page import="task9.Book" %>
+<%@ page import="java.util.ArrayList" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: clouway
+  Date: 2/22/12
+  Time: 5:14 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title></title>
+</head>
+<%
+    if(session.getAttribute("bookPosition") == null){
+        response.sendRedirect("../pageServlet");
+    }
+    List<Book> bookArray = (ArrayList<Book>) session.getAttribute("bookArray");
+
+%>
+<body>
+<div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #d3d3d3;">
+
+
+    <%
+        if(bookArray != null){
+        for(int i=0; i<bookArray.size(); i++){
+
+     %>
+    <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #d3d3d3;">
+        <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #ffa4d4;">
+           <a href=<%="/war/task9/book.jsp?bookId="+bookArray.get(i).getBookId()%>><%=bookArray.get(i).getTitle()%> </a>
+        </div>
+        <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #b4ffb3;">
+            Publisher: <%=bookArray.get(i).getPublisher()%>
+        </div>
+        <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #d3e0ff;">
+        Year: <%=bookArray.get(i).getYearOfPublishing()%>
+        </div>
+    </div>
+    <br />
+    <%
+       }}
+    %>
+<a href="../pageServlet?changeValue=first"><<</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../pageServlet?changeValue=back">back</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../pageServlet?changeValue=next">next</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../pageServlet?changeValue=last">>></a>
+</div>
+
+</body>
+</html>

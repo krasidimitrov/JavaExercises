@@ -16,20 +16,25 @@ import java.sql.SQLException;
  * Time: 2:09 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DepositServlet extends HttpServlet{
-  DatabaseHelper helper = new DatabaseHelper();
-  IBankRepository bank = new DatabaseBankRepository(helper);
+public class DepositServlet extends HttpServlet {
+  private DatabaseHelper helper = new DatabaseHelper();
+  private IBankRepository bank = new DatabaseBankRepository(helper);
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String deposit = req.getParameter("deposit");
-    String currentBalance;
-    int newBalance;
+
     HttpSession session = req.getSession();
     String userName = session.getAttribute("userName").toString();
+    String currentBalance;
+    int newBalance;
+
+
     try {
-      currentBalance = bank.getBalance(userName);
-      newBalance = Integer.parseInt(currentBalance) + Integer.parseInt(deposit);
-      bank.updateBalance(userName, newBalance);
+      if (deposit.matches("[0-9]{1,5}$")) {
+        currentBalance = bank.getBalance(userName);
+        newBalance = Integer.parseInt(currentBalance) + Integer.parseInt(deposit);
+        bank.updateBalance(userName, newBalance);
+      }
       resp.sendRedirect("/war/task6/userpage.jsp");
     } catch (SQLException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

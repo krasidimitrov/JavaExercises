@@ -1,3 +1,6 @@
+<%@ page import="task6.DatabaseHelper" %>
+<%@ page import="task6.IUsersOnlineRepository" %>
+<%@ page import="task6.DatabaseUsersOnlineRepository" %>
 <%--
   Created by IntelliJ IDEA.
   User: clouway
@@ -9,7 +12,18 @@
 <html>
 <head>
     <title></title>
+
 </head>
+<%!
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+    IUsersOnlineRepository usersOnline = new DatabaseUsersOnlineRepository(databaseHelper);
+
+%>
+<%
+    if(session.getAttribute("userName") != null){
+        response.sendRedirect("/war/task6/userpage.jsp");
+    }
+%>
 <body style="background-color: #d5e2ff">
 <div style="position: relative;">
     <div align="center"
@@ -20,10 +34,13 @@
             Password: <input type="password" name="password">
             <br/>
             <input type="submit" value="Login">
-            <br />
-            <br />
+            <br/>
+            <br/>
             <a href="register.jsp">create account</a>
         </form>
+    </div>
+    <div align="center">
+        <h3>Users online:<%=usersOnline.getOnlineUsersCount()%></h3>
     </div>
 </div>
 </body>

@@ -16,9 +16,9 @@ import java.sql.SQLException;
  * Time: 4:46 PM
  * To change this template use File | Settings | File Templates.
  */
-public class WithdrawServlet extends HttpServlet{
-  DatabaseHelper helper = new DatabaseHelper();
-  IBankRepository bank = new DatabaseBankRepository(helper);
+public class WithdrawServlet extends HttpServlet {
+  private DatabaseHelper helper = new DatabaseHelper();
+  private IBankRepository bank = new DatabaseBankRepository(helper);
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String withdraw = req.getParameter("withdraw");
@@ -27,9 +27,13 @@ public class WithdrawServlet extends HttpServlet{
     HttpSession session = req.getSession();
     String userName = session.getAttribute("userName").toString();
     try {
-      currentBalance = bank.getBalance(userName);
-      newBalance = Integer.parseInt(currentBalance) - Integer.parseInt(withdraw);
-      bank.updateBalance(userName, newBalance);
+      if (withdraw.matches("[0-9]{1,5}$")) {
+        currentBalance = bank.getBalance(userName);
+        newBalance = Integer.parseInt(currentBalance) - Integer.parseInt(withdraw);
+        if (newBalance >= 0) {
+          bank.updateBalance(userName, newBalance);
+        }
+      }
       resp.sendRedirect("/war/task6/userpage.jsp");
     } catch (SQLException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

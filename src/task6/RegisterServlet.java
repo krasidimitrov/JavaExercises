@@ -18,8 +18,8 @@ import java.util.regex.Pattern;
  * To change this template use File | Settings | File Templates.
  */
 public class RegisterServlet extends HttpServlet {
-  DatabaseHelper databaseHelper = new DatabaseHelper();
-  IBankRepository bank = new DatabaseBankRepository(databaseHelper);
+  private DatabaseHelper databaseHelper = new DatabaseHelper();
+  private IBankRepository bank = new DatabaseBankRepository(databaseHelper);
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String userName = req.getParameter("userName");
