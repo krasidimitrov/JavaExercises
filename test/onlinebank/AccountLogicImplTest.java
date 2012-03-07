@@ -1,9 +1,8 @@
 package onlinebank;
 
-import com.clouway.jspandservlet.onlinebank.AccountLogic;
-import com.clouway.jspandservlet.onlinebank.AccountLogicImpl;
-import com.clouway.jspandservlet.onlinebank.BankRepository;
-import com.clouway.jspandservlet.onlinebank.DatabaseHelper;
+import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
+import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
+import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.exceptions.DuplicateUserNameException;
 import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatException;
 import org.jmock.Expectations;
@@ -12,6 +11,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 /**
@@ -21,12 +21,13 @@ import java.sql.SQLException;
  * Time: 1:18 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AccountLogicTest {
+public class AccountLogicImplTest {
 
-  Mockery context = new JUnit4Mockery();
-  BankRepository bank = context.mock(BankRepository.class);
-  AccountLogic accountLogic;
-  final String userName = "Krasi";
+  private Mockery context = new JUnit4Mockery();
+  private BankRepository bank = context.mock(BankRepository.class);
+  private AccountLogic accountLogic;
+  private final String userName = "Krasi";
+  private final int limit = 5;
 
   @Before
   public void createTestableData() {
@@ -35,7 +36,7 @@ public class AccountLogicTest {
 
 
   @Test
-  public void happyPathRegister() throws SQLException {
+  public void shouldRegisterANewAccountToTheDataSourceForRegistration() throws SQLException {
     final String password = "123456";
 
     context.checking(new Expectations() {
@@ -50,7 +51,7 @@ public class AccountLogicTest {
   }
 
   @Test(expected = IncorrectDataFormatException.class)
-  public void shouldThrowExceptionIfUserNameIsShorterThanFiveCharacters() throws SQLException {
+  public void shouldNotRegisterTheUserIfUserNameIsShorterThanFiveCharacters() throws SQLException {
     final String shortUsername = "Ok";
     final String password = "123456";
 
@@ -58,7 +59,7 @@ public class AccountLogicTest {
   }
 
   @Test(expected = IncorrectDataFormatException.class)
-  public void shouldThrowExceptionIfUserNameIsLongerThanTwelveCharacters() throws SQLException {
+  public void shouldNotRegisterTheUserIfUserNameIsLongerThanTwelveCharacters() throws SQLException {
     final String longUsername = "IamMuchLongerThanTwelveCharacters";
     final String password = "12345";
 
@@ -66,36 +67,36 @@ public class AccountLogicTest {
   }
 
   @Test(expected = IncorrectDataFormatException.class)
-  public void shouldThrowExceptionIfUserNameContainsOtherSymbolsThanNumbersAndLetters() throws SQLException {
-    final String incorectUserName = "Hello!";
+  public void shouldNotRegisterTheUserIfUserNameContainsOtherSymbolsThanNumbersAndLetters() throws SQLException {
+    final String incorrectUserName = "Hello!";
     final String password = "12345";
 
-    accountLogic.register(incorectUserName, password);
+    accountLogic.register(incorrectUserName, password);
   }
 
   @Test(expected = IncorrectDataFormatException.class)
-  public void shouldThrowExceptionIfPaswordIsShorterThanFiveCharacters() throws SQLException {
+  public void shouldNotRegisterTheUserIfPasswordIsShorterThanFiveCharacters() throws SQLException {
     final String shortPassword = "123";
 
     accountLogic.register(userName, shortPassword);
   }
 
   @Test(expected = IncorrectDataFormatException.class)
-  public void shouldThrowExceptionIfPaswordIsLongerThanTwelveCharacters() throws SQLException {
+  public void shouldNotRegisterTheUserIfPasswordIsLongerThanTwelveCharacters() throws SQLException {
     final String longPassword = "123456789abc123456789";
 
     accountLogic.register(userName, longPassword);
   }
 
   @Test(expected = IncorrectDataFormatException.class)
-  public void shouldThrowExceptionIfPaswordContainsOtherSymbolsThanNumbersAndLetters() throws SQLException {
+  public void shouldNotRegisterTheUserIfPasswordContainsOtherSymbolsThanNumbersAndLetters() throws SQLException {
     final String longPassword = "123@";
 
     accountLogic.register(userName, longPassword);
   }
 
   @Test(expected = DuplicateUserNameException.class)
-  public void shouldThrowExceptionIfUserNameAlreadyExistInTheDataRepository() throws SQLException {
+  public void shouldNotRegisterTheUserIfUserNameAlreadyExistInTheDataRepository() throws SQLException {
     final String password = "12345";
     
     context.checking(new Expectations(){{
@@ -106,21 +107,19 @@ public class AccountLogicTest {
     accountLogic.register(userName,password);
   }
 
-
-
   @Test
-  public void happyPathWithdraw() throws SQLException {
+  public void shouldDecreaseTheTotalBalanceOfAnAccount() throws SQLException {
     final String withdraw = "10";
 
     context.checking(new Expectations() {
       {
         oneOf(bank).getBalance(userName);
         will(returnValue("20"));
-        oneOf(bank).updateBalance(userName, Integer.parseInt("10"));
+        oneOf(bank).updateBalance(userName, new BigDecimal("10"));
       }
     });
 
-    accountLogic.withdraw(userName, withdraw);
+    accountLogic.withdraw(userName, withdraw, limit);
   }
 
 
@@ -131,11 +130,11 @@ public class AccountLogicTest {
     context.checking(new Expectations() {
       {
         oneOf(bank).getBalance(userName);
-        will(returnValue("5"));
+        will(returnValue("100"));
       }
     });
 
-    accountLogic.withdraw(userName, withdraw);
+    accountLogic.withdraw(userName, withdraw, limit);
   }
 
   @Test
@@ -148,38 +147,43 @@ public class AccountLogicTest {
         will(returnValue("10"));
       }
     });
+
+    accountLogic.withdraw(userName,withdraw,limit);
   }
 
+  //FIX THIS TEST
   @Test
-  public void shouldNotUpdateBalanceIfWithdrawIsBiggerThan99999() throws SQLException {
-    final String withdraw = "999990";
+  public void shouldNotUpdateBalanceIfWithdrawIsBiggerThanTheGivenLimit() throws SQLException {
+    final String withdraw = "123456";
 
     context.checking(new Expectations() {
       {
         oneOf(bank).getBalance(userName);
-        will(returnValue("10"));
+        will(returnValue("10000000"));
       }
     });
+
+    accountLogic.withdraw(userName,withdraw, limit);
   }
 
   @Test
-  public void happyPathDeposit() throws SQLException {
-    final String withdraw = "10";
+  public void shouldIncreaseTheTotalBalanceOfAnAccount() throws SQLException {
+    final String deposit = "10";
 
     context.checking(new Expectations() {
       {
         oneOf(bank).getBalance(userName);
         will(returnValue("20"));
-        oneOf(bank).updateBalance(userName, Integer.parseInt("30"));
+        oneOf(bank).updateBalance(userName, new BigDecimal("30"));
       }
     });
 
-    accountLogic.deposit(userName, withdraw);
+    accountLogic.deposit(userName, deposit, limit);
   }
 
   @Test
   public void shouldNotUpdateBalanceIfDepositIsANegativeNumber() throws SQLException {
-    final String withdraw = "-10";
+    final String deposit = "-10";
 
     context.checking(new Expectations() {
       {
@@ -187,11 +191,13 @@ public class AccountLogicTest {
         will(returnValue("10"));
       }
     });
+
+    accountLogic.deposit(userName, deposit, limit);
   }
 
   @Test
   public void shouldNotUpdateBalanceIfDepositIsNotANumber() throws SQLException {
-    final String withdraw = "haha";
+    final String deposit = "haha";
 
     context.checking(new Expectations() {
       {
@@ -199,11 +205,13 @@ public class AccountLogicTest {
         will(returnValue("10"));
       }
     });
+
+    accountLogic.deposit(userName, deposit, limit);
   }
 
   @Test
-  public void shouldNotUpdateBalanceIfDepositIsBiggerThan99999() throws SQLException {
-    final String withdraw = "199999";
+  public void shouldNotUpdateBalanceIfDepositIsBiggerThanTheGivenLimit() throws SQLException {
+    final String deposit = "199999";
 
     context.checking(new Expectations() {
       {
@@ -211,6 +219,8 @@ public class AccountLogicTest {
         will(returnValue("10"));
       }
     });
+
+    accountLogic.deposit(userName, deposit, limit);
   }
 
 }
