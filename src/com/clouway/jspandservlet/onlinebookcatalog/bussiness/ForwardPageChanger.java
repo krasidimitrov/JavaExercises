@@ -1,4 +1,7 @@
-package com.clouway.jspandservlet.onlinebookcatalog;
+package com.clouway.jspandservlet.onlinebookcatalog.bussiness;
+
+import com.clouway.jspandservlet.onlinebookcatalog.persistance.DataSourceCreator;
+import com.clouway.jspandservlet.onlinebookcatalog.persistance.DatabaseHelper;
 
 import java.sql.SQLException;
 
@@ -6,13 +9,12 @@ import java.sql.SQLException;
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/28/12
- * Time: 2:44 PM
+ * Time: 9:47 AM
  * To change this template use File | Settings | File Templates.
  */
-public class LastPageChanger implements PageChanger{
+public class ForwardPageChanger implements PageChanger {
   private DatabaseHelper helper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
   private int bookCount;
-
 
   public int change(int position) {
     try {
@@ -20,10 +22,11 @@ public class LastPageChanger implements PageChanger{
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    if(bookCount%3==0)
-    {
-      return bookCount-3;
+
+    int newPosition = position + 3;
+    if (newPosition >= bookCount) {
+      return 0;
     }
-    return bookCount-bookCount%3;
+    return newPosition;
   }
 }

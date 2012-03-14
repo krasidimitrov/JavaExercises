@@ -1,4 +1,4 @@
-package com.clouway.jspandservlet.onlinebookcatalog;
+package com.clouway.jspandservlet.onlinebookcatalog.bussiness;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

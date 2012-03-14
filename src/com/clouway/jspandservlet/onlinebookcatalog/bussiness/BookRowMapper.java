@@ -1,4 +1,4 @@
-package com.clouway.jspandservlet.onlinebookcatalog;
+package com.clouway.jspandservlet.onlinebookcatalog.bussiness;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * Time: 3:51 PM
  * To change this template use File | Settings | File Templates.
  */
-public class BookRowMapper implements RowMapper<Book>{
+public class BookRowMapper implements RowMapper<Book> {
   
   public Book map(ResultSet resultSet) throws SQLException {
     int bookId = resultSet.getInt("bookId");

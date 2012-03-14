@@ -1,15 +1,18 @@
-package com.clouway.jspandservlet.onlinebookcatalog;
+package com.clouway.jspandservlet.onlinebookcatalog.bussiness;
 
 /**
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/28/12
- * Time: 2:40 PM
+ * Time: 1:27 PM
  * To change this template use File | Settings | File Templates.
  */
-public class FirstPageChanger implements PageChanger{
+public class BackwardPageChanger implements PageChanger{
 
   public int change(int position) {
+  if(position==0){
     return 0;
+  }
+    return position-3;
   }
 }

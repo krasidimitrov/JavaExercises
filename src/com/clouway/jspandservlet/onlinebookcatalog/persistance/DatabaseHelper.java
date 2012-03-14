@@ -1,4 +1,6 @@
-package com.clouway.jspandservlet.onlinebookcatalog;
+package com.clouway.jspandservlet.onlinebookcatalog.persistance;
+
+import com.clouway.jspandservlet.onlinebookcatalog.bussiness.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

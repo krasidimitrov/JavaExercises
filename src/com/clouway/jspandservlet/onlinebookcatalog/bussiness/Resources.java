@@ -1,5 +1,6 @@
-package com.clouway.jspandservlet.onlinebookcatalog;
+package com.clouway.jspandservlet.onlinebookcatalog.bussiness;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,16 @@ public class Resources {
     pageChangersList.put("last",new LastPageChanger());
   }
 
-  public Map<String, PageChanger> getPageChangersList() {
-    return pageChangersList;
+//  public Map<String, PageChanger> getPageChangersList() {
+//    return pageChangersList;
+//  }
+
+  public boolean hasNavigationForKey(String changeValue) {
+    return pageChangersList.containsKey(changeValue);
+  }
+
+  public void navigateTo(String changeValue, HttpSession session) {
+    int bookPosition = (Integer) session.getAttribute("bookPosition");
+    session.setAttribute("bookPosition", pageChangersList.get(changeValue).change(bookPosition));
   }
 }

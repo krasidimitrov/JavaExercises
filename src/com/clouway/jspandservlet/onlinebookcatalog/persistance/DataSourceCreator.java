@@ -1,4 +1,4 @@
-package com.clouway.jspandservlet.onlinebookcatalog;
+package com.clouway.jspandservlet.onlinebookcatalog.persistance;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
