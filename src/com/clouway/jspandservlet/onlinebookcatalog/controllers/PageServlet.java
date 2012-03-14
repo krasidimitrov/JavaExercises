@@ -40,7 +40,7 @@ public class PageServlet extends HttpServlet{
 //  }
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    Map<String, String[]> requestMap = req.getParameterMap();
+   // Map<String, String[]> requestMap = req.getParameterMap();
 
     HttpSession session = req.getSession();
     List<Book> bookArray = new ArrayList<Book>();

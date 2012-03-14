@@ -43,7 +43,7 @@ public class PageFilter implements Filter {
     if(session.isNew()){
       ((HttpServletResponse) servletResponse).sendRedirect("../pageServlet");
     }
-    currentBook =  (Book) session.getAttribute("currentBook");
+    currentBook =  (Book) request.getAttribute("currentBook");
     try {
       commentArrayList = databaseHelper.executeQuery("SELECT * FROM Comments WHERE bookId = ?",new CommentRowMapper(),currentBook.getBookId());
     } catch (SQLException e) {
