@@ -22,6 +22,9 @@
             <input type="submit" value="register">
         </form>
     </div>
+    <div align="center">
+        <h2><%=session.getAttribute("errorMessage")%></h2>
+    </div>
 </div>
 </body>
 </html>

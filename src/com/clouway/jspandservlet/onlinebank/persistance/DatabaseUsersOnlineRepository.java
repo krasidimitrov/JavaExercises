@@ -1,4 +1,4 @@
-package com.clouway.jspandservlet.onlinebank;
+package com.clouway.jspandservlet.onlinebank.persistance;
 
 import java.sql.SQLException;
 import java.sql.Time;
@@ -11,7 +11,7 @@ import java.sql.Time;
  * To change this template use File | Settings | File Templates.
  */
 public class DatabaseUsersOnlineRepository implements UsersOnlineRepository {
-  DatabaseHelper databaseHelper;
+  private DatabaseHelper databaseHelper;
 
   public DatabaseUsersOnlineRepository(DatabaseHelper helper) {
     databaseHelper = helper;

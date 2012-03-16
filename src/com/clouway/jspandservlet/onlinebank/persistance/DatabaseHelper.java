@@ -1,4 +1,4 @@
-package com.clouway.jspandservlet.onlinebank;
+package com.clouway.jspandservlet.onlinebank.persistance;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 

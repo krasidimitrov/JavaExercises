@@ -89,7 +89,7 @@
   <!--TASK6-->
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
-    <servlet-class>com.clouway.jspandservlet.onlinebank.RegisterServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.RegisterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
@@ -98,7 +98,7 @@
 
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.clouway.jspandservlet.onlinebank.LoginServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -107,7 +107,7 @@
 
   <servlet>
     <servlet-name>DepositServlet</servlet-name>
-    <servlet-class>com.clouway.jspandservlet.onlinebank.DepositServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.DepositServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DepositServlet</servlet-name>
@@ -116,7 +116,7 @@
 
   <servlet>
     <servlet-name>WithdrawServlet</servlet-name>
-    <servlet-class>com.clouway.jspandservlet.onlinebank.WithdrawServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.WithdrawServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>WithdrawServlet</servlet-name>
@@ -125,12 +125,48 @@
 
   <servlet>
     <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>com.clouway.jspandservlet.onlinebank.LogoutServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.LogoutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/logoutServlet</url-pattern>
   </servlet-mapping>
+
+  <filter>
+  <filter-name>LoginVerificationFilter</filter-name>
+  <filter-class>com.clouway.jspandservlet.onlinebank.controllers.LoginVerificationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  <filter-name>LoginVerificationFilter</filter-name>
+  <url-pattern>/onlinebank/userpage.jsp</url-pattern>
+
+  </filter-mapping>
+  <filter>
+    <filter-name>BalanceFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.BalanceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>BalanceFilter</filter-name>
+    <url-pattern>/onlinebank/userpage.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>UserOnlineTimeFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.UserOnlineTimeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UserOnlineTimeFilter</filter-name>
+    <url-pattern>/onlinebank/userpage.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>IndexFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.UsersOnlineCountFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>IndexFilter</filter-name>
+    <url-pattern>/onlinebank/index.jsp</url-pattern>
+  </filter-mapping>
 
 
 
@@ -160,12 +196,41 @@
   <!--TASK9-->
   <servlet>
     <servlet-name>PageServlet</servlet-name>
-    <servlet-class>com.clouway.jspandservlet.onlinebookcatalog.PageServlet</servlet-class>
+    <servlet-class>com.clouway.jspandservlet.onlinebookcatalog.controllers.PageServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PageServlet</servlet-name>
     <url-pattern>/pageServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>BookServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebookcatalog.controllers.BookServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BookServlet</servlet-name>
+    <url-pattern>/bookServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CommentServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebookcatalog.controllers.CommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/commentServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <!--<filter>-->
+    <!--<filter-name>BookFilter</filter-name>-->
+    <!--<filter-class>com.clouway.jspandservlet.onlinebookcatalog.controllers.PageFilter</filter-class>-->
+  <!--</filter>-->
+  <!--<filter-mapping>-->
+    <!--<filter-name>BookFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+  <!--</filter-mapping>-->
+
 </web-app>
         
         

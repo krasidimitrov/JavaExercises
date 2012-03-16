@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * Used as a safeguard when trying to enter in the book pa
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 3/9/12
@@ -27,9 +28,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class PageFilter implements Filter {
-  DatabaseHelper databaseHelper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
-  List<Comment> commentArrayList;
-  Book currentBook;
+  private DatabaseHelper databaseHelper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
+  private List<Comment> commentArrayList;
+  private Book currentBook;
 
   private FilterConfig filterConfig;
 

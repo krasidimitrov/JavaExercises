@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 /**
@@ -28,8 +29,8 @@ public class DatabaseBankRepositoryTest {
   }
 
   @After
-  public void destroyTestableData(){
-
+  public void destroyTestableData() throws SQLException {
+    databaseHelper.executeQuery("DROP TABLE Users");
   }
 
   @Test
@@ -43,5 +44,19 @@ public class DatabaseBankRepositoryTest {
     actualPassword = databaseHelper.executeQueryWithResult("SELECT password FROM Users WHERE userName=?;",expectedUserName);
     assertEquals(expectedUserName,actualUserName);
     assertEquals(expectedPassword,actualPassword);
+  }
+
+  /**
+   * Every account starts with 0.00 balance
+   * @throws SQLException
+   */
+  @Test
+  public void shouldUpdateTheBalanceForTheGivenUser() throws SQLException {
+    String userName = "Krasi";
+    String password = "12345;";
+    bank.saveUser(userName,password);
+    bank.updateBalance(userName, new BigDecimal(10));
+    BigDecimal result = new BigDecimal(databaseHelper.executeQueryWithResult("SELECT balance FROM Users WHERE userName = ?;", userName));
+    assertEquals(new BigDecimal("10.00"),result);
   }
 }

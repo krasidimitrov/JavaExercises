@@ -6,7 +6,6 @@ import com.clouway.jspandservlet.onlinebookcatalog.bussiness.CommentRowMapper;
 import com.clouway.jspandservlet.onlinebookcatalog.persistance.DataSourceCreator;
 import com.clouway.jspandservlet.onlinebookcatalog.persistance.DatabaseHelper;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +24,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class BookServlet extends HttpServlet {
-  DatabaseHelper databaseHelper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
-  List<Book> bookArray;
-  List<Comment> commentArrayList;
-  Book currentBook;
+  private DatabaseHelper databaseHelper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
+  private List<Book> bookArray;
+  private List<Comment> commentArrayList;
+  private Book currentBook;
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HttpSession session = req.getSession();

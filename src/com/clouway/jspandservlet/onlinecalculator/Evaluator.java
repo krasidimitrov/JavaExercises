@@ -10,11 +10,11 @@ import java.util.Map;
  * Time: 10:56 AM
  * To change this template use File | Settings | File Templates.
  */
-public class Evaluation {
+public class Evaluator {
   private String[] operations = {"+", "-", "*", "/"};
   private Map<String, Operation> operationMap = new HashMap<String, Operation>();
 
-  public Evaluation() {
+  public Evaluator() {
     operationMap.put("*", new OperationMultiplication());
     operationMap.put("/", new OperationDivision());
     operationMap.put("+", new OperationAddition());

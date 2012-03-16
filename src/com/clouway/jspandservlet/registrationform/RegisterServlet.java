@@ -17,12 +17,11 @@ import java.lang.reflect.Method;
  * To change this template use File | Settings | File Templates.
  */
 public class RegisterServlet extends HttpServlet {
-  RegistrationValidator validator = new RegistrationValidator();
-  Resources resources = new Resources();
-  HttpSession session;
+  private RegistrationValidator validator = new RegistrationValidator();
+  private Resources resources = new Resources();
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    session = req.getSession();
+    HttpSession session = req.getSession();
     Class validatorClass = RegistrationValidator.class;
     Method method;
     boolean booleanValue = true;

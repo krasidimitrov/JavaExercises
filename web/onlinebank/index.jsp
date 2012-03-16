@@ -1,6 +1,6 @@
-<%@ page import="com.clouway.jspandservlet.onlinebank.DatabaseHelper" %>
-<%@ page import="com.clouway.jspandservlet.onlinebank.UsersOnlineRepository" %>
-<%@ page import="com.clouway.jspandservlet.onlinebank.DatabaseUsersOnlineRepository" %>
+<%@ page import="com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper" %>
+<%@ page import="com.clouway.jspandservlet.onlinebank.persistance.UsersOnlineRepository" %>
+<%@ page import="com.clouway.jspandservlet.onlinebank.persistance.DatabaseUsersOnlineRepository" %>
 <%--
   Created by IntelliJ IDEA.
   User: clouway
@@ -19,11 +19,11 @@
     UsersOnlineRepository usersOnline = new DatabaseUsersOnlineRepository(databaseHelper);
 
 %>
-<%
-    if(session.getAttribute("userName") != null){
-        response.sendRedirect("/war/com.clouway.jspandservlet.onlinebank/userpage.jsp");
-    }
-%>
+<%--<%--%>
+    <%--if (session.getAttribute("userName") != null) {--%>
+        <%--response.sendRedirect("/war/onlinebank/userpage.jsp");--%>
+    <%--}--%>
+<%--%>--%>
 <body style="background-color: #d5e2ff">
 <div style="position: relative;">
     <div align="center"
@@ -40,7 +40,8 @@
         </form>
     </div>
     <div align="center">
-        <h3>Users online:<%=usersOnline.getOnlineUsersCount()%></h3>
+        <h3>Users online:<%=session.getAttribute("onlineUsersCount")%>
+        </h3>
     </div>
 </div>
 </body>

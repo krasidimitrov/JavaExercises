@@ -14,6 +14,9 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
@@ -27,6 +30,7 @@ public class AccountLogicImplTest {
   private BankRepository bank = context.mock(BankRepository.class);
   private AccountLogic accountLogic;
   private final String userName = "Krasi";
+  private final String password = "12345";
   private final int limit = 5;
 
   @Before
@@ -37,7 +41,6 @@ public class AccountLogicImplTest {
 
   @Test
   public void shouldRegisterANewAccountToTheDataSourceForRegistration() throws SQLException {
-    final String password = "123456";
 
     context.checking(new Expectations() {
       {
@@ -53,7 +56,6 @@ public class AccountLogicImplTest {
   @Test(expected = IncorrectDataFormatException.class)
   public void shouldNotRegisterTheUserIfUserNameIsShorterThanFiveCharacters() throws SQLException {
     final String shortUsername = "Ok";
-    final String password = "123456";
 
     accountLogic.register(shortUsername, password);
   }
@@ -61,7 +63,6 @@ public class AccountLogicImplTest {
   @Test(expected = IncorrectDataFormatException.class)
   public void shouldNotRegisterTheUserIfUserNameIsLongerThanTwelveCharacters() throws SQLException {
     final String longUsername = "IamMuchLongerThanTwelveCharacters";
-    final String password = "12345";
 
     accountLogic.register(longUsername, password);
   }
@@ -69,7 +70,6 @@ public class AccountLogicImplTest {
   @Test(expected = IncorrectDataFormatException.class)
   public void shouldNotRegisterTheUserIfUserNameContainsOtherSymbolsThanNumbersAndLetters() throws SQLException {
     final String incorrectUserName = "Hello!";
-    final String password = "12345";
 
     accountLogic.register(incorrectUserName, password);
   }
@@ -97,8 +97,7 @@ public class AccountLogicImplTest {
 
   @Test(expected = DuplicateUserNameException.class)
   public void shouldNotRegisterTheUserIfUserNameAlreadyExistInTheDataRepository() throws SQLException {
-    final String password = "12345";
-    
+
     context.checking(new Expectations(){{
     oneOf(bank).getUsername(userName);
       will(returnValue(userName));
@@ -221,6 +220,66 @@ public class AccountLogicImplTest {
     });
 
     accountLogic.deposit(userName, deposit, limit);
+  }
+
+  @Test
+  public void shouldReturnTrueIfTheUserExistsWithTheGivenPassword() throws SQLException {
+    boolean result;
+    context.checking(new Expectations() {
+      {
+
+        oneOf(bank).getPassword(userName);
+        will(returnValue("12345"));
+      }
+    });
+
+    result = accountLogic.checkIfPasswordForTheUsernameIsCorrect(userName, password);
+    assertTrue(result);
+  }
+
+  @Test
+  public void shouldReturnFalseIfPasswordDoesNotCorrespondsForTheUserName() throws SQLException {
+    boolean result;
+
+    context.checking(new Expectations(){{
+      oneOf(bank).getPassword(userName);
+      will(returnValue("otherPassword"));}
+    });
+
+    result = accountLogic.checkIfPasswordForTheUsernameIsCorrect(userName, password);
+    assertFalse(result);
+  }
+
+  @Test
+  public void shouldReturnFalseIfTheUserDoesNotExistInTheDataSource() throws SQLException {
+    boolean result;
+
+    context.checking(new Expectations() {
+      {
+        oneOf(bank).getPassword(userName);
+        will(returnValue(""));
+
+      }
+    });
+
+    result = accountLogic.checkIfPasswordForTheUsernameIsCorrect(userName, password);
+
+    assertFalse(result);
+  }
+
+  @Test
+  public void shouldReturnFalseIFTheUserNameIsEmptyString() throws SQLException {
+    final String emptyUserName = "";
+    boolean result;
+
+    context.checking(new Expectations(){{
+      oneOf(bank).getPassword(emptyUserName);
+      will(returnValue(""));
+    }
+    });
+
+    result = accountLogic.checkIfPasswordForTheUsernameIsCorrect(emptyUserName, password);
+    assertFalse(result);
   }
 
 }

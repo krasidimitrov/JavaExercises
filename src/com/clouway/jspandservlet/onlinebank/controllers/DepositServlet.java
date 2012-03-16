@@ -1,4 +1,10 @@
-package com.clouway.jspandservlet.onlinebank;
+package com.clouway.jspandservlet.onlinebank.controllers;
+
+import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
+import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
+import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
+import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
+import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -6,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Handle the deposit action
@@ -19,7 +24,7 @@ import java.sql.SQLException;
 public class DepositServlet extends HttpServlet {
   private DatabaseHelper helper = new DatabaseHelper();
   private BankRepository bank = new DatabaseBankRepository(helper);
-  AccountLogic account = new AccountLogicImpl(bank);
+  private AccountLogic account = new AccountLogicImpl(bank);
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String deposit = req.getParameter("deposit");
@@ -29,7 +34,7 @@ public class DepositServlet extends HttpServlet {
     String currentBalance;
     int newBalance;
 
-    account.deposit(userName,deposit);
+    account.deposit(userName,deposit,5);
     resp.sendRedirect("/war/onlinebank/userpage.jsp");
 
   }

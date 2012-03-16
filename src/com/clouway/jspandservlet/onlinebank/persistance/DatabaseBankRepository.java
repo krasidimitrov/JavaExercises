@@ -1,5 +1,6 @@
-package com.clouway.jspandservlet.onlinebank;
+package com.clouway.jspandservlet.onlinebank.persistance;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 /**
@@ -11,7 +12,7 @@ import java.sql.SQLException;
  * To change this template use File | Settings | File Templates.
  */
 public class DatabaseBankRepository implements BankRepository {
-  DatabaseHelper databaseHelper;
+  private DatabaseHelper databaseHelper;
 
   /**
    * Constructor
@@ -67,7 +68,7 @@ public class DatabaseBankRepository implements BankRepository {
    * @param balance the new balance for the current user
    * @throws SQLException
    */
-  public void updateBalance(String userName, int balance) throws SQLException {
+  public void updateBalance(String userName, BigDecimal balance) throws SQLException {
     databaseHelper.executeQuery("UPDATE Users SET balance = ? WHERE userName = ?", balance, userName);
   }
 

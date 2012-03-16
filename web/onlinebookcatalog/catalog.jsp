@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.clouway.jspandservlet.onlinebookcatalog.Book" %>
+<%@ page import="com.clouway.jspandservlet.onlinebookcatalog.bussiness.Book" %>
 <%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
@@ -31,7 +31,7 @@
      %>
     <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #d3d3d3;">
         <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #ffa4d4;">
-           <a href=<%="/war/com.clouway.jspandservlet.onlinebookcatalog/book.jsp?bookId="+bookArray.get(i).getBookId()%>><%=bookArray.get(i).getTitle()%> </a>
+           <a href=<%="../bookServlet?bookId="+i%>><%=bookArray.get(i).getTitle()%> </a>
         </div>
         <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #b4ffb3;">
             Publisher: <%=bookArray.get(i).getPublisher()%>

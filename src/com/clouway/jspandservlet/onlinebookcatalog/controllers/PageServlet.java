@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Control the changing of the pages
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/23/12
@@ -25,8 +26,8 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class PageServlet extends HttpServlet{
-  DatabaseHelper helper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
-  Resources resources = new Resources();
+  private DatabaseHelper helper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
+  private Resources resources = new Resources();
 
 //  protected void setDatabaseHelper(DatabaseHelper helper) {
 //    this.helper = helper;
@@ -40,7 +41,6 @@ public class PageServlet extends HttpServlet{
 //  }
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-   // Map<String, String[]> requestMap = req.getParameterMap();
 
     HttpSession session = req.getSession();
     List<Book> bookArray = new ArrayList<Book>();
