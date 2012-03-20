@@ -34,7 +34,7 @@ public interface BankRepository {
    * @return  the current balance for a user
    * @throws SQLException
    */
-  public String getBalance(String userName) throws SQLException;
+  public BigDecimal getBalance(String userName) throws SQLException;
 
   /**
    * Get the userName of a user
@@ -51,12 +51,4 @@ public interface BankRepository {
    * @throws SQLException
    */
   public String getPassword(String userName) throws SQLException;
-
-  /**
-   * Check if an user exist with a given userName
-   * @param userName the userName for which we want to check if such user exists
-   * @return true if the user exist and false otherwise
-   * @throws SQLException
-   */
-  public boolean checkIfUserNameExists(String userName) throws SQLException;
 }

@@ -216,11 +216,22 @@
     <servlet-name>CommentServlet</servlet-name>
     <servlet-class>com.clouway.jspandservlet.onlinebookcatalog.controllers.CommentServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>CommentServlet</servlet-name>
     <url-pattern>/commentServlet</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>testServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.TestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>testServlet</servlet-name>
+    <url-pattern>/testServlet</url-pattern>
+  </servlet-mapping>
 
   <!--<filter>-->
     <!--<filter-name>BookFilter</filter-name>-->

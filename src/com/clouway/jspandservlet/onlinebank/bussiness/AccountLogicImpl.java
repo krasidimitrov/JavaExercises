@@ -4,10 +4,8 @@ import com.clouway.jspandservlet.onlinebank.exceptions.DuplicateUserNameExceptio
 import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatException;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.UsersOnlineRepository;
-import sun.rmi.runtime.NewThreadAction;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.sql.SQLException;
 
 /**
@@ -59,23 +57,33 @@ public class AccountLogicImpl implements AccountLogic {
    * @param withdraw the amount with which the total balance will be decreased
    * @param limit the limit of the amount with which we can decrease the total balance
    */
-  public void withdraw(String userName, String withdraw, int limit) {
-    BigDecimal currentBalance;
-    BigDecimal newBalance;
-    String regLimit = Integer.toString(limit);
-//    MathContext mc = new MathContext(0);
-//    mc = mc.DECIMAL32;
-    try {
-      if (withdraw.matches("^[0-9]{1,"+regLimit+"}\\.[0-9]{1,2}$|^[0-9]{1,"+regLimit+"}$")) {
-        currentBalance = new BigDecimal(bank.getBalance(userName));
-        newBalance = currentBalance.subtract(new BigDecimal(withdraw));
-        if (newBalance.compareTo(new BigDecimal(0.00)) != -1) {
-          bank.updateBalance(userName, newBalance);
-        }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+  public void withdraw(String userName, BigDecimal withdraw) {
+//
+//    BigDecimal newBalance;
+//    String regLimit = Integer.toString(limit);
+////    MathContext mc = new MathContext(0);
+////    mc = mc.DECIMAL32;
+//    try {
+//
+//      BigDecimal currentBalance = bank.getBalance(userName);
+//
+//      if (customerAccountHasEnoughAmountToWithdraw(withdraw, currentBalance)) {
+//
+//      }
+////      if (withdraw.matches("^[0-9]{1,"+regLimit+"}\\.[0-9]{1,2}$|^[0-9]{1,"+regLimit+"}$")) {
+//        currentBalance = new BigDecimal(bank.getBalance(userName));
+//        newBalance = currentBalance.subtract(new BigDecimal(withdraw));
+//        if (newBalance.compareTo(new BigDecimal(0.00)) != -1) {
+//          bank.updateBalance(userName, newBalance);
+//        }
+////      }
+//    } catch (SQLException e) {
+//      e.printStackTrace();
+//    }
+  }
+
+  private boolean customerAccountHasEnoughAmountToWithdraw(BigDecimal withdraw, BigDecimal currentBalance) {
+    return withdraw.compareTo(currentBalance) < 0;
   }
 
   /**
@@ -91,22 +99,13 @@ public class AccountLogicImpl implements AccountLogic {
 
     try {
       if (deposit.matches("^[0-9]{1,"+regLimit+"}\\.[0-9]{1,2}$|^[0-9]{1,"+regLimit+"}$")) {
-        currentBalance =new BigDecimal(bank.getBalance(userName));
+        currentBalance = bank.getBalance(userName);
         newBalance = currentBalance.add(new BigDecimal(deposit));
         bank.updateBalance(userName, newBalance);
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
-  }
-
-  public BigDecimal getAccountBalance(String userName){
-    try {
-      return new BigDecimal(bank.getBalance(userName));
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null;
   }
 
 

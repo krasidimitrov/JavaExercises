@@ -30,7 +30,7 @@ public interface AccountLogic {
    * @param withdraw the amount with which the total balance will be decreased
    * @param limit the limit of the amount with which we can decrease the total balance
    */
-  public void withdraw(String userName, String withdraw, int limit);
+  public void withdraw(String userName, BigDecimal withdraw);
 
   /**
    * Increase the total balance of an account

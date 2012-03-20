@@ -4,6 +4,7 @@ import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
+import com.clouway.jspandservlet.onlinebank.inject.Injector;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
@@ -27,11 +28,9 @@ import java.sql.Time;
  * To change this template use File | Settings | File Templates.
  */
 public class LoginServlet extends HttpServlet {
-  private DatabaseHelper helper = new DatabaseHelper();
-  private BankRepository bank = new DatabaseBankRepository(helper);
-  private UsersOnlineRepository usersOnlineRepository = new DatabaseUsersOnlineRepository(helper);
-  private AccountLogic account = new AccountLogicImpl(bank);
-  private UsersOnlineHandler usersOnline = new UsersOnlineHandlerImpl(usersOnlineRepository);
+
+  private AccountLogic account = Injector.injectAccountLogic();
+  private UsersOnlineHandler usersOnline = Injector.injectUsersOnlineHandler();
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String userName = req.getParameter("userName");

@@ -1,16 +1,15 @@
 package com.clouway.jspandservlet.onlinebank.controllers;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
-import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
-import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
-import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
-import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
+import com.clouway.jspandservlet.onlinebank.inject.Injector;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 import java.io.IOException;
 import java.math.BigDecimal;
 
@@ -23,17 +22,67 @@ import java.math.BigDecimal;
  * To change this template use File | Settings | File Templates.
  */
 public class WithdrawServlet extends HttpServlet {
-  private DatabaseHelper helper = new DatabaseHelper();
-  private BankRepository bank = new DatabaseBankRepository(helper);
-  private AccountLogic account = new AccountLogicImpl(bank);
+
+  private AccountLogic accountLogic;
+
+  public WithdrawServlet() {
+    accountLogic = Injector.injectAccountLogic();
+
+
+  }
+  
+  interface RequestHandler {
+
+    void handle(MyRequest request, HttpServletResponse response, HttpSession session);
+
+  }
+
+  class WithdrawHandler implements RequestHandler {
+
+    public void handle(MyRequest request, HttpServletResponse response, HttpSession session) {
+
+    }
+
+  }
+
+  protected WithdrawServlet(AccountLogic accountLogic) {
+    this.accountLogic = accountLogic;
+  }
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+
+  }
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    String withdraw = req.getParameter("withdraw");
+    handle(new MyRequestImpl(req), resp);
+  }
+  
 
-    HttpSession session = req.getSession();
-    String userName = session.getAttribute("userName").toString();
-    account.withdraw(userName, withdraw, 5);
-    resp.sendRedirect("/war/onlinebank/userpage.jsp");
 
+  protected void handle(MyRequest request, HttpServletResponse resp) throws IOException {
+
+
+//    if (withdraw.matches("(\\d+\\.\\d{0,2}+)")) {
+    try {
+      BigDecimal withdrawAmount = request.getValue("withdraw");
+
+      HttpSession session = request.getSession();
+      String userName = (String) session.getAttribute("userName");
+
+      accountLogic.withdraw(userName, withdrawAmount);
+
+      resp.sendRedirect("/war/onlinebank/userpage.jsp");
+
+    }catch (IllegalStateException e) {
+      // set error and dispatch to the error page
+    }
+
+//    } else {
+//      req.setAttribute("error", "Withdraw amount was not valid decimal value");
+//
+//      //TODO:  forward to proper error page
+//      req.getRequestDispatcher("").forward(req, resp);
+//    }
   }
 }

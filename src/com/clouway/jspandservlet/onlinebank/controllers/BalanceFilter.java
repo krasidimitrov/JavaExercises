@@ -3,6 +3,7 @@ package com.clouway.jspandservlet.onlinebank.controllers;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
+import com.clouway.jspandservlet.onlinebank.persistance.ConnectionProvider;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseUsersOnlineRepository;
@@ -33,7 +34,7 @@ public class BalanceFilter implements Filter {
   private BankRepository bank;
 
   public void init(FilterConfig filterConfig) throws ServletException {
-    databaseHelper = new DatabaseHelper();
+    databaseHelper = new DatabaseHelper(new ConnectionProvider());
     bank = new DatabaseBankRepository(databaseHelper);
   }
 

@@ -2,6 +2,7 @@ package com.clouway.jspandservlet.onlinebank.controllers;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
+import com.clouway.jspandservlet.onlinebank.inject.Injector;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
@@ -24,9 +25,7 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class RegisterServlet extends HttpServlet {
-  private DatabaseHelper databaseHelper = new DatabaseHelper();
-  private BankRepository bank = new DatabaseBankRepository(databaseHelper);
-  private AccountLogic account = new AccountLogicImpl(bank);
+  private AccountLogic account = Injector.injectAccountLogic();
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HttpSession session = req.getSession();

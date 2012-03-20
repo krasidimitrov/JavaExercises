@@ -3,12 +3,14 @@ package onlinebank;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
+import com.clouway.jspandservlet.onlinebank.persistance.Provider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -19,7 +21,11 @@ import java.sql.SQLException;
  * To change this template use File | Settings | File Templates.
  */
 public class DatabaseBankRepositoryTest {
-  private DatabaseHelper databaseHelper = new DatabaseHelper();
+  private DatabaseHelper databaseHelper = new DatabaseHelper(new Provider<Connection>() {
+    public Connection get() {
+      return null;
+    }
+  });
   private BankRepository bank;
 
   @Before

@@ -108,7 +108,7 @@ public class AccountLogicImplTest {
 
   @Test
   public void shouldDecreaseTheTotalBalanceOfAnAccount() throws SQLException {
-    final String withdraw = "10";
+    final BigDecimal withdraw = new BigDecimal("10");
 
     context.checking(new Expectations() {
       {
@@ -118,13 +118,13 @@ public class AccountLogicImplTest {
       }
     });
 
-    accountLogic.withdraw(userName, withdraw, limit);
+    accountLogic.withdraw(userName, withdraw);
   }
 
 
   @Test
   public void shouldNotUpdateBalanceIFWithdrawIsANegativeNumber() throws SQLException {
-    final String withdraw = "-10";
+    final BigDecimal withdraw = new BigDecimal("-10");
 
     context.checking(new Expectations() {
       {
@@ -133,27 +133,15 @@ public class AccountLogicImplTest {
       }
     });
 
-    accountLogic.withdraw(userName, withdraw, limit);
+    accountLogic.withdraw(userName, withdraw);
   }
 
-  @Test
-  public void shouldNotUpdateBalanceIfWithdrawIsNotANumber() throws SQLException {
-    final String withdraw = "haha";
 
-    context.checking(new Expectations() {
-      {
-        oneOf(bank).getBalance(userName);
-        will(returnValue("10"));
-      }
-    });
-
-    accountLogic.withdraw(userName,withdraw,limit);
-  }
 
   //FIX THIS TEST
   @Test
   public void shouldNotUpdateBalanceIfWithdrawIsBiggerThanTheGivenLimit() throws SQLException {
-    final String withdraw = "123456";
+    final BigDecimal withdraw = new BigDecimal("123456");
 
     context.checking(new Expectations() {
       {
@@ -162,7 +150,7 @@ public class AccountLogicImplTest {
       }
     });
 
-    accountLogic.withdraw(userName,withdraw, limit);
+    accountLogic.withdraw(userName,withdraw);
   }
 
   @Test

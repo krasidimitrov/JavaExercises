@@ -58,8 +58,8 @@ public class DatabaseBankRepository implements BankRepository {
    * @return the balance for the user with the given userName
    * @throws SQLException
    */
-  public String getBalance(String userName) throws SQLException {
-    return databaseHelper.executeQueryWithResult("SELECT balance FROM Users WHERE userName = ?", userName);
+  public BigDecimal getBalance(String userName) throws SQLException {
+    return new BigDecimal(databaseHelper.executeQueryWithResult("SELECT balance FROM Users WHERE userName = ?", userName));
   }
 
   /**

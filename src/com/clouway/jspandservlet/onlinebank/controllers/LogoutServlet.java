@@ -3,6 +3,7 @@ package com.clouway.jspandservlet.onlinebank.controllers;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
+import com.clouway.jspandservlet.onlinebank.persistance.ConnectionProvider;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseUsersOnlineRepository;
@@ -23,7 +24,7 @@ import java.sql.SQLException;
  * Time: 4:59 PM
  */
 public class LogoutServlet extends HttpServlet {
-  private DatabaseHelper databaseHelper = new DatabaseHelper();
+  private DatabaseHelper databaseHelper = new DatabaseHelper(new ConnectionProvider());
   private UsersOnlineRepository usersOnlineRepository = new DatabaseUsersOnlineRepository(databaseHelper);
   //this BankRepository is not used here so is it wrong to give a null parameter to UsersOnlineHandler instead bank?
   private BankRepository bank = new DatabaseBankRepository(databaseHelper);

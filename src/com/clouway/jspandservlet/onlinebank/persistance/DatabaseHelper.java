@@ -1,7 +1,5 @@
 package com.clouway.jspandservlet.onlinebank.persistance;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,14 +15,10 @@ import java.sql.SQLException;
  */
 public class DatabaseHelper {
 
-  private MysqlDataSource dataSource;
+  private final Provider<Connection> connectionProvider;
 
-  public DatabaseHelper(){
-    dataSource = new MysqlDataSource();
-    dataSource.setServerName("localhost");
-    dataSource.setDatabaseName("BankDatabase");
-    dataSource.setUser("kpackapgo");
-    dataSource.setPassword("");
+  public DatabaseHelper(Provider<Connection> connectionProvider){
+    this.connectionProvider = connectionProvider;
   }
 
   /**
@@ -33,14 +27,29 @@ public class DatabaseHelper {
    * @param params the parameters used in the query which is executed
    * @throws SQLException
    */
-  public void executeQuery(String query, Object... params) throws SQLException {
-    Connection connection = dataSource.getConnection();
-    PreparedStatement preparedStatement = connection.prepareStatement(query);
+  public void executeQuery(String query, Object... params) {
+    Connection connection = null;
+    try {
+      connection = connectionProvider.get();
 
-    fillParams(preparedStatement,params);
+      PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-    preparedStatement.execute();
-    connection.close();
+      fillParams(preparedStatement,params);
+
+      preparedStatement.execute();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (connection != null) {
+          connection.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+
   }
 
   /**
@@ -64,7 +73,7 @@ public class DatabaseHelper {
    */
   public String executeQueryWithResult(String query,  Object... params) throws SQLException {
 
-    Connection connection = dataSource.getConnection();
+    Connection connection = connectionProvider.get();
     PreparedStatement preparedStatement = connection.prepareStatement(query);
 
     fillParams(preparedStatement, params);

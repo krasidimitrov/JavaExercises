@@ -1,7 +1,7 @@
 package com.clouway.jspandservlet.onlinebank.controllers;
 
-import com.clouway.jspandservlet.onlinebank.persistance.DatabaseHelper;
-import com.clouway.jspandservlet.onlinebank.persistance.DatabaseUsersOnlineRepository;
+import com.clouway.jspandservlet.onlinebank.inject.Injector;
+import com.clouway.jspandservlet.onlinebank.persistance.Provider;
 import com.clouway.jspandservlet.onlinebank.persistance.UsersOnlineRepository;
 
 import javax.servlet.Filter;
@@ -25,23 +25,32 @@ import java.sql.SQLException;
  * To change this template use File | Settings | File Templates.
  */
 public class UsersOnlineCountFilter implements Filter {
-  private DatabaseHelper databaseHelper;
   private UsersOnlineRepository usersOnline;
+  private Provider<UserSessions> userSessionsProvider; // It was final. I made it not final so i can inject it
 
   public void init(FilterConfig filterConfig) throws ServletException {
-    
+  usersOnline = Injector.injectUsersOnlineRepository(Injector.injectHelper());
   }
+
+//  Without constructor
+//  public UsersOnlineCountFilter(Provider<UserSessions> userSessionsProvider) {
+//    this.userSessionsProvider = userSessionsProvider;
+//  }
 
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
     HttpSession session = ((HttpServletRequest) servletRequest).getSession();
     if (session.getAttribute("userName") != null) {
       ((HttpServletResponse) servletResponse).sendRedirect("/war/onlinebank/userpage.jsp");
     }
-
-    databaseHelper = new DatabaseHelper();
-    usersOnline = new DatabaseUsersOnlineRepository(databaseHelper);
+    usersOnline = Injector.injectUsersOnlineRepository(Injector.injectHelper());
+  //  userSessionsProvider = Injector.injectUserSessionProvider(session); // written by me
     try {
-      session.setAttribute("onlineUsersCount",usersOnline.getOnlineUsersCount());
+    //  session.setAttribute("onlineUsersCount",usersOnline.getOnlineUsersCount());
+
+    //  UserSessions sessions = userSessionsProvider.get();
+      //servletRequest.setAttribute("onlineUsersCount", sessions);
+      servletRequest.setAttribute("onlineUsersCount", usersOnline.getOnlineUsersCount());
+      servletRequest.getRequestDispatcher("onlinebank/index.jsp").forward(servletRequest, servletResponse);
     } catch (SQLException e) {
       e.printStackTrace();
     }
