@@ -9,11 +9,14 @@
 <html>
 <head>
     <title>Calculator</title>
-    <link rel="stylesheet" type="text/css" href="calculatorStyle.css" />
-    <script type="text/javascript" src="calculatorLogic.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="<%=getPath()%>/onlinecalculator/calculatorStyle.css" />
+    <script type="text/javascript" src="<%=getPath()%>/onlinecalculator/calculatorLogic.js" charset="utf-8"></script>
 </head>
-
 <%!
+    private String getPath(){
+        return getServletConfig().getServletContext().getContextPath();
+    }
+
     private String getResult(Object message){
         if(message != null){
             return message.toString();
@@ -24,8 +27,8 @@
 <body>
 <div id="mainDiv"
      style="margin: auto; position: relative; width: 215px; height: 250px; background-color: azure;">
-    <form action="../calculator" method="post">
-        <input type="text" name="calcField" id="calcField" class="calcField" onchange="validateNumber()" value="<%=getResult(session.getAttribute("result"))%>"/>
+    <form action="<%=getPath()%>/calculator" method="post">
+        <input type="text" name="calcField" id="calcField" class="calcField" onchange="validateNumber()" value="<%=getResult(request.getAttribute("result"))%>"/>
         <button type="button" id="clear" onclick="calcField.value = ''">CE</button>
         <br/>
         <button type="button" id="7" onclick="calcField.value += '7'">7</button>

@@ -1,6 +1,7 @@
 package com.clouway.jspandservlet.onlinebank.exceptions;
 
 /**
+ * Throw when a username already exists in the data source
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/29/12

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ *  Construct a comment object from a result set
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/28/12

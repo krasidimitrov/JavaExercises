@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 
 /**
- * Implement all methods from the BankRepository for a database
+ * Used to make queries to the database
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com
  * Date: 2/16/12
@@ -26,19 +26,17 @@ public class DatabaseBankRepository implements BankRepository {
    * Save user to the database
    * @param userName the userName for the user that we are going to save
    * @param password the password for the user that w are going to save
-   * @throws SQLException
    */
-  public void saveUser(String userName, String password) throws SQLException {
+  public void saveUser(String userName, String password){
     databaseHelper.executeQuery("INSERT INTO Users VALUES(?,?,0);", userName ,password);
   }
 
   /**
    * Get userName from the database
-   * @param userName
+   * @param userName which we want to select from the database;
    * @return  the userName  of a user if this user exist in the database
-   * @throws SQLException
    */
-  public String getUsername(String userName) throws SQLException {
+  public String getUsername(String userName){
     return databaseHelper.executeQueryWithResult("SELECT userName FROM Users WHERE userName = ?;",userName);
   }
 
@@ -46,9 +44,8 @@ public class DatabaseBankRepository implements BankRepository {
    * Get the passowrd for a user
    * @param userName the userName of the user for which we want to get the password
    * @return the password for the given userName
-   * @throws SQLException
    */
-  public String getPassword(String userName) throws SQLException {
+  public String getPassword(String userName){
     return databaseHelper.executeQueryWithResult("SELECT password FROM Users WHERE userName = ?;",userName);
   }
 
@@ -56,9 +53,8 @@ public class DatabaseBankRepository implements BankRepository {
    * Get the balance of a user form the database
    * @param userName the userName of the user for which we are going to get the balance
    * @return the balance for the user with the given userName
-   * @throws SQLException
    */
-  public BigDecimal getBalance(String userName) throws SQLException {
+  public BigDecimal getBalance(String userName){
     return new BigDecimal(databaseHelper.executeQueryWithResult("SELECT balance FROM Users WHERE userName = ?", userName));
   }
 
@@ -66,9 +62,8 @@ public class DatabaseBankRepository implements BankRepository {
    * Update the balance of a user
    * @param userName the userName for the user for which we are going to update the balance
    * @param balance the new balance for the current user
-   * @throws SQLException
    */
-  public void updateBalance(String userName, BigDecimal balance) throws SQLException {
+  public void updateBalance(String userName, BigDecimal balance){
     databaseHelper.executeQuery("UPDATE Users SET balance = ? WHERE userName = ?", balance, userName);
   }
 
@@ -76,9 +71,8 @@ public class DatabaseBankRepository implements BankRepository {
    * Check if user exists in the database
    * @param userName the userName for which we want to check if such user exists
    * @return true if the user exists and false otherwise
-   * @throws SQLException
    */
-  public boolean checkIfUserNameExists(String userName) throws SQLException {
+  public boolean checkIfUserNameExists(String userName){
     if(getUsername(userName).equals(userName)){
       return true;
     }

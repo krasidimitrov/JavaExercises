@@ -12,10 +12,16 @@
 <html>
 <head>
     <title></title>
+    <%!
+        private String getPath(){
+            return getServletConfig().getServletContext().getContextPath();
+        }
+    %>
+
 </head>
 <%
     if(session.getAttribute("bookPosition") == null){
-        response.sendRedirect("../pageServlet");
+        response.sendRedirect(getPath()+"/pageServlet");
     }
     List<Book> bookArray = (ArrayList<Book>) session.getAttribute("bookArray");
 
@@ -31,7 +37,7 @@
      %>
     <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #d3d3d3;">
         <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #ffa4d4;">
-           <a href=<%="../bookServlet?bookId="+i%>><%=bookArray.get(i).getTitle()%> </a>
+           <a href=<%=getPath()+"/bookServlet?bookId="+i%>><%=bookArray.get(i).getTitle()%> </a>
         </div>
         <div style="text-align: center; width: 400px; margin-left: auto; margin-right: auto; background-color: #b4ffb3;">
             Publisher: <%=bookArray.get(i).getPublisher()%>
@@ -44,7 +50,9 @@
     <%
        }}
     %>
-<a href="../pageServlet?changeValue=first"><<</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../pageServlet?changeValue=back">back</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../pageServlet?changeValue=next">next</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../pageServlet?changeValue=last">>></a>
+<%=session.getAttribute("pageNumber")%>
+    <br />
+<a href="<%=getPath()%>/pageServlet?changeValue=first"><<</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=getPath()%>/pageServlet?changeValue=back">back</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=getPath()%>/pageServlet?changeValue=next">next</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=getPath()%>/pageServlet?changeValue=last">>></a>
 </div>
 
 </body>

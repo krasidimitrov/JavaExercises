@@ -2,6 +2,7 @@ package onlinebank;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
+import com.clouway.jspandservlet.onlinebank.exceptions.InsufficientBalanceException;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.exceptions.DuplicateUserNameException;
 import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatException;
@@ -14,16 +15,17 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Krasimir Dimitrov
- * Email: krasimir.dimitrov@clouway.com.
- * Date: 2/29/12
- * Time: 1:18 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created by Krasimir Dimitrov
+* Email: krasimir.dimitrov@clouway.com.
+* Date: 2/29/12
+* Time: 1:18 PM
+* To change this template use File | Settings | File Templates.
+*/
 public class AccountLogicImplTest {
 
   private Mockery context = new JUnit4Mockery();
@@ -113,45 +115,28 @@ public class AccountLogicImplTest {
     context.checking(new Expectations() {
       {
         oneOf(bank).getBalance(userName);
-        will(returnValue("20"));
-        oneOf(bank).updateBalance(userName, new BigDecimal("10"));
+        will(returnValue(new BigDecimal("20")));
+        oneOf(bank).updateBalance(userName, withdraw);
       }
     });
 
     accountLogic.withdraw(userName, withdraw);
   }
 
-
-  @Test
-  public void shouldNotUpdateBalanceIFWithdrawIsANegativeNumber() throws SQLException {
-    final BigDecimal withdraw = new BigDecimal("-10");
+  @Test (expected = InsufficientBalanceException.class)
+  public void shouldNotDecreaseTheTotalBalanceOfAnAccountIfTheBalanceIsLessThanTheWithdrawSum(){
+    final BigDecimal withdraw = new BigDecimal("100");
 
     context.checking(new Expectations() {
       {
         oneOf(bank).getBalance(userName);
-        will(returnValue("100"));
+        will(returnValue(new BigDecimal("20")));
       }
     });
 
     accountLogic.withdraw(userName, withdraw);
   }
 
-
-
-  //FIX THIS TEST
-  @Test
-  public void shouldNotUpdateBalanceIfWithdrawIsBiggerThanTheGivenLimit() throws SQLException {
-    final BigDecimal withdraw = new BigDecimal("123456");
-
-    context.checking(new Expectations() {
-      {
-        oneOf(bank).getBalance(userName);
-        will(returnValue("10000000"));
-      }
-    });
-
-    accountLogic.withdraw(userName,withdraw);
-  }
 
   @Test
   public void shouldIncreaseTheTotalBalanceOfAnAccount() throws SQLException {
@@ -160,54 +145,12 @@ public class AccountLogicImplTest {
     context.checking(new Expectations() {
       {
         oneOf(bank).getBalance(userName);
-        will(returnValue("20"));
+        will(returnValue(new BigDecimal("20")));
         oneOf(bank).updateBalance(userName, new BigDecimal("30"));
       }
     });
 
-    accountLogic.deposit(userName, deposit, limit);
-  }
-
-  @Test
-  public void shouldNotUpdateBalanceIfDepositIsANegativeNumber() throws SQLException {
-    final String deposit = "-10";
-
-    context.checking(new Expectations() {
-      {
-        oneOf(bank).getBalance(userName);
-        will(returnValue("10"));
-      }
-    });
-
-    accountLogic.deposit(userName, deposit, limit);
-  }
-
-  @Test
-  public void shouldNotUpdateBalanceIfDepositIsNotANumber() throws SQLException {
-    final String deposit = "haha";
-
-    context.checking(new Expectations() {
-      {
-        oneOf(bank).getBalance(userName);
-        will(returnValue("10"));
-      }
-    });
-
-    accountLogic.deposit(userName, deposit, limit);
-  }
-
-  @Test
-  public void shouldNotUpdateBalanceIfDepositIsBiggerThanTheGivenLimit() throws SQLException {
-    final String deposit = "199999";
-
-    context.checking(new Expectations() {
-      {
-        oneOf(bank).getBalance(userName);
-        will(returnValue("10"));
-      }
-    });
-
-    accountLogic.deposit(userName, deposit, limit);
+    accountLogic.deposit(userName, new BigDecimal(deposit));
   }
 
   @Test
@@ -256,7 +199,7 @@ public class AccountLogicImplTest {
   }
 
   @Test
-  public void shouldReturnFalseIFTheUserNameIsEmptyString() throws SQLException {
+  public void shouldReturnFalseIfTheUserNameIsEmptyString() throws SQLException {
     final String emptyUserName = "";
     boolean result;
 
@@ -268,6 +211,22 @@ public class AccountLogicImplTest {
 
     result = accountLogic.checkIfPasswordForTheUsernameIsCorrect(emptyUserName, password);
     assertFalse(result);
+  }
+
+  @Test
+  public void shouldReturnBigDecimalIfDataIsCorrect(){
+    BigDecimal bigDecimal = accountLogic.getBigDecimalIfFormatIsCorrect("12",limit);
+    assertEquals(new BigDecimal("12"), bigDecimal);
+  }
+
+  @Test (expected = IncorrectDataFormatException.class)
+  public void shouldThrowExceptionIfTheNumberHasMoreDigitsThatTheLimit(){
+    accountLogic.getBigDecimalIfFormatIsCorrect("123456",limit);
+  }
+
+  @Test (expected = IncorrectDataFormatException.class)
+  public void shouldThrowExceptionIfThereAreOtherSymbolsExceptDigitsInTheString(){
+    accountLogic.getBigDecimalIfFormatIsCorrect("12cd",limit);
   }
 
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 
 /**
+ * Used to make queries to the database
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/24/12
@@ -17,15 +18,30 @@ public class DatabaseUsersOnlineRepository implements UsersOnlineRepository {
     databaseHelper = helper;
   }
 
-  public void save(String userName, int timeLimit) throws SQLException {
+  /**
+   * Save into the the UsersOnline table
+   * @param userName the userName which we are going to save
+   * @param timeLimit the time for which he will be online
+   */
+  public void save(String userName, int timeLimit) {
     databaseHelper.executeQuery("INSERT INTO UsersOnline (userName, creationTime, expirationTime) VALUES (?, ?, ?);", userName, new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis() + timeLimit * 1000));
   }
 
-  public void updateExpirationTime(String userName, String creationTime, int timeLimit) throws SQLException {
+  /**
+   * Update the expiration time of an online user after which he become offline
+   * @param userName the userName of the user for which we are going to update the expiration time
+   * @param creationTime the time at which the user became online
+   * @param timeLimit the expiration time of the session
+   */
+  public void updateExpirationTime(String userName, String creationTime, int timeLimit){
     databaseHelper.executeQuery("UPDATE UsersOnline SET expirationTime=? WHERE userName=? AND creationTime = ?;", new Time(System.currentTimeMillis()+timeLimit*1000), userName, creationTime);
   }
-  
-  public String getOnlineUsersCount() throws SQLException {
+
+  /**
+   * Get all users from the database that are online at the moment
+   * @return the count of all online users as a string
+   */
+  public String getOnlineUsersCount() {
     return databaseHelper.executeQueryWithResult("SELECT COUNT(*) FROM UsersOnline WHERE expirationTime>?;", new Time(System.currentTimeMillis()));
   }
 }

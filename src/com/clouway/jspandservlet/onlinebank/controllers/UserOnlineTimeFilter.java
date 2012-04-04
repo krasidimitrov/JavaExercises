@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Update the online time limit of a user after which the user avtomatically log out
+ * Update the online time limit of a user after which the user automatically log out
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 3/15/12

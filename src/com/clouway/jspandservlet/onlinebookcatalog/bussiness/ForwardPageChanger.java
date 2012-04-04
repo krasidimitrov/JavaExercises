@@ -1,6 +1,6 @@
 package com.clouway.jspandservlet.onlinebookcatalog.bussiness;
 
-import com.clouway.jspandservlet.onlinebookcatalog.persistance.DataSourceCreator;
+import com.clouway.jspandservlet.onlinebookcatalog.inject.Injector;
 import com.clouway.jspandservlet.onlinebookcatalog.persistance.DatabaseHelper;
 
 import java.sql.SQLException;
@@ -13,15 +13,12 @@ import java.sql.SQLException;
  * To change this template use File | Settings | File Templates.
  */
 public class ForwardPageChanger implements PageChanger {
-  private DatabaseHelper helper = new DatabaseHelper(DataSourceCreator.getBookCatalogueDataSource());
+  private DatabaseHelper helper = Injector.injectHelper();
   private int bookCount;
 
   public int change(int position) {
-    try {
       bookCount = helper.executeQueryWithSingleResult("SELECT COUNT(*) FROM Books");
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+
 
     int newPosition = position + 3;
     if (newPosition >= bookCount) {

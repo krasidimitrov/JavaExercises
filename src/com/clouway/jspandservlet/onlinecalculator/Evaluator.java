@@ -15,29 +15,40 @@ public class Evaluator {
   private Map<String, Operation> operationMap = new HashMap<String, Operation>();
 
   public Evaluator() {
-    operationMap.put("*", new OperationMultiplication());
-    operationMap.put("/", new OperationDivision());
     operationMap.put("+", new OperationAddition());
     operationMap.put("-", new OperationSubtraction());
+    operationMap.put("*", new OperationMultiplication());
+    operationMap.put("/", new OperationDivision());
   }
 
   public int eval(String expression) {
-    String numbers[] = null;
-    String operationSymbol = "";
-    for (String operation : operations) {
-      if (expression.contains(operation)) {
-        operationSymbol = operation;
-        numbers = expression.split("\\" + operation);
+    int num1;
+    int num2;
+    for(String operation: operations){
+      if(expression.lastIndexOf(operation) > 0 ){//&& expression.lastIndexOf(operation) < expression.length()-1){
+        try{
+      num1 = Integer.parseInt(expression.substring(0, expression.lastIndexOf(operation)));
+      num2 = Integer.parseInt(expression.substring(expression.lastIndexOf(operation)+1, expression.length()));
+      return operationMap.get(operation).calculate(num1,num2);
+        } catch (NumberFormatException e){
+           throw new InvalidExpressionException();
+        }
       }
     }
+    return Integer.parseInt(expression);
 
-    if (numbers == null) {
-      return Integer.parseInt(expression);
-    } else if (numbers.length == 2) {
-      return operationMap.get(operationSymbol).calculate(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
-    } else {
-      return Integer.parseInt(numbers[0]);
-    }
+//    int result = 0;
+//    for (String sign : operations) {
+//      if (expression.contains(sign)) {
+//        try {
+//          int firstNumber = Integer.parseInt(expression.substring(0, expression.lastIndexOf(sign)));
+//          int secondNumber = Integer.parseInt(expression.substring(expression.lastIndexOf(sign) + 1, expression.length()));
+//          result = operationMap.get(sign).calculate(firstNumber, secondNumber);
+//        } catch (NumberFormatException exception) {
+//        }
+//      }
+//    }
+//    return result;
   }
 
 }

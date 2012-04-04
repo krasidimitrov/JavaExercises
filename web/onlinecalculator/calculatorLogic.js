@@ -7,7 +7,9 @@
 
 function writeOperation(oper){
     var str = document.getElementById('calcField').value;
-    if(str.length != 0 && str.indexOf("*") == -1 && str.indexOf("/") == -1 && str.indexOf("+") == -1 && str.indexOf("-") == -1){
+    if(str.length != 0 && (str.indexOf("*") == -1 || str.indexOf("*") ==  0) && (str.indexOf("/") == -1 || str.indexOf("/") ==  0) && (str.indexOf("+") == -1 || str.indexOf("+") ==  0) && (str.indexOf("-") == -1 || str.indexOf("-") ==  0))
+    //&& str.indexOf("/") == (-1 || 0) && str.indexOf("+") == (-1 || 0) && str.indexOf("-") == (-1 || 0))
+    {
         document.getElementById('calcField').value += oper;
     }
 }

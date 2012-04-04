@@ -1,6 +1,7 @@
 package com.clouway.jspandservlet.onlinebank.exceptions;
 
 /**
+ * Throw when data in form(s) is incorrect
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/29/12

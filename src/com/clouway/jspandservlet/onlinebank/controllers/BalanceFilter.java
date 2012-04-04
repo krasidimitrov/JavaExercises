@@ -2,6 +2,7 @@ package com.clouway.jspandservlet.onlinebank.controllers;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
+import com.clouway.jspandservlet.onlinebank.inject.Injector;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.ConnectionProvider;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
@@ -30,27 +31,20 @@ import java.sql.SQLException;
  */
 public class BalanceFilter implements Filter {
 
-  private DatabaseHelper databaseHelper;
   private BankRepository bank;
 
   public void init(FilterConfig filterConfig) throws ServletException {
-    databaseHelper = new DatabaseHelper(new ConnectionProvider());
-    bank = new DatabaseBankRepository(databaseHelper);
+    bank = Injector.injectBankRepository(Injector.injectHelper());
   }
 
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
     HttpServletRequest request = (HttpServletRequest) servletRequest;
     HttpSession session = request.getSession();
-    try {
-      request.setAttribute("balance",bank.getBalance(session.getAttribute("userName").toString()));
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    request.setAttribute("balance", bank.getBalance((String) session.getAttribute("userName")));
 
     filterChain.doFilter(servletRequest, servletResponse);
   }
 
   public void destroy() {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 }

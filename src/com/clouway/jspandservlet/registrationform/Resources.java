@@ -27,7 +27,7 @@ public class Resources {
     messages[2] = "EGN must be exactly 10 numbers";
     messages[3] = "Address must 1-100 symbols";
     messages[4] = "User name must be 5-20 symbols letters and/or numbers!";
-    messages[5] = "Password myst be 5-20 symblos letters and/or numbers!";
+    messages[5] = "Password must be 5-20 symblos letters and/or numbers!";
     messages[6] = "Password doesn't match";
   }
 

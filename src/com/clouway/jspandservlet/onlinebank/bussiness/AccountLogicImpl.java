@@ -2,6 +2,7 @@ package com.clouway.jspandservlet.onlinebank.bussiness;
 
 import com.clouway.jspandservlet.onlinebank.exceptions.DuplicateUserNameException;
 import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatException;
+import com.clouway.jspandservlet.onlinebank.exceptions.InsufficientBalanceException;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.UsersOnlineRepository;
 
@@ -24,26 +25,34 @@ public class AccountLogicImpl implements AccountLogic {
   }
 
   /**
+   * Return a BigDecimal from string if its format is correct
+   *
+   * @param expression the string which is going to be the BigDecimal
+   * @param limit the numbers of digits that a BigDecimal can have before the floating point (i.e. limit = 3  -> 357 or 435.12)
+   * @return BigDecimal if the given string is in a correct format
+   */
+  public BigDecimal getBigDecimalIfFormatIsCorrect(String expression, int limit) {
+    if (expression.matches("^[0-9]{1," + limit + "}\\.[0-9]{1,2}$|^[0-9]{1," + limit + "}$")) {
+      return new BigDecimal(expression);
+    } else {
+      throw new IncorrectDataFormatException();
+    }
+  }
+
+  /**
    * Register a new user to the data base
+   *
    * @param userName the userName with which the user is going to be registered
    * @param password the password with which the user is going to be register
    */
   public void register(String userName, String password) {
-    String checkName="";
+    String checkName = "";
     if (userName.matches("^[A-Za-z0-9]{5,20}$") && password.matches("^[A-Za-z0-9]{5,20}$")) {
-      try {
-        checkName = bank.getUsername(userName);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-      if(userName.equalsIgnoreCase(checkName)){
+      checkName = bank.getUsername(userName);
+      if (userName.equalsIgnoreCase(checkName)) {
         throw new DuplicateUserNameException();
       } else {
-        try {
-          bank.saveUser(userName,password);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+        bank.saveUser(userName, password);
       }
     } else {
       throw new IncorrectDataFormatException();
@@ -53,69 +62,49 @@ public class AccountLogicImpl implements AccountLogic {
 
   /**
    * Decrease the total balance of an account
+   *
    * @param userName the userName for the account for which the total balance will be decreased
    * @param withdraw the amount with which the total balance will be decreased
-   * @param limit the limit of the amount with which we can decrease the total balance
    */
   public void withdraw(String userName, BigDecimal withdraw) {
-//
-//    BigDecimal newBalance;
-//    String regLimit = Integer.toString(limit);
-////    MathContext mc = new MathContext(0);
-////    mc = mc.DECIMAL32;
-//    try {
-//
-//      BigDecimal currentBalance = bank.getBalance(userName);
-//
-//      if (customerAccountHasEnoughAmountToWithdraw(withdraw, currentBalance)) {
-//
-//      }
-////      if (withdraw.matches("^[0-9]{1,"+regLimit+"}\\.[0-9]{1,2}$|^[0-9]{1,"+regLimit+"}$")) {
-//        currentBalance = new BigDecimal(bank.getBalance(userName));
-//        newBalance = currentBalance.subtract(new BigDecimal(withdraw));
-//        if (newBalance.compareTo(new BigDecimal(0.00)) != -1) {
-//          bank.updateBalance(userName, newBalance);
-//        }
-////      }
-//    } catch (SQLException e) {
-//      e.printStackTrace();
-//    }
-  }
 
-  private boolean customerAccountHasEnoughAmountToWithdraw(BigDecimal withdraw, BigDecimal currentBalance) {
-    return withdraw.compareTo(currentBalance) < 0;
+    BigDecimal newBalance;
+    BigDecimal currentBalance;
+
+    currentBalance = bank.getBalance(userName);
+    newBalance = currentBalance.subtract(withdraw);
+    if (newBalance.compareTo(new BigDecimal(0.00)) != -1) {
+      bank.updateBalance(userName, newBalance);
+    } else {
+      throw new InsufficientBalanceException();
+    }
   }
 
   /**
    * Increase the total balance of an account
+   *
    * @param userName the userName for the account for which the total balance will be increased
    * @param deposit the amount with which the total balance will be increased
-   * @param limit the limit of the amount with which we can increase the total balance
    */
-  public void deposit(String userName, String deposit, int limit) {
+  public void deposit(String userName, BigDecimal deposit) {
     BigDecimal currentBalance;
     BigDecimal newBalance;
-    String regLimit = Integer.toString(limit);
 
-    try {
-      if (deposit.matches("^[0-9]{1,"+regLimit+"}\\.[0-9]{1,2}$|^[0-9]{1,"+regLimit+"}$")) {
-        currentBalance = bank.getBalance(userName);
-        newBalance = currentBalance.add(new BigDecimal(deposit));
-        bank.updateBalance(userName, newBalance);
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    currentBalance = bank.getBalance(userName);
+    newBalance = currentBalance.add(deposit);
+    bank.updateBalance(userName, newBalance);
   }
 
-
+  /**
+   * Check if a given password match the password of a userName
+   *
+   * @param userName the userName for which we are going to check the password
+   * @param password the password that we are going to check
+   * @return true if the password matches and false if it doesn't
+   */
   public boolean checkIfPasswordForTheUsernameIsCorrect(String userName, String password) {
-    try {
-      if (!password.equals(bank.getPassword(userName)) || userName.equals("")) {
-        return false;
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
+    if (!password.equals(bank.getPassword(userName)) || userName.equals("")) {
+      return false;
     }
     return true;
   }

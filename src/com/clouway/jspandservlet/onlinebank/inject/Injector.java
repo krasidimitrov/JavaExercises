@@ -4,7 +4,6 @@ import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
-import com.clouway.jspandservlet.onlinebank.controllers.UserSessionsProvider;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.ConnectionProvider;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
@@ -41,10 +40,6 @@ public final class Injector {
 
   public static UsersOnlineHandler injectUsersOnlineHandler() {
     return new UsersOnlineHandlerImpl(injectUsersOnlineRepository(injectHelper()));
-  }
-  
-  public static UserSessionsProvider injectUserSessionProvider(HttpSession session){
-    return new UserSessionsProvider(session);
   }
 
 }

@@ -2,6 +2,7 @@ package com.clouway.jspandservlet.onlinebank.controllers;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
+import com.clouway.jspandservlet.onlinebank.inject.Injector;
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.ConnectionProvider;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
@@ -18,17 +19,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
+ * Used to log out a user from the system and make it offline in the database
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 2/24/12
  * Time: 4:59 PM
  */
 public class LogoutServlet extends HttpServlet {
-  private DatabaseHelper databaseHelper = new DatabaseHelper(new ConnectionProvider());
-  private UsersOnlineRepository usersOnlineRepository = new DatabaseUsersOnlineRepository(databaseHelper);
-  //this BankRepository is not used here so is it wrong to give a null parameter to UsersOnlineHandler instead bank?
-  private BankRepository bank = new DatabaseBankRepository(databaseHelper);
-  private UsersOnlineHandler usersOnline = new UsersOnlineHandlerImpl(usersOnlineRepository);
+  private UsersOnlineHandler usersOnline = Injector.injectUsersOnlineHandler();
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HttpSession session = req.getSession();
@@ -36,6 +34,6 @@ public class LogoutServlet extends HttpServlet {
 
     session.removeAttribute("userName");
     session.invalidate();
-    resp.sendRedirect("/war/onlinebank/index.jsp");
+    resp.sendRedirect(req.getContextPath() + "/onlinebank/index.jsp");
   }
 }

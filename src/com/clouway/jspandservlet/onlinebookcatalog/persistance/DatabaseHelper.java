@@ -18,88 +18,102 @@ import java.util.List;
  */
 public class DatabaseHelper {
 
-  private DataSource dataSource;
+  private final Provider<Connection> connectionProvider;
 
-  public DatabaseHelper(DataSource source){
-    dataSource = source;
+  public DatabaseHelper(Provider<Connection> connectionProvider) {
+    this.connectionProvider = connectionProvider;
   }
+
 
   /**
    * Execute a query with 0 to n parameters
-   * @param query the query that is executed in a prepare statement
+   *
+   * @param query  the query that is executed in a prepare statement
    * @param params the parameters used in the query which is executed
-   * @throws SQLException
    */
-  public void executeQuery(String query, Object... params) throws SQLException {
-    Connection connection = dataSource.getConnection();
-    PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-    fillParams(preparedStatement,params);
-
-    preparedStatement.execute();
-    connection.close();
+  public void executeQuery(String query, Object... params) {
+    Connection connection = null;
+    try {
+      connection = connectionProvider.get();
+      assert false;
+      PreparedStatement preparedStatement = connection.prepareStatement(query);
+      fillParams(preparedStatement, params);
+      preparedStatement.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
    * Load the parameters fro a query  which is in a prepare statement
+   *
    * @param preparedStatement the preparedStatement with the query for which we are going to fill the parameters
-   * @param params the parameters that we use to fill the query in the preparedStatement
+   * @param params            the parameters that we use to fill the query in the preparedStatement
    * @throws SQLException
    */
-  private void fillParams(PreparedStatement preparedStatement, Object[] params) throws SQLException{
+  private void fillParams(PreparedStatement preparedStatement, Object[] params) throws SQLException {
     for (int i = 0; i < params.length; i++) {
-      preparedStatement.setObject(i+1,params[i]);
+      preparedStatement.setObject(i + 1, params[i]);
     }
   }
 
   /**
    * Execute a query with 0 to N parameters and return the result set in a List of a given type
-   * @param query the query that is executed
+   *
+   * @param query     the query that is executed
    * @param rowMapper used to map the resultSet into objects of the type of the List that we are returning
-   * @param params the parameters for the query that we are going to execute
-   * @param <T> determine for what type of objects is this method going to be (i.e. Person, City, etc)
+   * @param params    the parameters for the query that we are going to execute
+   * @param <T>       determine for what type of objects is this method going to be (i.e. Person, City, etc)
    * @return a List with objects from the type specific
-   * @throws SQLException
    */
-  public<T> List<T> executeQuery(String query, RowMapper<T> rowMapper, Object... params) throws SQLException {
+  public <T> List<T> executeQuery(String query, RowMapper<T> rowMapper, Object... params) {
 
-    Connection connection = dataSource.getConnection();
-    PreparedStatement preparedStatement = connection.prepareStatement(query);
+    Connection connection = null;
+    List<T> results = null;
 
-    fillParams(preparedStatement, params);
+    try {
+      connection = connectionProvider.get();
+      PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-    ResultSet resultSet = preparedStatement.executeQuery();
+      fillParams(preparedStatement, params);
 
-    List<T> results = new ArrayList<T>();
+      ResultSet resultSet = preparedStatement.executeQuery();
 
-    while(resultSet.next()){
-      results.add(rowMapper.map(resultSet));
+      results = new ArrayList<T>();
+
+      while (resultSet.next()) {
+        results.add(rowMapper.map(resultSet));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-
-    connection.close();
-
     return results;
   }
 
-  /**\
+  /**
+   * \
    * Method used for executing queries that return a single int result
    *
-   * @param query the query that is going to be executed
+   * @param query  the query that is going to be executed
    * @param params the parameters used in the query if any
    * @return the result from the query
-   * @throws SQLException
    */
-  public int executeQueryWithSingleResult(String query, Object... params) throws SQLException {
+  public int executeQueryWithSingleResult(String query, Object... params) {
 
-    Connection connection = dataSource.getConnection();
-    PreparedStatement preparedStatement = connection.prepareStatement(query);
+    Connection connection = null;
+    int count = 0;
+    try {
+      connection = connectionProvider.get();
+      PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-    fillParams(preparedStatement, params);
+      fillParams(preparedStatement, params);
 
-    ResultSet resultSet = preparedStatement.executeQuery();
-    int count=0;
-    while(resultSet.next()){
-    count = resultSet.getInt(1);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return count;
   }

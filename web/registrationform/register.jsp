@@ -17,18 +17,22 @@
         }
         return "";
     }
+
+    private String getPath(){
+        return getServletConfig().getServletContext().getContextPath();
+    }
 %>
 
 <body>
 <div>
     <div align="center"
          style="background-color: #ffdc9f; width: 600px; height: 250px; margin-right: auto; text-align: left">
-        <form action="../register" method="post">
-            First name: <input type="text" name="firstName" maxlength="15"/>  <%=getMessage(session.getAttribute("firstNameMessage"))%>
+        <form action="<%=getPath()%>/register" method="post">
+            First name: <input type="text" name="firstName" maxlength="15"/>  <%=getMessage(request.getAttribute("firstNameMessage"))%>
             <br/>
-            Last name: <input type="text" name="lastName" maxlength="15"/> <%=getMessage(session.getAttribute("lastNameMessage"))%>
+            Last name: <input type="text" name="lastName" maxlength="15"/> <%=getMessage(request.getAttribute("lastNameMessage"))%>
             <br/>
-            EGN: <input type="text" name="egn" maxlength="10"/> <%=getMessage(session.getAttribute("egnMessage"))%>
+            EGN: <input type="text" name="egn" maxlength="10"/> <%=getMessage(request.getAttribute("egnMessage"))%>
             <br/>
             Age: <select name="age">
             <% for (int i = 18; i <= 118; i++) { %>
@@ -37,13 +41,13 @@
             <%}%>
         </select>
             <br/>
-            Address: <input type="text" name="address" maxlength="100"/> <%=getMessage(session.getAttribute("addressMessage"))%>
+            Address: <input type="text" name="address" maxlength="100"/> <%=getMessage(request.getAttribute("addressMessage"))%>
             <br/>
-            Username: <input type="text" name="userName" maxlength="20"/> <%=getMessage(session.getAttribute("userNameMessage"))%>
+            Username: <input type="text" name="userName" maxlength="20"/> <%=getMessage(request.getAttribute("userNameMessage"))%>
             <br/>
-            Password: <input type="password" name="password" maxlength="20"/> <%=getMessage(session.getAttribute("passwordMessage"))%>
+            Password: <input type="password" name="password" maxlength="20"/> <%=getMessage(request.getAttribute("passwordMessage"))%>
             <br/>
-            Confirm password: <input type="password" name="confirmPassword" maxlength="20"/> <%=getMessage(session.getAttribute("confirmPasswordMessage"))%>
+            Confirm password: <input type="password" name="confirmPassword" maxlength="20"/> <%=getMessage(request.getAttribute("confirmPasswordMessage"))%>
             <br/>
             <input type="submit" value="Register"/>
         </form>

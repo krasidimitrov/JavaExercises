@@ -1,4 +1,4 @@
-package onlinebank;
+package com.clouway.jspandservlet.onlinebank.bussiness;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
@@ -35,7 +35,7 @@ public class UsersOnlineHandlerImplTest {
 
 
   @Test
-  public void shouldSaveAUserInTheUsersOnlineDataSource() throws SQLException {
+  public void shouldSaveAUserInTheUsersOnlineDataSource(){
 
     context.checking(new Expectations(){{
     oneOf(usersOnline).save(userName,1000);
@@ -46,9 +46,10 @@ public class UsersOnlineHandlerImplTest {
     
   }
 
+
   //Is it wrong that i don't use a real time ??
   @Test
-  public void shouldUpdateTheOnlineTimeOfAUser() throws SQLException {
+  public void shouldUpdateTheOnlineTimeOfAUser(){
 
     context.checking(new Expectations(){{
     oneOf(usersOnline).updateExpirationTime(userName,"creation time here", 1000);

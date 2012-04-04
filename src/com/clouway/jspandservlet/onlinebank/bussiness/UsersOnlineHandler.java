@@ -20,9 +20,9 @@ public interface UsersOnlineHandler {
 
   /**
    * Update the end time after a user will go automatically offline
-   * @param userName the userName for which we are going to update the end timke
-   * @param timeOfLogin
-   * @param SessionInactiveInterval
+   * @param userName the userName for which we are going to update the end time
+   * @param timeOfLogin the time in which a user loged in the system
+   * @param SessionInactiveInterval the max time for user to be inactive after which he is logged out
    */
   public void updateOnlineTime(String userName, String timeOfLogin, int SessionInactiveInterval);
 

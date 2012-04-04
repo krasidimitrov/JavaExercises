@@ -28,22 +28,21 @@ public class RegisterServlet extends HttpServlet {
   private AccountLogic account = Injector.injectAccountLogic();
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    HttpSession session = req.getSession();
     String userName = req.getParameter("userName");
     String password = req.getParameter("password");
-    session.setAttribute("errorMessage","");
-    try{
+    String errorMessage = "";
+    try {
       account.register(userName, password);
-    } catch (DuplicateUserNameException e){
-      session.setAttribute("errorMessage","Username already exists. Pls choose another!");
-    } catch (IncorrectDataFormatException e){
-      session.setAttribute("errorMessage","Username and password must be between 5 and 20 symbols. Only letters and numbers!");
+    } catch (DuplicateUserNameException e) {
+      errorMessage = "Username already exists. Pls choose another!";
+    } catch (IncorrectDataFormatException e) {
+      errorMessage = "Username and password must be between 5 and 20 symbols. Only letters and numbers!";
     }
-    if(!session.getAttribute("errorMessage").equals("")){
-      resp.sendRedirect("/war/onlinebank/register.jsp");
+    if (!errorMessage.equals("")) {
+      resp.sendRedirect(req.getContextPath() + "/onlinebank/register.jsp?errorMessage=" + errorMessage);
       return;
     }
-    resp.sendRedirect("/war/onlinebank/index.jsp");
+    resp.sendRedirect(req.getContextPath() + "/onlinebank/index.jsp");
 
   }
 }

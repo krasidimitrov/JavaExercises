@@ -1,6 +1,8 @@
 package com.clouway.jspandservlet.onlinebank.controllers;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
+import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatException;
+import com.clouway.jspandservlet.onlinebank.exceptions.InsufficientBalanceException;
 import com.clouway.jspandservlet.onlinebank.inject.Injector;
 
 import javax.servlet.ServletConfig;
@@ -25,64 +27,24 @@ public class WithdrawServlet extends HttpServlet {
 
   private AccountLogic accountLogic;
 
-  public WithdrawServlet() {
-    accountLogic = Injector.injectAccountLogic();
-
-
-  }
-  
-  interface RequestHandler {
-
-    void handle(MyRequest request, HttpServletResponse response, HttpSession session);
-
-  }
-
-  class WithdrawHandler implements RequestHandler {
-
-    public void handle(MyRequest request, HttpServletResponse response, HttpSession session) {
-
-    }
-
-  }
-
-  protected WithdrawServlet(AccountLogic accountLogic) {
-    this.accountLogic = accountLogic;
-  }
-
   @Override
   public void init(ServletConfig config) throws ServletException {
-
+    accountLogic = Injector.injectAccountLogic();
   }
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    handle(new MyRequestImpl(req), resp);
-  }
-  
-
-
-  protected void handle(MyRequest request, HttpServletResponse resp) throws IOException {
-
-
-//    if (withdraw.matches("(\\d+\\.\\d{0,2}+)")) {
+    BigDecimal withdraw;
+    String message = "Withdraw successful!";
+    HttpSession session = req.getSession();
     try {
-      BigDecimal withdrawAmount = request.getValue("withdraw");
-
-      HttpSession session = request.getSession();
-      String userName = (String) session.getAttribute("userName");
-
-      accountLogic.withdraw(userName, withdrawAmount);
-
-      resp.sendRedirect("/war/onlinebank/userpage.jsp");
-
-    }catch (IllegalStateException e) {
-      // set error and dispatch to the error page
+      withdraw = accountLogic.getBigDecimalIfFormatIsCorrect(req.getParameter("withdraw"), 5);
+      accountLogic.withdraw((String) session.getAttribute("userName"), withdraw);
+    } catch (IncorrectDataFormatException e) {
+      message = "Incorrect withdraw value! Try numbers only. Max 5 numbers";
+    } catch (InsufficientBalanceException e) {
+      message = "Not enough balance to complete the withdraw";
     }
-
-//    } else {
-//      req.setAttribute("error", "Withdraw amount was not valid decimal value");
-//
-//      //TODO:  forward to proper error page
-//      req.getRequestDispatcher("").forward(req, resp);
-//    }
+    resp.sendRedirect(req.getContextPath() + "/onlinebank/userpage.jsp?message=" + message);
   }
+
 }

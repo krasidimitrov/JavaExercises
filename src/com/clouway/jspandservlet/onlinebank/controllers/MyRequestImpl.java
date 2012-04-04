@@ -19,9 +19,10 @@ public class MyRequestImpl implements MyRequest {
     this.req = req;
   }
 
-  public BigDecimal getValue(String attributeName) {
+  public BigDecimal getValue(String parameterName) {
     try {
-    return new BigDecimal((String) req.getAttribute(attributeName));
+//    return new BigDecimal((String) req.getAttribute(parameterName));
+      return new BigDecimal(req.getParameter(parameterName));
     } catch (NumberFormatException e) {
       throw new IllegalStateException("Number was not valid.");
     }

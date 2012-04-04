@@ -18,7 +18,7 @@ public interface BankRepository {
    * @param password the password for the user that w are going to save
    * @throws SQLException
    */
-  public void saveUser(String userName, String password) throws SQLException;
+  public void saveUser(String userName, String password);
 
   /**
    * Update the balance of a user in the data source
@@ -26,7 +26,7 @@ public interface BankRepository {
    * @param balance the new balance for the current user
    * @throws SQLException
    */
-  public void updateBalance(String userName, BigDecimal balance) throws SQLException;
+  public void updateBalance(String userName, BigDecimal balance);
 
   /**
    * Get the current balance for a user
@@ -34,7 +34,7 @@ public interface BankRepository {
    * @return  the current balance for a user
    * @throws SQLException
    */
-  public BigDecimal getBalance(String userName) throws SQLException;
+  public BigDecimal getBalance(String userName);
 
   /**
    * Get the userName of a user
@@ -42,7 +42,7 @@ public interface BankRepository {
    * @return the userName  of a user if this user exist in the data source
    * @throws SQLException
    */
-  public String getUsername(String userName) throws SQLException;
+  public String getUsername(String userName);
 
   /**
    * Get the password of a user
@@ -50,5 +50,5 @@ public interface BankRepository {
    * @return the password for the given userName
    * @throws SQLException
    */
-  public String getPassword(String userName) throws SQLException;
+  public String getPassword(String userName);
 }

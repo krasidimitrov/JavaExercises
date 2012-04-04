@@ -15,7 +15,7 @@ public interface RowMapper<T> {
    * Create objects from type T from a given resultSet
    * @param resultSet the resultSet from which we are going to create an Object
    * @return return object of type T
-   * @throws SQLException
+   * @throws SQLException if a database access error occurs
    */
   T map(ResultSet resultSet) throws SQLException;
 }

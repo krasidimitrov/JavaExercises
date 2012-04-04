@@ -3,6 +3,7 @@ package com.clouway.jspandservlet.onlinebank.controllers;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -28,9 +29,11 @@ public class LoginVerificationFilter implements Filter {
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
     HttpSession session = ((HttpServletRequest) servletRequest).getSession();
     if (session.getAttribute("userName") == null) {
-      ((HttpServletResponse)servletResponse).sendRedirect("/war/onlinebank/index.jsp");
+//      RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/onlinebank/index.jsp");
+//      requestDispatcher.forward(servletRequest, servletResponse);
+     ((HttpServletResponse) servletResponse).sendRedirect("/war/onlinebank/index.jsp");
     } else {
-    filterChain.doFilter(servletRequest,servletResponse);
+      filterChain.doFilter(servletRequest, servletResponse);
     }
   }
 

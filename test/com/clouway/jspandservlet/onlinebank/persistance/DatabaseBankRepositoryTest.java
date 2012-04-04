@@ -1,4 +1,4 @@
-package onlinebank;
+package com.clouway.jspandservlet.onlinebank.persistance;
 
 import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;

@@ -13,7 +13,7 @@ public interface Operation {
    * calculate an operation with two integer numbers
    * @param num1 the first number for the calculation
    * @param num2 the second number for the calculation
-   * @return
+   * @return a integer number
    */
   public int calculate(int num1, int num2);
 }

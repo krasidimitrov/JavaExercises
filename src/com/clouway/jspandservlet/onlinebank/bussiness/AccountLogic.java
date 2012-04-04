@@ -2,6 +2,7 @@ package com.clouway.jspandservlet.onlinebank.bussiness;
 
 import com.clouway.jspandservlet.onlinebank.exceptions.DuplicateUserNameException;
 import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatException;
+import com.clouway.jspandservlet.onlinebank.exceptions.InsufficientBalanceException;
 
 import java.math.BigDecimal;
 
@@ -28,17 +29,16 @@ public interface AccountLogic {
    * Decrease the total balance of an account
    * @param userName the userName for the account for which the total balance will be decreased
    * @param withdraw the amount with which the total balance will be decreased
-   * @param limit the limit of the amount with which we can decrease the total balance
+   * @throws InsufficientBalanceException if there is not enough sum to withdraw from the account
    */
-  public void withdraw(String userName, BigDecimal withdraw);
+  public void withdraw(String userName, BigDecimal withdraw) throws InsufficientBalanceException;
 
   /**
    * Increase the total balance of an account
    * @param userName the userName for the account for which the total balance will be increased
    * @param deposit the amount with which the total balance will be increased
-   * @param limit the limit of the amount with which we can increase the total balance
    */
-  public void deposit(String userName, String deposit, int limit);
+  public void deposit(String userName, BigDecimal deposit);
 
   /**
    * Check if a password for a given user is correct
@@ -50,5 +50,12 @@ public interface AccountLogic {
 
   //public BigDecimal getAccountBalance(String userName);
 
-
+  /**
+   * Return a BigDecimal from string if its format is correct
+   * @param expression the string which is going to be the BigDecimal
+   * @param limit the numbers of digits that a BigDecimal can have before the floating point (i.e. limit = 3  -> 357 or 435.12)
+   * @return BigDecimal if the format of the string is correct
+   * @throws IncorrectDataFormatException when the string cant be turned into BigDecimal or it exceed the limit of digits
+   */
+  public BigDecimal getBigDecimalIfFormatIsCorrect(String expression, int limit) throws IncorrectDataFormatException;
 }

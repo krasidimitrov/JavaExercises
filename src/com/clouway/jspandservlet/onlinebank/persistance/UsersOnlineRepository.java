@@ -11,9 +11,9 @@ import java.sql.SQLException;
  */
 public interface UsersOnlineRepository {
 
-  public void save(String userName, int timeLimit) throws SQLException;
+  public void save(String userName, int timeLimit);
 
-  public void updateExpirationTime(String userName, String creationTime, int timeLimit) throws SQLException;
+  public void updateExpirationTime(String userName, String creationTime, int timeLimit);
 
-  public String getOnlineUsersCount() throws SQLException;
+  public String getOnlineUsersCount();
 }

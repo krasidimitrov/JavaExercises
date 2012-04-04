@@ -1,5 +1,6 @@
-package com.clouway.jspandservlet.onlinebank.persistance;
+package com.clouway.jspandservlet.onlinebank.controllers;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import javax.servlet.Filter;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
+ * Used to connect to the database and manage connections
  * Created by Krasimir Dimitrov
  * Email: krasimir.dimitrov@clouway.com.
  * Date: 3/19/12
@@ -23,10 +25,10 @@ import java.sql.SQLException;
 public class DatabaseConnectionFilter implements Filter {
 
 
-  private MysqlDataSource dataSource;
+  private MysqlConnectionPoolDataSource dataSource;
 
   public void init(FilterConfig filterConfig) throws ServletException {
-    dataSource = new MysqlDataSource();
+    dataSource = new MysqlConnectionPoolDataSource();
     dataSource.setServerName("localhost");
     dataSource.setDatabaseName("BankDatabase");
     dataSource.setUser("kpackapgo");
@@ -48,7 +50,6 @@ public class DatabaseConnectionFilter implements Filter {
 
     }
 
-
     // open connection
 
     filterChain.doFilter(servletRequest, servletResponse);
@@ -61,7 +62,7 @@ public class DatabaseConnectionFilter implements Filter {
         // handle error !!!
       }
     }
-    // close connection
+//    close connection
   }
 
   public void destroy() {

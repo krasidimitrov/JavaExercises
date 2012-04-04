@@ -1,9 +1,7 @@
 <%@ page import="com.clouway.jspandservlet.onlinebookcatalog.bussiness.Book" %>
 <%@ page import="com.clouway.jspandservlet.onlinebookcatalog.bussiness.Comment" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.clouway.jspandservlet.onlinebookcatalog.persistance.DatabaseHelper" %>
-<%@ page import="com.clouway.jspandservlet.onlinebookcatalog.persistance.DataSourceCreator" %>
-<%@ page import="com.clouway.jspandservlet.onlinebookcatalog.bussiness.CommentRowMapper" %>
+]
 <%--
   Created by IntelliJ IDEA.
   User: clouway
@@ -16,6 +14,12 @@
 <head>
     <title></title>
 </head>
+<%!
+    private String getPath(){
+        return getServletConfig().getServletContext().getContextPath();
+    }
+%>
+
 <%
 //    if(session.isNew()){
 //       response.sendRedirect("/war/onlinebookcatalog/catalog.jsp");
@@ -34,7 +38,7 @@
     <div style="text-align: center; margin-left: auto; margin-right: auto; background-color: #b4ffb3;">
         <%=currentBook.getDescription()%>
     </div>
-    <form action="../commentServlet" method="post">
+    <form action="<%=getPath()%>/commentServlet" method="post">
     nick: <input type="text" name="userName" /> <input type=submit value="Send"/>
         <br />
     <textarea name="comment" rows="5" cols="90"></textarea>

@@ -36,15 +36,14 @@ public class LoginServlet extends HttpServlet {
     String userName = req.getParameter("userName");
     String password = req.getParameter("password");
     HttpSession session = req.getSession();
-
     if (account.checkIfPasswordForTheUsernameIsCorrect(userName, password) && !password.equals("")) {
       session.setAttribute("userName", userName);
       session.setAttribute("creationTime", new Time(System.currentTimeMillis()));
-//      session.setAttribute("balance", account.getAccountBalance(userName));
       usersOnline.saveUserAsOnline(userName, session.getMaxInactiveInterval());
-      resp.sendRedirect("/war/onlinebank/userpage.jsp");
+      resp.sendRedirect(req.getContextPath() + "/onlinebank/userpage.jsp");
     } else {
-      resp.sendRedirect("/war/onlinebank/index.jsp");
+      resp.sendRedirect(req.getContextPath() + "/onlinebank/index.jsp?errorMessage=Wrong username and/or password");
+//     return;
     }
 
   }

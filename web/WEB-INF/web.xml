@@ -133,14 +133,29 @@
   </servlet-mapping>
 
   <filter>
+    <filter-name>DatabaseConnectionFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.DatabaseConnectionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>DatabaseConnectionFilter</filter-name>
+    <!--<url-pattern>/*</url-pattern>-->
+    <url-pattern>/onlinebank/*</url-pattern>
+    <url-pattern>/logoutServlet</url-pattern>
+    <url-pattern>/withdrawServlet</url-pattern>
+    <url-pattern>/depositServlet</url-pattern>
+    <url-pattern>/loginServlet</url-pattern>
+    <url-pattern>/registerServlet</url-pattern>
+  </filter-mapping>
+
+  <filter>
   <filter-name>LoginVerificationFilter</filter-name>
   <filter-class>com.clouway.jspandservlet.onlinebank.controllers.LoginVerificationFilter</filter-class>
   </filter>
   <filter-mapping>
   <filter-name>LoginVerificationFilter</filter-name>
   <url-pattern>/onlinebank/userpage.jsp</url-pattern>
-
   </filter-mapping>
+
   <filter>
     <filter-name>BalanceFilter</filter-name>
     <filter-class>com.clouway.jspandservlet.onlinebank.controllers.BalanceFilter</filter-class>
@@ -166,6 +181,8 @@
   <filter-mapping>
     <filter-name>IndexFilter</filter-name>
     <url-pattern>/onlinebank/index.jsp</url-pattern>
+    <url-pattern>/onlinebank/</url-pattern>
+    <url-pattern>/loginServlet</url-pattern>
   </filter-mapping>
 
 
@@ -222,16 +239,17 @@
     <url-pattern>/commentServlet</url-pattern>
   </servlet-mapping>
 
-
-  <servlet>
-    <servlet-name>testServlet</servlet-name>
-    <servlet-class>com.clouway.jspandservlet.onlinebank.TestServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>testServlet</servlet-name>
-    <url-pattern>/testServlet</url-pattern>
-  </servlet-mapping>
+  <filter>
+    <filter-name>BookDatabaseConnectionFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebookcatalog.controllers.BookDatabaseConnectionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>BookDatabaseConnectionFilter</filter-name>
+    <url-pattern>/onlinebookcatalog/*</url-pattern>
+    <url-pattern>/pageServlet</url-pattern>
+    <url-pattern>/bookServlet</url-pattern>
+    <url-pattern>/commentServlet</url-pattern>
+  </filter-mapping>
 
   <!--<filter>-->
     <!--<filter-name>BookFilter</filter-name>-->
