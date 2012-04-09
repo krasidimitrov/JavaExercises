@@ -1,0 +1,37 @@
+CREATE DATABASE BankDatabase;
+USE BankDatabase;
+CREATE TABLE Users (
+userName VARCHAR(20) PRIMARY KEY NOT NULL,
+password VARCHAR(20) NOT NULL,
+balance DECIMAL(11,2) NOT NULL
+) ENGINE = InnoDB;
+
+CREATE TABLE UsersOnline (
+sessionId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+userName VARCHAR(20) NOT NULL,
+creationTime TIME NOT NULL,
+expirationTime TIME NOT NULL
+) ENGINE = InnoDB;
+
+
+-- ---------------------------
+
+
+CREATE DATABASE BookCatalogDatabase;
+USE BookCatalogDatabase;
+CREATE TABLE Books (
+bookId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+title VARCHAR(200) NOT NULL,
+publisher VARCHAR(100) NOT NULL,
+yearOfRelease INT NOT NULL,
+description VARCHAR(1000) NOT NULL
+) ENGINE = InnoDB;
+
+CREATE TABLE Comments (
+commentId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+bookId INT NOT NULL,
+userName VARCHAR(20) NOT NULL,
+comment VARCHAR(1000) NOT NULL
+) ENGINE = InnoDB;
+
+ALTER TABLE Comments ADD CONSTRAINT Books_fk FOREIGN KEY (bookId) REFERENCES Books (bookId);

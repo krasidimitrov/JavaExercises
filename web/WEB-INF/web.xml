@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+
+  <!--<welcome-file-list>-->
+    <!--<welcome-file>/training/test.jsp</welcome-file>-->
+  <!--</welcome-file-list>-->
+
+
+  <!--ONLINE BANK-->
+  <servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/registerServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/loginServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DepositServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.DepositServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DepositServlet</servlet-name>
+    <url-pattern>/depositServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>WithdrawServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.WithdrawServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WithdrawServlet</servlet-name>
+    <url-pattern>/withdrawServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.clouway.jspandservlet.onlinebank.controllers.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logoutServlet</url-pattern>
+  </servlet-mapping>
+
+  <filter>
+    <filter-name>DatabaseConnectionFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.DatabaseConnectionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>DatabaseConnectionFilter</filter-name>
+    <!--<url-pattern>/*</url-pattern>-->
+    <url-pattern>/onlinebank/*</url-pattern>
+    <url-pattern>/logoutServlet</url-pattern>
+    <url-pattern>/withdrawServlet</url-pattern>
+    <url-pattern>/depositServlet</url-pattern>
+    <url-pattern>/loginServlet</url-pattern>
+    <url-pattern>/registerServlet</url-pattern>
+  </filter-mapping>
+
+  <filter>
+  <filter-name>LoginVerificationFilter</filter-name>
+  <filter-class>com.clouway.jspandservlet.onlinebank.controllers.LoginVerificationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  <filter-name>LoginVerificationFilter</filter-name>
+  <url-pattern>/onlinebank/userpage.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>BalanceFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.BalanceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>BalanceFilter</filter-name>
+    <url-pattern>/onlinebank/userpage.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>UserOnlineTimeFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.UserOnlineTimeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UserOnlineTimeFilter</filter-name>
+    <url-pattern>/onlinebank/userpage.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>IndexFilter</filter-name>
+    <filter-class>com.clouway.jspandservlet.onlinebank.controllers.UsersOnlineCountFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>IndexFilter</filter-name>
+    <url-pattern>/onlinebank/index.jsp</url-pattern>
+    <url-pattern>/onlinebank/</url-pattern>
+    <url-pattern>/loginServlet</url-pattern>
+  </filter-mapping>
+
+</web-app>
+        
+        
