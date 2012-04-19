@@ -1,5 +1,4 @@
-package onlinebank;
-
+package com.clouway.jspandservlet.onlinebank.bussiness;
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
 import com.clouway.jspandservlet.onlinebank.exceptions.InsufficientBalanceException;

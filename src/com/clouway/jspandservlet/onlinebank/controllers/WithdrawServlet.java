@@ -6,7 +6,9 @@ import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatExcept
 import com.clouway.jspandservlet.onlinebank.exceptions.InsufficientBalanceException;
 import com.clouway.jspandservlet.onlinebank.guice.DatabaseBankModule;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,15 +27,15 @@ import java.math.BigDecimal;
  * Time: 4:46 PM
  * To change this template use File | Settings | File Templates.
  */
+
+@Singleton
 public class WithdrawServlet extends HttpServlet {
 
-  private Injector injector;
-  private AccountLogic accountLogic;
+  private final AccountLogic accountLogic;
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    injector = Guice.createInjector(new DatabaseBankModule());
-    accountLogic = injector.getInstance(AccountLogicImpl.class);
+  @Inject
+  public WithdrawServlet(AccountLogic accountLogic){
+    this.accountLogic = accountLogic;
   }
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

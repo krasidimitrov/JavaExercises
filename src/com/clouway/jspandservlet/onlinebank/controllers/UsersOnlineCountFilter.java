@@ -4,7 +4,9 @@ import com.clouway.jspandservlet.onlinebank.guice.DatabaseBankModule;
 import com.clouway.jspandservlet.onlinebank.persistance.DatabaseUsersOnlineRepository;
 import com.clouway.jspandservlet.onlinebank.persistance.UsersOnlineRepository;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -25,14 +27,18 @@ import java.io.IOException;
  * Time: 3:58 PM
  * To change this template use File | Settings | File Templates.
  */
+
+@Singleton
 public class UsersOnlineCountFilter implements Filter {
   
-  private Injector injector;
-  private UsersOnlineRepository usersOnline;
+  private final UsersOnlineRepository usersOnline;
 
   public void init(FilterConfig filterConfig) throws ServletException {
-    injector = Guice.createInjector(new DatabaseBankModule());
-    usersOnline = injector.getInstance(DatabaseUsersOnlineRepository.class);
+  }
+
+  @Inject
+  public UsersOnlineCountFilter(UsersOnlineRepository usersOnlineRepository){
+    usersOnline = usersOnlineRepository;
   }
 
 

@@ -1,5 +1,6 @@
 package com.clouway.jspandservlet.onlinebank.controllers;
 
+import com.google.inject.Singleton;
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -22,6 +23,8 @@ import java.sql.SQLException;
  * Time: 10:56 AM
  * To change this template use File | Settings | File Templates.
  */
+
+@Singleton
 public class DatabaseConnectionFilter implements Filter {
 
 

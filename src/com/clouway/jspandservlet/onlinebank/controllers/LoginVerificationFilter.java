@@ -1,5 +1,7 @@
 package com.clouway.jspandservlet.onlinebank.controllers;
 
+import com.google.inject.Singleton;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -20,6 +22,8 @@ import java.io.IOException;
  * Time: 11:08 AM
  * To change this template use File | Settings | File Templates.
  */
+
+@Singleton
 public class LoginVerificationFilter implements Filter {
 
   public void init(FilterConfig filterConfig) throws ServletException {

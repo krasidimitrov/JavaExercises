@@ -1,12 +1,11 @@
 package com.clouway.jspandservlet.onlinebank.controllers;
 
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
-import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
-import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
-import com.clouway.jspandservlet.onlinebank.guice.DatabaseBankModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,16 +24,16 @@ import java.sql.Time;
  * Time: 10:34 AM
  * To change this template use File | Settings | File Templates.
  */
-public class LoginServlet extends HttpServlet {
-  private Injector injector;
-  private AccountLogic account; 
-  private UsersOnlineHandler usersOnline;
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    injector = Guice.createInjector(new DatabaseBankModule());
-    account = injector.getInstance(AccountLogicImpl.class);
-    usersOnline = injector.getInstance(UsersOnlineHandlerImpl.class);
+@Singleton
+public class LoginServlet extends HttpServlet {
+  private final AccountLogic account;
+  private final UsersOnlineHandler usersOnline;
+
+  @Inject
+  public LoginServlet(AccountLogic accountLogic, UsersOnlineHandler handler){
+    account = accountLogic;
+    usersOnline = handler;
   }
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

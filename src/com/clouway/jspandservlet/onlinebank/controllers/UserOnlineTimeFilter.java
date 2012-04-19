@@ -4,7 +4,9 @@ import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
 import com.clouway.jspandservlet.onlinebank.guice.DatabaseBankModule;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,14 +26,18 @@ import java.io.IOException;
  * Time: 10:27 AM
  * To change this template use File | Settings | File Templates.
  */
+
+@Singleton
 public class UserOnlineTimeFilter implements Filter {
 
-  private Injector injector;
-  private UsersOnlineHandler onlineUsers;
+  private final UsersOnlineHandler onlineUsers;
 
   public void init(FilterConfig filterConfig) throws ServletException {
-    injector = Guice.createInjector(new DatabaseBankModule());
-    onlineUsers = injector.getInstance(UsersOnlineHandlerImpl.class);
+  }
+
+  @Inject
+  public UserOnlineTimeFilter(UsersOnlineHandler usersOnlineHandler){
+    onlineUsers = usersOnlineHandler;
   }
 
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

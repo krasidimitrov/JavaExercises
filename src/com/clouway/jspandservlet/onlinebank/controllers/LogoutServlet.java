@@ -4,7 +4,9 @@ import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
 import com.clouway.jspandservlet.onlinebank.guice.DatabaseBankModule;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 
 import javax.servlet.ServletConfig;
@@ -22,15 +24,15 @@ import java.io.IOException;
  * Date: 2/24/12
  * Time: 4:59 PM
  */
+
+@Singleton
 public class LogoutServlet extends HttpServlet {
 
-  private Injector injector;
-  private UsersOnlineHandler usersOnline;
+  private final UsersOnlineHandler usersOnline;
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    injector = Guice.createInjector(new DatabaseBankModule());
-    usersOnline = injector.getInstance(UsersOnlineHandlerImpl.class);
+  @Inject
+  public LogoutServlet(UsersOnlineHandler usersOnlineHandler){
+    usersOnline = usersOnlineHandler;
   }
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

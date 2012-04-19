@@ -12,6 +12,7 @@ import com.clouway.jspandservlet.onlinebank.persistance.UsersOnlineRepository;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -32,15 +33,18 @@ import java.sql.SQLException;
  * Time: 11:36 AM
  * To change this template use File | Settings | File Templates.
  */
+
+@Singleton
 public class BalanceFilter implements Filter {
 
-  Injector injector;// = Guice.createInjector(new DatabaseBankModule());
-  private BankRepository bank;
+  private final BankRepository bank;
 
   public void init(FilterConfig filterConfig) throws ServletException {
-    injector = Guice.createInjector(new DatabaseBankModule());
-    bank = injector.getInstance(DatabaseBankRepository.class);
-    //bank = Injector.injectBankRepository(Injector.injectHelper());
+  }
+
+  @Inject
+  public BalanceFilter(BankRepository bankRepository){
+    bank = bankRepository;
   }
 
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

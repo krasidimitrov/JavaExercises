@@ -26,7 +26,7 @@ import java.sql.SQLException;
  * To change this template use File | Settings | File Templates.
  */
 public class DatabaseBankRepositoryTest {
-  private Injector injector = Guice.createInjector(new DatabaseBankModule());
+ // private Injector injector = Guice.createInjector(new DatabaseBankModule());
 
   private static DatabaseHelper databaseHelper;// = injector.getInstance(DatabaseHelper.class);
 //          = new DatabaseHelper(new Provider<Connection>() {

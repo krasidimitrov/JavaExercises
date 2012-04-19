@@ -6,7 +6,9 @@ import com.clouway.jspandservlet.onlinebank.guice.DatabaseBankModule;
 import com.clouway.jspandservlet.onlinebank.exceptions.DuplicateUserNameException;
 import com.clouway.jspandservlet.onlinebank.exceptions.IncorrectDataFormatException;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -23,15 +25,15 @@ import java.io.IOException;
  * Time: 9:42 AM
  * To change this template use File | Settings | File Templates.
  */
+
+@Singleton
 public class RegisterServlet extends HttpServlet {
   
-  private Injector injector;
-  private AccountLogic account;
+  private final AccountLogic account;
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    injector = Guice.createInjector(new DatabaseBankModule());
-    account = injector.getInstance(AccountLogicImpl.class);
+  @Inject
+  public RegisterServlet(AccountLogic accountLogic){
+    account = accountLogic;
   }
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

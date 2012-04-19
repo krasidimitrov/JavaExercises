@@ -4,8 +4,6 @@ import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogic;
 import com.clouway.jspandservlet.onlinebank.bussiness.AccountLogicImpl;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandler;
 import com.clouway.jspandservlet.onlinebank.bussiness.UsersOnlineHandlerImpl;
-import com.clouway.jspandservlet.onlinebank.persistance.BankRepository;
-import com.clouway.jspandservlet.onlinebank.persistance.DatabaseBankRepository;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
