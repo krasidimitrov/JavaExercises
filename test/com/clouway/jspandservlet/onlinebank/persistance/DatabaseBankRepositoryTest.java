@@ -19,14 +19,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by Krasimir Dimitrov
- * Email: krasimir.dimitrov@clouway.com.
- * Date: 3/7/12
- * Time: 10:30 AM
- * To change this template use File | Settings | File Templates.
- */
+* Created by Krasimir Dimitrov
+* Email: krasimir.dimitrov@clouway.com.
+* Date: 3/7/12
+* Time: 10:30 AM
+* To change this template use File | Settings | File Templates.
+*/
 public class DatabaseBankRepositoryTest {
- // private Injector injector = Guice.createInjector(new DatabaseBankModule());
+// private Injector injector = Guice.createInjector(new DatabaseBankModule());
 
   private static DatabaseHelper databaseHelper;// = injector.getInstance(DatabaseHelper.class);
 //          = new DatabaseHelper(new Provider<Connection>() {
